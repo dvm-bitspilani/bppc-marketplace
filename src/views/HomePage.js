@@ -5,7 +5,7 @@ export default props => (
   <div>
   <Container>
   <Jumbotron>
-    <h1 className="display-3">BPPC-Marketplace</h1>
+    <h3 className="display-4">BPPC-Marketplace</h3>
     <p className="lead">Powered by DVM</p>
     <hr className="my-2" />
     <p>This is for automating book purchasing and selling in BITS Pilani, Pilani Campus</p>
