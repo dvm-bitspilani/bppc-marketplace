@@ -26,3 +26,12 @@
     border-radius: 50%;
     width: 30px;
 }
+.linkContainer{
+    display: flex;
+}
+
+@media(max-width:765px){
+    .linkContainer{
+        display: block;
+    }
+}

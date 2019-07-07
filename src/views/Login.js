@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "@reach/router";
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-
+import styles from "./../css-modules/login.module.css";
 class Login extends Component {
   render() {
     return (
@@ -44,7 +44,7 @@ class Login extends Component {
                     </Form>
                   </CardBody>
                 </Card>
-                <Card className="text-white bg-dark py-5 d-md-down-none" style={{ width: '44%' }}>
+                <Card className="text-white bg-dark py-5 d-md-down-none sm-12">
                   <CardBody className="text-center">
                     <div>
                       <h2>Login</h2>

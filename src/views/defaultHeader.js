@@ -12,7 +12,7 @@ import { Router, Link } from "@reach/router";
 
 
 
-import styles from "./header.module.css";
+import styles from "./../css-modules/header.module.css";
 export default class Example extends React.Component {
     constructor(props) {
       super(props);

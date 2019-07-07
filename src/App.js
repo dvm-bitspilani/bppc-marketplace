@@ -2,18 +2,18 @@ import React from "react";
 import "./App.css";
 import { Router, Link } from "@reach/router";
 import HomePage from "./views/HomePage";
-import DefaultHeader from "./defaultHeader";
+import DefaultHeader from "./views/defaultHeader";
 import Login from "./views/Login";
 import SignUp from "./views/Signup";
 import Dashboard from "./views/dashboard";
 import Buy from "./views/buy";
 import Sell from "./views/sell";
 import { NavItem, NavLink ,Dropdown, DropdownItem, DropdownToggle, DropdownMenu} from 'reactstrap';
-import styles from "./header.module.css";
+import styles from "./css-modules/header.module.css";
 
 function HomepageLinks(){ 
   return (
-    <div style={{display:"flex"}}>
+    <div className={styles.linkContainer}>
     <NavItem>
     <NavLink href="/signup" className={styles.link}> Sign Up</NavLink>
     </NavItem>
@@ -41,7 +41,7 @@ class DashboardLinks extends React.Component{
 
   render(){
     return (
-      <div style={{display:"flex"}}>
+      <div className={styles.linkContainer}>
         <NavItem>
         <NavLink href="/buy" className={styles.link}> Buy</NavLink>
         </NavItem>
