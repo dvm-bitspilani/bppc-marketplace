@@ -8,7 +8,9 @@ import {
   NavItem,
   NavLink} from 'reactstrap';
 
-import {Link } from "@reach/router";
+import { Router, Link } from "@reach/router";
+
+
 
 import styles from "./header.module.css";
 export default class Example extends React.Component {
@@ -24,20 +26,17 @@ export default class Example extends React.Component {
         isOpen: !this.state.isOpen
       });
     }
+
     render() {
+      
       return (
         <div>
         <Navbar color="dark" light expand="md" className={styles.nav}>
           <NavbarBrand href="/" className={styles.logo} >BPPC-Marketplace</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/signup" className={styles.link}> Sign Up</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/login" className={styles.link}>Login</NavLink>
-              </NavItem>
+            <Nav className="ml-auto" navbar>        
+              {this.props.children}
             </Nav>
           </Collapse>
         </Navbar> 
