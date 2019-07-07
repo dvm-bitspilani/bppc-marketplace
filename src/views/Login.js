@@ -33,7 +33,9 @@ class Login extends Component {
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Button color="dark" className="px-4" style={{color: "white"}}>Login</Button>
+                         <Link to="/dashboard">                       
+                            <Button color="dark" className="px-4" style={{color: "white"}}>Login</Button>
+                         </Link>
                         </Col>
                         <Col xs="6" className="text-right">
                           <Button color="link" className="px-0" style={{color: "#343a40"}}>Forgot password?</Button>
@@ -47,7 +49,7 @@ class Login extends Component {
                     <div>
                       <h2>Login</h2>
                       <p>Students with bits-email can login directly here</p>
-                      <Link to="/register">
+                      <Link to="/dashboard">
                         <Button color="light" className="mt-3" active tabIndex={-1}>Login</Button>
                       </Link>
                     </div>

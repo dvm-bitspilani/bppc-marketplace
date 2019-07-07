@@ -5,6 +5,7 @@ import HomePage from "./views/HomePage";
 import DefaultHeader from "./defaultHeader";
 import Login from "./views/Login";
 import SignUp from "./views/Signup";
+import Dashboard from "./views/dashboard";
 function App() {
   return (
     <div className="bg-light" style={{height:"100vh"}}>
@@ -14,6 +15,7 @@ function App() {
         <HomePage  path="/"/>
         <Login path="/login"/>
         <SignUp path="/signup"/>
+        <Dashboard path="/dashboard"/>
       </Router>
 
     </div>

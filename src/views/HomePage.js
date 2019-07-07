@@ -21,7 +21,6 @@ export default props => (
         </CardBody>
       </Card>
     </div>
- 
 </Container>
 </div>
 );
