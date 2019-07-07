@@ -1,10 +1,21 @@
 import React from "react";
 import "./App.css";
-
+import { Router, Link } from "@reach/router";
+import HomePage from "./views/HomePage";
+import DefaultHeader from "./defaultHeader";
+import Login from "./views/Login";
+import SignUp from "./views/Signup";
 function App() {
   return (
-    <div className="App">
-      <h1>Welcome</h1>
+    <div>
+      <DefaultHeader >
+      </DefaultHeader>
+      <Router>
+        <HomePage  path="/"/>
+        <Login path="/login"/>
+        <SignUp path="/signup"/>
+      </Router>
+
     </div>
   );
 }
