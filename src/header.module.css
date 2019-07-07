@@ -13,3 +13,16 @@
 .logo{
     color: white !important;
 }
+.dropdown{
+    color: #d2d4d6 !important;
+    margin-right: 80px;    
+}
+.dropdown:hover{
+    color: white !important;
+}
+.avatar{
+    background-image:src('./assets/avatars/8.jpg');
+    background: yellow;
+    border-radius: 50%;
+    width: 30px;
+}
