@@ -7,7 +7,7 @@ import Login from "./views/Login";
 import SignUp from "./views/Signup";
 function App() {
   return (
-    <div>
+    <div className="bg-light" style={{height:"100vh"}}>
       <DefaultHeader >
       </DefaultHeader>
       <Router>

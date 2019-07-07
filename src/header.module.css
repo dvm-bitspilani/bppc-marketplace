@@ -1,8 +1,15 @@
+.nav{
+    margin-bottom: 15px;
+    color:  #d2d4d6; 
+}
 .link{
     text-decoration: none;
-    color: initial;
+    color: #d2d4d6 !important;
 }
 .link:hover{
     text-decoration: none;
-    color: initial;
+    color: white !important;
+}
+.logo{
+    color: white !important;
 }

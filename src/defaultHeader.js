@@ -27,16 +27,16 @@ export default class Example extends React.Component {
     render() {
       return (
         <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/"><Link className= {styles.link} to="/">BPPC-Marketplace</Link></NavbarBrand>
+        <Navbar color="dark" light expand="md" className={styles.nav}>
+          <NavbarBrand href="/" className={styles.logo} >BPPC-Marketplace</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink><Link className= {styles.link} to="/signup">Sign Up</Link></NavLink>
+                <NavLink href="/signup" className={styles.link}> Sign Up</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink><Link className= {styles.link} to="/login">Login</Link></NavLink>
+                <NavLink href="/login" className={styles.link}>Login</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
