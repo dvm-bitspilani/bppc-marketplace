@@ -29,6 +29,10 @@
 .linkContainer{
     display: flex;
 }
+.container{
+    height: 100vh;
+    background-color:#f8f9fa;
+}
 
 @media(max-width:765px){
     .linkContainer{

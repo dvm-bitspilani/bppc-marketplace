@@ -53,7 +53,7 @@ class DashboardLinks extends React.Component{
                     Hi, user
                   </DropdownToggle>
                   <DropdownMenu>
-                    <DropdownItem >Status</DropdownItem>
+                    <DropdownItem href="/dashboard">Dashboard</DropdownItem>
                     {/* <DropdownItem disabled>Selling</DropdownItem> */}
                     <DropdownItem> Notifications</DropdownItem>
                     <DropdownItem divider />
@@ -67,7 +67,7 @@ class DashboardLinks extends React.Component{
 
 function App() {
   return (
-    <div className="bg-light" style={{height:"100vh"}}>
+    <div className={styles.container}>
       <DefaultHeader>
         <Router>
           <HomepageLinks path="/"/>
