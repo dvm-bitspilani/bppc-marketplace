@@ -1,17 +1,17 @@
 import React from "react";
 import { Container, Row, Col ,Jumbotron, Button,Card, CardHeader, CardFooter, CardBody,CardTitle, CardText } from 'reactstrap';
-
+import styles from "./../css-modules/homepage.module.css";
 export default props => (
   <div>
   <Container>
-  <Jumbotron>
+  <Jumbotron className={styles.jumbotron}>
     <h3 className="display-4">BPPC-Marketplace</h3>
     <p className="lead">Powered by DVM</p>
     <hr className="my-2" />
     <p>This is for automating book purchasing and selling in BITS Pilani, Pilani Campus</p>
   </Jumbotron>
   <div>
-      <Card>
+      <Card className= {styles.card}>
         <CardHeader tag="h3">How to Use ?</CardHeader>
         <CardBody>
           <CardTitle><b>For New Batch :</b></CardTitle>
