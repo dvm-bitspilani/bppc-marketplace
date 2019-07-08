@@ -1,10 +1,13 @@
 import React from "react";
+import { Router, Link } from "@reach/router";
 import {
   CustomInput,
   Form,
   FormGroup,
   Container,
   Label,
+  Button,
+  Row,
   Input
 } from "reactstrap";
 
@@ -93,19 +96,15 @@ class Sell extends React.Component {
                 </CustomInput>
               </FormGroup>
             ) : null}
-            <Label>
-              <Label for="exampleCustomFileBrowser">Upload an Image</Label>
-              <CustomInput
-                type="file"
-                id="exampleCustomFileBrowser"
-                name="customFile"
-                label="pick a file"
-              />
-            </Label>
-            <FormGroup>
-              <Label for="exampleText">Description</Label>
-              <Input type="textarea" name="text" id="exampleText" />
-            </FormGroup>
+            <Row className="justify-content-center">
+              <Link to="/NextSell">
+                <Button color="success" className="mt-3" active tabIndex={-1}>
+                  Next
+                </Button>
+              </Link>
+            </Row>
+
+            <br />
           </Form>
         </Container>
       </div>
