@@ -8,22 +8,36 @@ import SignUp from "./views/Signup";
 import Dashboard from "./views/dashboard";
 import Buy from "./views/buy";
 import Sell from "./views/sell";
-import { NavItem, NavLink ,Dropdown, DropdownItem, DropdownToggle, DropdownMenu} from 'reactstrap';
+import NextSell from "./views/NextSell";
+
+import {
+  NavItem,
+  NavLink,
+  Dropdown,
+  DropdownItem,
+  DropdownToggle,
+  DropdownMenu
+} from "reactstrap";
 import styles from "./css-modules/header.module.css";
 
-function HomepageLinks(){ 
+function HomepageLinks() {
   return (
     <div className={styles.linkContainer}>
-    <NavItem>
-    <NavLink href="/signup" className={styles.link}> Sign Up</NavLink>
-    </NavItem>
-    <NavItem>
-    <NavLink href="/login" className={styles.link}>Login</NavLink>
-    </NavItem>
+      <NavItem>
+        <NavLink href="/signup" className={styles.link}>
+          {" "}
+          Sign Up
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink href="/login" className={styles.link}>
+          Login
+        </NavLink>
+      </NavItem>
     </div>
   );
 }
-class DashboardLinks extends React.Component{ 
+class DashboardLinks extends React.Component {
   constructor(props) {
     super(props);
 
@@ -39,30 +53,35 @@ class DashboardLinks extends React.Component{
     });
   }
 
-  render(){
+  render() {
     return (
       <div className={styles.linkContainer}>
         <NavItem>
-        <NavLink href="/buy" className={styles.link}> Buy</NavLink>
+          <NavLink href="/buy" className={styles.link}>
+            {" "}
+            Buy
+          </NavLink>
         </NavItem>
         <NavItem>
-        <NavLink href="/sell" className={styles.link}>Sell</NavLink>
+          <NavLink href="/sell" className={styles.link}>
+            Sell
+          </NavLink>
         </NavItem>
         <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                  <DropdownToggle nav caret className={styles.dropdown} >
-                    Hi, user
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem href="/dashboard">Dashboard</DropdownItem>
-                    {/* <DropdownItem disabled>Selling</DropdownItem> */}
-                    <DropdownItem> Notifications</DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem header>settings</DropdownItem>
-                  </DropdownMenu>
+          <DropdownToggle nav caret className={styles.dropdown}>
+            Hi, user
+          </DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem>Status</DropdownItem>
+            {/* <DropdownItem disabled>Selling</DropdownItem> */}
+            <DropdownItem> Notifications</DropdownItem>
+            <DropdownItem divider />
+            <DropdownItem header>settings</DropdownItem>
+          </DropdownMenu>
         </Dropdown>
       </div>
-  );
-  }  
+    );
+  }
 }
 
 function App() {
@@ -70,21 +89,22 @@ function App() {
     <div className={styles.container}>
       <DefaultHeader>
         <Router>
-          <HomepageLinks path="/"/>
-          <HomepageLinks path="/login"/>
-          <HomepageLinks path="/signup"/>
-          <DashboardLinks path="/dashboard"/>
-          <DashboardLinks path="/buy"/>
-          <DashboardLinks path="/sell"/>
+          <HomepageLinks path="/" />
+          <HomepageLinks path="/login" />
+          <HomepageLinks path="/signup" />
+          <DashboardLinks path="/dashboard" />
+          <DashboardLinks path="/buy" />
+          <DashboardLinks path="/sell" />
         </Router>
       </DefaultHeader>
       <Router>
-          <HomePage  path="/"/>
-          <Login path="/login"/>
-          <SignUp path="/signup"/>
-          <Dashboard path="/dashboard"/>
-          <Buy path="/buy"/>
-          <Sell path="/sell"/>
+        <HomePage path="/" />
+        <Login path="/login" />
+        <SignUp path="/signup" />
+        <Dashboard path="/dashboard" />
+        <Buy path="/buy" />
+        <Sell path="/sell" />
+        <NextSell path="/NextSell" />
       </Router>
     </div>
   );
