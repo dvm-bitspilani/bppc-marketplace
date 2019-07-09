@@ -9,6 +9,7 @@ import Dashboard from "./views/dashboard";
 import Buy from "./views/buy";
 import Sell from "./views/sell";
 import NextSell from "./views/NextSell";
+import DetailsCollectionForm from "./views/detailCollection";
 
 import {
   NavItem,
@@ -105,6 +106,7 @@ function App() {
         <Buy path="/buy" />
         <Sell path="/sell" />
         <NextSell path="/NextSell" />
+        <DetailsCollectionForm path="/detailsCollection" />
       </Router>
     </div>
   );
