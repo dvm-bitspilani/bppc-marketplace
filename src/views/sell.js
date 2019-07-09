@@ -91,9 +91,16 @@ class Stepper extends React.Component {
   handleClick = i => {
     const booksoption = Object.assign([], this.state.booksoption);
     const selectedbooks = Object.assign([], this.state.selectedbooks);
-
     selectedbooks.push(booksoption[i]);
     delete booksoption[i];
+    this.setState({ booksoption: booksoption, selectedbooks: selectedbooks });
+  };
+
+  removehandleClick = i => {
+    const booksoption = Object.assign([], this.state.booksoption);
+    const selectedbooks = Object.assign([], this.state.selectedbooks);
+    booksoption.push(selectedbooks[i]);
+    delete selectedbooks[i];
     this.setState({ booksoption: booksoption, selectedbooks: selectedbooks });
   };
 
@@ -105,7 +112,7 @@ class Stepper extends React.Component {
     ));
 
     const newlist = this.state.selectedbooks.map((item, i) => (
-      <option key={i} onClick={() => this.handleClick(i)}>
+      <option key={i} onClick={() => this.removehandleClick(i)}>
         {item}
       </option>
     ));
