@@ -17,6 +17,18 @@ class Stepper extends React.Component {
     super(props);
     this.state = {
       currentTab: 1,
+      booksoption: [
+        "thermo",
+        "thermo",
+        "thermo",
+        "thermo",
+        "thermo",
+        "thermo",
+        "thermo",
+        "thermo"
+      ],
+      selectedbooks: [],
+
       showdual: false
     };
     this.next = this.next.bind(this);
@@ -76,7 +88,27 @@ class Stepper extends React.Component {
     }
   };
 
+  handleClick = i => {
+    const booksoption = Object.assign([], this.state.booksoption);
+    const selectedbooks = Object.assign([], this.state.selectedbooks);
+    booksoption.splice(i, 1);
+    selectedbooks.push(booksoption[i]);
+    this.setState({ booksoption: booksoption, selectedbooks: selectedbooks });
+  };
+
   render() {
+    const booklist = this.state.booksoption.map((item, i) => (
+      <option key={i} onClick={() => this.handleClick(i)}>
+        {item}
+      </option>
+    ));
+
+    const newlist = this.state.selectedbooks.map((item, i) => (
+      <option key={i} onClick={() => this.handleClick(i)}>
+        {item}
+      </option>
+    ));
+
     let tab;
     if (this.state.currentTab === 1) {
       tab = (
@@ -154,8 +186,33 @@ class Stepper extends React.Component {
           </Form>
         </div>
       );
-    } else if (this.state.currentTab == 2) {
-      tab = <div>List Transfer will appear here</div>;
+    } else if (this.state.currentTab === 2) {
+      tab = (
+        <div>
+          <FormGroup>
+            <Label for="exampleSelectMulti">Select Books</Label>
+            <Input
+              type="select"
+              name="selectMulti"
+              id="exampleSelectMulti"
+              multiple
+            >
+              {booklist}
+            </Input>
+          </FormGroup>
+          <FormGroup>
+            <Label for="exampleSelectMulti">Books you selected</Label>
+            <Input
+              type="select"
+              name="selectMulti"
+              id="exampleSelectMulti"
+              multiple
+            >
+              {newlist}
+            </Input>
+          </FormGroup>
+        </div>
+      );
     } else {
       tab = (
         <div>
