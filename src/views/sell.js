@@ -91,8 +91,9 @@ class Stepper extends React.Component {
   handleClick = i => {
     const booksoption = Object.assign([], this.state.booksoption);
     const selectedbooks = Object.assign([], this.state.selectedbooks);
-    booksoption.splice(i, 1);
+
     selectedbooks.push(booksoption[i]);
+    delete booksoption[i];
     this.setState({ booksoption: booksoption, selectedbooks: selectedbooks });
   };
 
