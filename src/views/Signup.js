@@ -107,7 +107,7 @@ class Register extends Component {
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                          <i className="icon-user" />
+                          <ion-icon name="person"></ion-icon>
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
@@ -116,11 +116,12 @@ class Register extends Component {
                         placeholder="Username"
                         autoComplete="username"
                         onChange={this.handleChange}
-                      />
+                      >
+                      </Input>
                     </InputGroup>
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
-                        <InputGroupText>@</InputGroupText>
+                        <ion-icon name="mail"></ion-icon>
                       </InputGroupAddon>
                       <Input
                         type="text"
@@ -133,7 +134,7 @@ class Register extends Component {
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                          <i className="icon-lock" />
+                          <ion-icon name="finger-print" size="small"></ion-icon>
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
@@ -147,7 +148,7 @@ class Register extends Component {
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                          <i className="icon-lock" />
+                          <ion-icon name="done-all"></ion-icon>
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
