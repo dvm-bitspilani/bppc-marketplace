@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Router, Link } from "@reach/router";
+
 import {
   Button,
   Card,
@@ -15,6 +17,8 @@ import {
 } from "reactstrap";
 import axios from "axios";
 
+// import { redirectTo } from "@reach/router";
+
 const initialState = {
   username: "",
   email: "",
@@ -23,7 +27,8 @@ const initialState = {
   usernameError: "",
   emailError: "",
   passwordError: "",
-  repeatpasswordError: ""
+  repeatpasswordError: "",
+  redirectToDashboard: true
 };
 
 class Register extends Component {
