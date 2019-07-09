@@ -19,13 +19,13 @@ class Stepper extends React.Component {
       currentTab: 1,
       booksoption: [
         "thermo",
-        "thermo",
-        "thermo",
-        "thermo",
-        "thermo",
-        "thermo",
-        "thermo",
-        "thermo"
+        "meow",
+        "cp",
+        "genchem",
+        "bio",
+        "m1",
+        "m2",
+        "elecsci"
       ],
       selectedbooks: [],
 
