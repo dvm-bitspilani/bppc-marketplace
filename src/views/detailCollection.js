@@ -41,7 +41,8 @@ class Register extends Component {
     this.state={
       showdual: false,
       yearOfStudy: 2019,
-      showOptionForDual: false
+      showOptionForDual: false,
+      showAllBranches: false
     }
     this.showdual = this.showdual.bind(this);
     this.yearOfStudy = this.yearOfStudy.bind(this);
@@ -122,11 +123,13 @@ class Register extends Component {
       console.log(this.state.yearOfStudy);
       if(this.state.yearOfStudy == 2019){
         this.setState({
-          showOptionForDual: false
+          showOptionForDual: false,
+          showAllBranches: true
         });
       }else{
         this.setState({
-          showOptionForDual: true
+          showOptionForDual: true,
+          showAllBranches:false
         });
       }
     });
@@ -287,21 +290,52 @@ class Register extends Component {
                             <ion-icon name="git-branch"></ion-icon>
                           </InputGroupText>
                       </InputGroupAddon>
-                      <CustomInput
-                      type="select"
-                      id="exampleCustomSelect"
-                      name="customSelect"
-                      >
-                      <option value="">Enter your Branch.</option>
-                      <option>A1</option>
-                      <option>A2</option>
-                      <option>A3</option>
-                      <option>A4</option>
-                      <option>A5</option>
-                      <option>A7</option>
-                      <option>A8</option>
-                      <option>AB</option>
-                      </CustomInput>
+                      
+                      {
+                        (this.state.showAllBranches)?
+                        (
+                          <CustomInput
+                          type="select"
+                          id="exampleCustomSelect"
+                          name="customSelect"
+                          >
+                        <option value="">Enter your Branch.</option>
+                        <option>A1</option>
+                        <option>A2</option>
+                        <option>A3</option>
+                        <option>A4</option>
+                        <option>A5</option>
+                        <option>A7</option>
+                        <option>A8</option>
+                        <option>AB</option>
+                        <option>B1</option>
+                        <option>B2</option>
+                        <option>B3</option>
+                        <option>B4</option>
+                        <option>B5</option>
+
+                        </CustomInput>
+                        ):(
+                          <CustomInput
+                          type="select"
+                          id="exampleCustomSelect"
+                          name="customSelect"
+                          >
+                        <option value="">Enter your Branch.</option>
+                        <option>A1</option>
+                        <option>A2</option>
+                        <option>A3</option>
+                        <option>A4</option>
+                        <option>A5</option>
+                        <option>A7</option>
+                        <option>A8</option>
+                        <option>AB</option>
+                        </CustomInput>
+                        )
+                     
+                      }
+                      
+                      
                     </InputGroup>
                     <br />
 
