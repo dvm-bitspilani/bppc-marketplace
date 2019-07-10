@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import { Router, Link } from "react-router-dom";
 
 import { Table } from "reactstrap";
-import Modal from "../components/Modal";
+import Modal from "../components/Modal/Modal";
 
 class Buy extends Component {
   constructor(props) {
@@ -53,6 +53,7 @@ class Buy extends Component {
             </tr>
           </thead>
           <tbody>
+            {/* -------------- rendering table rows ---------------- */}
             {this.state.tableData.map((seller, index) => {
               return (
                 <tr>
@@ -69,22 +70,7 @@ class Buy extends Component {
                 </tr>
               );
             })}
-            {/* <tr>
-              <td>
-                <img src="../assets/avatars/tn.jpg" height="100" width="100" />
-              </td>
-              <td onClick={() => this.showModal()}>Johny English</td>
-              <td>3500</td>
-              <td>7/10</td>
-            </tr>
-            <tr>
-              <td>
-                <img src="../assets/avatars/tn.jpg" height="100" width="100" />
-              </td>
-              <td onClick={() => this.showModal()}>Johny English</td>
-              <td>3500</td>
-              <td>7/10</td>
-            </tr> */}
+            {/* --------------------------------------------------- */}
           </tbody>
         </Table>
         <Modal show={this.state.showModal}>

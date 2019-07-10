@@ -17,6 +17,7 @@ import {
   Row
 } from "reactstrap";
 import styles from "./../css-modules/login.module.css";
+import { Link } from "@reach/router";
 
 const initialState = {
   username: "",
@@ -63,7 +64,7 @@ class Login extends Component {
               <CardGroup>
                 <Card className="p-4">
                   <CardBody>
-                    <Form onSubmit={this.handleSubmit}>
+                    <Form>
                       <h1>Login for 2019 batch</h1>
                       <p className="text-muted">Sign In to your account</p>
                       <InputGroup className="mb-3">
@@ -130,15 +131,17 @@ class Login extends Component {
                     <div>
                       <h2>Login</h2>
                       <p>Students with bits-email can login directly here</p>
-                      <Button
-                        color="light"
-                        className="mt-3"
-                        active
-                        tabIndex={-1}
-                        onClick={this.handleSubmit}
-                      >
-                        Login
-                      </Button>
+                      <Link to="/dashboard">
+                        <Button
+                          color="light"
+                          className="mt-3"
+                          active
+                          tabIndex={-1}
+                          // onClick={this.handleSubmit}
+                        >
+                          Login
+                        </Button>
+                      </Link>
                       {/* <GoogleLogin
                         clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
                         buttonText="Login"
