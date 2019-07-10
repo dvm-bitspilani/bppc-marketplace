@@ -179,7 +179,7 @@ class Register extends Component {
                     </InputGroup>
 
                     <FormGroup>
-                          <div>
+                          <div style={{paddingLeft: "50px"}}>
                             <CustomInput inline type="radio" id="exampleCustomRadio" name="customRadio" label="Male" />
                             <CustomInput inline type="radio" id="exampleCustomRadio2" name="customRadio" label="Female" />
                           </div>
