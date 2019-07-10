@@ -39,12 +39,10 @@ class Register extends Component {
   constructor(props){
     super(props);
     this.state={
-      showdual: false,
       yearOfStudy: 2019,
-      showOptionForDual: false,
-      showAllBranches: false
+      dualDegree: false,
+      singleDegree: true
     }
-    this.showdual = this.showdual.bind(this);
     this.yearOfStudy = this.yearOfStudy.bind(this);
   }
   handleChange = event => {
@@ -106,35 +104,52 @@ class Register extends Component {
       this.setState(initialState);
     }
   };
-  showdual = e => {
-    if (e.target.checked) {
-      this.setState({
-        showdual: true,
-      });
-    } else {
-      this.setState({
-        showdual: false
-      });
-    }
-  };
+
   yearOfStudy = e =>{
     // console.log(e.target.value);
-    this.setState({yearOfStudy : e.target.value},function(){ 
+    this.setState({yearOfStudy : e.target.value},function(){
       console.log(this.state.yearOfStudy);
-      if(this.state.yearOfStudy == 2019){
+      if(this.state.yearOfStudy != 2019 && this.state.dualDegree){
         this.setState({
-          showOptionForDual: false,
-          showAllBranches: true
-        });
-      }else{
-        this.setState({
-          showOptionForDual: true,
-          showAllBranches: false
+          singleDegree:true,
+          dualDegree:true
         });
       }
+      else{
+        if(this.state.yearOfStudy == 2019 && this.state.dualDegree){
+          this.setState({
+            singleDegree:false,
+            dualDegree:true
+          });
+        }
+      }
     });
-  
   };
+
+  showBothBranch = e => {
+    if(e.target.value == "Single Degree"){
+        this.setState({
+          singleDegree:true,
+          dualDegree:false
+        });
+    }
+    else if(e.target.value == "Dual Degree"){
+        if(this.state.yearOfStudy == 2019){
+          this.setState({
+            singleDegree:false,
+            dualDegree:true
+          })
+        }else{
+          this.setState({
+            singleDegree:true,
+            dualDegree:true
+          })
+        }
+      }
+    else{
+        
+      }
+  }
   
   render() {
     return (
@@ -277,82 +292,64 @@ class Register extends Component {
                         placeholder="Enter Room No"
                       />
                     </InputGroup>
-          
+
                     <InputGroup className="mb-4">
+                      <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <ion-icon name="book"></ion-icon>
+                          </InputGroupText>
+                      </InputGroupAddon>
+                      <CustomInput
+                      type="select"
+                      id="exampleCustomSelect"
+                      name="customSelect"
+                      onChange={this.showBothBranch}
+                      >
+                      <option value="">Single or dual</option>
+                      <option>Single Degree</option>
+                      <option>Dual Degree</option>
+                      </CustomInput>
+                    </InputGroup>
+                    {(this.state.singleDegree)?(
+                      <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
                           <InputGroupText>
                             <ion-icon name="git-branch"></ion-icon>
                           </InputGroupText>
                       </InputGroupAddon>
-                      {
-                      (this.state.showAllBranches)?
-                        (
-                          <CustomInput
-                          type="select"
-                          id="exampleCustomSelect"
-                          name="customSelect"
-                          >
-                        <option value="">Enter your Branch.</option>
-                        <option>A1</option>
-                        <option>A2</option>
-                        <option>A3</option>
-                        <option>A4</option>
-                        <option>A5</option>
-                        <option>A7</option>
-                        <option>A8</option>
-                        <option>AB</option>
-                        <option>B1</option>
-                        <option>B2</option>
-                        <option>B3</option>
-                        <option>B4</option>
-                        <option>B5</option>
-
-                        </CustomInput>
-                        ):(
-                          <CustomInput
-                          type="select"
-                          id="exampleCustomSelect"
-                          name="customSelect"
-                          >
-                        <option value="">Enter your Branch.</option>
-                        <option>A1</option>
-                        <option>A2</option>
-                        <option>A3</option>
-                        <option>A4</option>
-                        <option>A5</option>
-                        <option>A7</option>
-                        <option>A8</option>
-                        <option>AB</option>
-                        </CustomInput>
-                        )}
-                    </InputGroup>
-                    <br />
-
-                    <FormGroup check>
-                    {(this.state.showOptionForDual)?
-                      (<Label check>
-                        <Input
-                        type="checkbox"
-                        name="dualdegree"
-                        onChange={this.showdual}
-                        />{" "}
-                        Are you a dual degree student?
-                        </Label>):null}
-                      
-                    </FormGroup>
-                    <br />
-                    {this.state.showdual ? (
-                      <InputGroup className="mb-4">
-                          <InputGroupAddon addonType="prepend">
-                              <InputGroupText>
-                                <ion-icon name="git-branch"></ion-icon>
-                              </InputGroupText>
-                          </InputGroupAddon>
                         <CustomInput
-                        type="select"
-                        id="exampleCustomSelect"
-                        name="customSelect"
-                        >
+                          type="select"
+                          id="exampleCustomSelect"
+                          name="customSelect"
+                          >
+                        <option value="">Enter your Single Degree Branch.</option>
+                        <option>A1</option>
+                        <option>A2</option>
+                        <option>A3</option>
+                        <option>A4</option>
+                        <option>A5</option>
+                        <option>A7</option>
+                        <option>A8</option>
+                        <option>AB</option>
+                        </CustomInput>
+                    </InputGroup>
+                    ):(
+                      null
+                    )
+                    }
+
+                    {(this.state.dualDegree)?(
+                      <InputGroup className="mb-4">
+                      <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <ion-icon name="git-branch"></ion-icon>
+                          </InputGroupText>
+                      </InputGroupAddon>
+                        <CustomInput
+                          type="select"
+                          id="exampleCustomSelect"
+                          name="customSelect"
+                          >
                         <option value="">Enter your Dual Branch.</option>
                         <option>B1</option>
                         <option>B2</option>
@@ -360,8 +357,11 @@ class Register extends Component {
                         <option>B4</option>
                         <option>B5</option>
                         </CustomInput>
-                      </InputGroup>
-                    ) : null}
+                    </InputGroup>
+                    ):(
+                      null
+                    )
+                    }
                     <Button color="success" block onClick={this.handleSubmit}>
                       Create Account
                     </Button>
