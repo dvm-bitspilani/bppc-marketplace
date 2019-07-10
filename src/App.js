@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import { Router, Link } from "@reach/router";
 import HomePage from "./views/HomePage";
 import DefaultHeader from "./views/defaultHeader";
