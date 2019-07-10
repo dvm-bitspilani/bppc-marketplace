@@ -42,6 +42,7 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password
     };
+    // console.log(this.state);
 
     axios
       .post("https://market.bits-dvm.org/api/login/", authData)
@@ -74,6 +75,7 @@ class Login extends Component {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
+                          name= "username"
                           type="text"
                           placeholder="Username"
                           autoComplete="username"
@@ -87,6 +89,7 @@ class Login extends Component {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
+                          name="password"
                           type="password"
                           placeholder="Password"
                           autoComplete="current-password"
