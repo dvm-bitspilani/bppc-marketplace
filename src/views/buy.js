@@ -9,23 +9,35 @@ class Buy extends Component {
     super(props);
 
     this.state = {
-      showModal: false
+      showModal: false,
+      tableData: [
+        {
+          name: "Shreyans Jain",
+          price: 3500,
+          numBooks: 7
+        },
+        {
+          name: "Shreyans",
+          price: 4000,
+          numBooks: 6
+        }
+      ]
     };
   }
 
   showModal = () => {
-    console.log('modal shown')
+    console.log("modal shown");
     this.setState({
-      showModal: true 
-    })
-  }
+      showModal: true
+    });
+  };
 
   hideModal = () => {
-    console.log('modal hidden')
+    console.log("modal hidden");
     this.setState({
       showModal: false
-    })
-  }
+    });
+  };
 
   render() {
     return (
@@ -41,7 +53,23 @@ class Buy extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            {this.state.tableData.map((seller, index) => {
+              return (
+                <tr>
+                  <td>
+                    <img
+                      src="../assets/avatars/tn.jpg"
+                      height="100"
+                      width="100"
+                    />
+                  </td>
+                  <td onClick={() => this.showModal()}>{seller.name}</td>
+                  <td>{seller.price}</td>
+                  <td>{seller.numBooks.toString() + "/10"}</td>
+                </tr>
+              );
+            })}
+            {/* <tr>
               <td>
                 <img src="../assets/avatars/tn.jpg" height="100" width="100" />
               </td>
@@ -56,11 +84,13 @@ class Buy extends Component {
               <td onClick={() => this.showModal()}>Johny English</td>
               <td>3500</td>
               <td>7/10</td>
-            </tr>
+            </tr> */}
           </tbody>
         </Table>
         <Modal show={this.state.showModal}>
-          <div className="close" onClick={() => this.hideModal()}>Close</div>
+          <div className="close" onClick={() => this.hideModal()}>
+            Close
+          </div>
         </Modal>
       </div>
     );

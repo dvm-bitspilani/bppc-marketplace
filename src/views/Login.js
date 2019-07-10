@@ -3,6 +3,10 @@ import { Link } from "@reach/router";
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import styles from "./../css-modules/login.module.css";
 class Login extends Component {
+  componentDidMount() {
+    console.log(this.props);
+  }
+
   render() {
     return (
       <div className="app flex-row align-items-center">
