@@ -252,7 +252,7 @@ class Register extends Component {
                       name="year of study"
                       onChange={this.yearOfStudy}
                       >
-                      <option value="" >Select your year of study</option>
+                      {/* <option value="" >Select your year of study</option> */}
                       <option>2019</option>
                       </CustomInput>
                     </InputGroup>
