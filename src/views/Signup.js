@@ -98,7 +98,7 @@ class Register extends Component {
       }
       // console.log(this.state);
       axios
-        .post('https://market.bits-dvm.org/api/login', authData)
+        .post('url', authData)
         .then(data => {
           console.log('Signed Up!')
           console.log(data);
