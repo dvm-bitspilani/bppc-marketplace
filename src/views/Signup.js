@@ -41,7 +41,7 @@ class Register extends Component {
     this.state={
       yearOfStudy: 2019,
       dualDegree: false,
-      singleDegree: true
+      singleDegree: true,
     }
     this.yearOfStudy = this.yearOfStudy.bind(this);
   }
@@ -49,6 +49,7 @@ class Register extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
+    // console.log(event.target.value);
   };
 
   validate = () => {
@@ -91,10 +92,15 @@ class Register extends Component {
     event.preventDefault();
     const isValid = this.validate();
     if (isValid) {
-      console.log(this.state);
+      let authData = {
+        username: this.state.username,
+        password: this.state.password
+      }
+      // console.log(this.state);
       axios
-        .post("url", this.state)
+        .post('https://market.bits-dvm.org/api/login', authData)
         .then(data => {
+          console.log('Signed Up!')
           console.log(data);
         })
         .catch(error => {
