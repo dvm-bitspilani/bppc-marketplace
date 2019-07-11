@@ -177,7 +177,7 @@ class Register extends Component {
                       <Input
                         type="text"
                         name="username"
-                        placeholder="Name Surname"
+                        placeholder="Full Name"
                         autoComplete="username"
                         onChange={this.handleChange}
                       >
