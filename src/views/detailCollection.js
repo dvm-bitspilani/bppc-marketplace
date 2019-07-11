@@ -306,7 +306,7 @@ class Register extends Component {
                       name="customSelect"
                       onChange={this.showBothBranch}
                       >
-                      <option value="">Single or dual</option>
+                      <option value="">Choose your degree type</option>
                       <option>Single Degree</option>
                       <option>Dual Degree</option>
                       </CustomInput>
@@ -325,14 +325,14 @@ class Register extends Component {
                           name="customSelect"
                           >
                         <option value="">Enter your Single Degree Branch.</option>
-                        <option>A1</option>
-                        <option>A2</option>
-                        <option>A3</option>
-                        <option>A4</option>
-                        <option>A5</option>
-                        <option>A7</option>
-                        <option>A8</option>
-                        <option>AB</option>
+                        <option>A1 - B.E. Chemical</option>
+                        <option>A2 - B.E. Civil</option>
+                        <option>A3 - B.E. Electrical and Electronics</option>
+                        <option>A4 - B.E. Mechanical</option>
+                        <option>A5 - B.Pharma</option>
+                        <option>A7 - B.E. Computer Science</option>
+                        <option>A8 - B.E. Electronics and Instrumentation</option>
+                        <option>AB - B.E. Manufacturing</option>
                         </CustomInput>
                     </InputGroup>
                     ):(
@@ -353,11 +353,11 @@ class Register extends Component {
                           name="customSelect"
                           >
                         <option value="">Enter your dual Branch.</option>
-                        <option>B1</option>
-                        <option>B2</option>
-                        <option>B3</option>
-                        <option>B4</option>
-                        <option>B5</option>
+                        <option>B1 - M.Sc. Biological Sciences</option>
+                        <option>B2 - M.Sc. Chemistry</option>
+                        <option>B3 - M.Sc. Economics</option>
+                        <option>B4 - M.Sc. Mathematics</option>
+                        <option>B5 - M.Sc. Physics</option>
                         </CustomInput>
                     </InputGroup>
                     ):(
