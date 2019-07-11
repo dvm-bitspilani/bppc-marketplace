@@ -65,6 +65,10 @@ class Login extends Component {
     });
   };
 
+  handleGoogleLogin = (response) => {
+    console.log(response);
+  }
+
   render() {
 
     return (
@@ -146,7 +150,7 @@ class Login extends Component {
                     <div>
                       <h2>Login</h2>
                       <p>Students with bits-email can login directly here</p>
-                      <Link to="/dashboard">
+                      {/* <Link to="/dashboard">
                         <Button
                           color="light"
                           className="mt-3"
@@ -156,14 +160,14 @@ class Login extends Component {
                         >
                           Login
                         </Button>
-                      </Link>
-                      {/* <GoogleLogin
-                        clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                      </Link> */}
+                      <GoogleLogin
+                        clientId="1046329633263-d63770hr5scfj5mrgkgce4c0flj2iokh.apps.googleusercontent.com"
                         buttonText="Login"
-                        onSuccess={responseGoogle}
-                        onFailure={responseGoogle}
+                        onSuccess={this.handleGoogleLogin}
+                        onFailure={this.handleGoogleLogin}
                         cookiePolicy={"single_host_origin"}
-                      /> */}
+                      />
                     </div>
                   </CardBody>
                 </Card>
