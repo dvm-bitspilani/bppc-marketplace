@@ -53,9 +53,8 @@ class Login extends Component {
       .then(response => {
         console.log("connected!");
         console.log(response);
-        // this.setState({
-        //   isAuthenticated: true
-        // })
+        
+        // navigate to dashboard once the user is authenticated
         navigate('/dashboard');
       })
       .catch(err => {

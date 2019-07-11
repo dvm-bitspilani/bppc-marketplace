@@ -3,6 +3,10 @@ import React, { Component } from "react";
 import "./Modal.css";
 
 class Modal extends Component {
+  componentDidMount() {
+    console.log(this.props)
+  }
+
   render() {
     return (
       <div

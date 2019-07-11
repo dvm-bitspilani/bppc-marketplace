@@ -1,20 +1,29 @@
 .Modal {
   position: fixed;
   z-index: 500;
-  background-color: white;
-  width: 70%;
-  height: 200px;
+  background-color: #ccc;
+  width: 680px;
+  min-height: 200px;
   border: 1px solid #ccc;
   box-shadow: 1px 1px 1px black;
   padding: 16px;
-  left: 15%;
-  top: 30%;
+  left: calc(50% - 340px);
+  top: 20%;
   box-sizing: border-box;
   transition:all 0.3s ease-out;
 }
 
-.close {
-  height: 100px;
-  width: 100px;
+.close-modal {
+  position: absolute;
+  top: 20px;
+  right: 30px;
   background: #ccc;
+}
+
+@media all and (max-width: 450px) {
+  .Modal {
+    width: 100%;
+    height: 80%;
+    left: 0;
+  }
 }

@@ -3,6 +3,7 @@ import React, { Component } from "react";
 
 import { Table } from "reactstrap";
 import Modal from "../components/Modal/Modal";
+import SellerSummary from "../components/SellerSummary/SellerSummary";
 
 class Buy extends Component {
   constructor(props) {
@@ -21,14 +22,16 @@ class Buy extends Component {
           price: 4000,
           numBooks: 6
         }
-      ]
+      ],
+      seller: {}
     };
   }
 
-  showModal = () => {
+  showModal = seller => {
     console.log("modal shown");
     this.setState({
-      showModal: true
+      showModal: true,
+      seller: seller
     });
   };
 
@@ -56,15 +59,15 @@ class Buy extends Component {
             {/* -------------- rendering table rows ---------------- */}
             {this.state.tableData.map((seller, index) => {
               return (
-                <tr>
+                <tr key={index}>
                   <td>
                     <img
-                      src="../assets/avatars/tn.jpg"
+                      src={require("../assets/avatars/tn.jpg")}
                       height="100"
                       width="100"
                     />
                   </td>
-                  <td onClick={() => this.showModal()}>{seller.name}</td>
+                  <td onClick={() => this.showModal(seller)}>{seller.name}</td>
                   <td>{seller.price}</td>
                   <td>{seller.numBooks.toString() + "/10"}</td>
                 </tr>
@@ -74,9 +77,10 @@ class Buy extends Component {
           </tbody>
         </Table>
         <Modal show={this.state.showModal}>
-          <div className="close" onClick={() => this.hideModal()}>
+          <div className="close-modal" onClick={() => this.hideModal()}>
             Close
           </div>
+          <SellerSummary seller={this.state.seller} />
         </Modal>
       </div>
     );
