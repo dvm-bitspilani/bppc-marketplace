@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { GoogleLogin } from "react-google-login";
-// import { Link } from "@reach/router";
+import { navigate } from '@reach/router'
+
+import { Link } from "@reach/router";
 import axios from "axios";
 import {
   Button,
@@ -16,18 +18,20 @@ import {
   InputGroupText,
   Row
 } from "reactstrap";
-import styles from "./../css-modules/login.module.css";
-import { Link } from "@reach/router";
+// import styles from "./../css-modules/login.module.css";2
 
 const initialState = {
   username: "",
   password: ""
 };
 class Login extends Component {
-  state = initialState;
+  state = {
+    ...initialState,
+    isAuthenticated: false
+  };
 
   componentDidMount() {
-    console.log(this.props);
+    console.log(this.props.navigate);
   }
 
   handleChange = event => {
@@ -49,17 +53,26 @@ class Login extends Component {
       .then(response => {
         console.log("connected!");
         console.log(response);
+        // this.setState({
+        //   isAuthenticated: true
+        // })
+        navigate('/dashboard');
       })
       .catch(err => {
         console.log(err);
       });
-    this.setState(initialState);
+    this.setState({
+      ...initialState
+    });
   };
 
   render() {
+
     return (
       <div className="app flex-row align-items-center">
         <Container>
+          {/* {this.state.isAuthenticated ? <Redirect to="/dashboard" /> : null} */}
+
           <Row className="justify-content-center">
             <Col md="8">
               <CardGroup>
