@@ -3,7 +3,7 @@ import { GoogleLogin } from "react-google-login";
 import { navigate } from '@reach/router'
 
 import { Link } from "@reach/router";
-import axios from "axios";
+import {Redirect} from "axios";
 import {
   Button,
   Card,
@@ -19,6 +19,7 @@ import {
   Row
 } from "reactstrap";
 // import styles from "./../css-modules/login.module.css";2
+const axios = require('axios');
 
 const initialState = {
   username: "",
@@ -48,8 +49,7 @@ class Login extends Component {
     };
     // console.log(this.state);
 
-    axios
-      .post("https://market.bits-dvm.org/api/login/", authData)
+    axios.post("https://market.bits-dvm.org/api/login/", authData)
       .then(response => {
         console.log("connected!");
         console.log(response);
@@ -70,7 +70,7 @@ class Login extends Component {
     return (
       <div className="app flex-row align-items-center">
         <Container>
-          {/* {this.state.isAuthenticated ? <Redirect to="/dashboard" /> : null} */}
+          {this.state.isAuthenticated ? <Redirect to="/dashboard" /> : null}
 
           <Row className="justify-content-center">
             <Col md="8">
