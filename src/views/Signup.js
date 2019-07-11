@@ -311,7 +311,7 @@ class Register extends Component {
                       name="customSelect"
                       onChange={this.showBothBranch}
                       >
-                      <option value="">Single or dual</option>
+                      <option value="">Choose your degree type</option>
                       <option>Single Degree</option>
                       <option>Dual Degree</option>
                       </CustomInput>
