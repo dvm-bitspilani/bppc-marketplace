@@ -83,7 +83,7 @@ class Login extends Component {
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className="icon-user" />
+                            <ion-icon name="person"></ion-icon>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
@@ -97,7 +97,7 @@ class Login extends Component {
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className="icon-lock" />
+                            <ion-icon name="key"></ion-icon>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
