@@ -28,7 +28,7 @@ class Buy extends Component {
   }
 
   showModal = seller => {
-    console.log("modal shown");
+    // console.log("modal shown");
     this.setState({
       showModal: true,
       seller: seller
@@ -36,7 +36,7 @@ class Buy extends Component {
   };
 
   hideModal = () => {
-    console.log("modal hidden");
+    // console.log("modal hidden");
     this.setState({
       showModal: false
     });
