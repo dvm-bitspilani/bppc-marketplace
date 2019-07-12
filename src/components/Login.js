@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { navigate } from "@reach/router";
+import axios from "../axios-instance";
 
-// import { Link } from "@reach/router";
-import { Redirect } from "axios";
 import {
   Button,
   Card,
@@ -18,8 +17,6 @@ import {
   InputGroupText,
   Row
 } from "reactstrap";
-// import styles from "./../css-modules/login.module.css";2
-const axios = require("axios");
 
 const initialState = {
   username: "",
@@ -50,7 +47,7 @@ class Login extends Component {
     // console.log(this.state);
 
     axios
-      .post("https://market.bits-dvm.org/api/login/", authData)
+      .post("/api/login/", authData)
       .then(response => {
         console.log("connected!");
         console.log(response);
@@ -71,7 +68,7 @@ class Login extends Component {
     if (response.tokenObj !== null) {
       let googleAuthData = { id_token: response.tokenObj.id_token };
       axios
-        .post("https://market.bits-dvm.org/api/login/", googleAuthData)
+        .post("/api/login/", googleAuthData)
         .then(response => {
           console.log("logged in with google and communicated with server");
           console.log(response);
@@ -80,9 +77,8 @@ class Login extends Component {
           console.log("error from server");
           console.log(err);
         });
-    }
-    else {
-      console.log('google auth failed');
+    } else {
+      console.log("google auth failed");
       window.alert("Google auth failed");
     }
   };
@@ -96,8 +92,6 @@ class Login extends Component {
     return (
       <div className="app flex-row align-items-center">
         <Container>
-          {this.state.isAuthenticated ? <Redirect to="/dashboard" /> : null}
-
           <Row className="justify-content-center">
             <Col md="8">
               <CardGroup>
@@ -136,15 +130,6 @@ class Login extends Component {
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          {/* <Link to="/dashboard">
-                            <Button
-                              color="dark"
-                              className="px-4"
-                              style={{ color: "white" }}
-                            >
-                              Login
-                            </Button>
-                          </Link> */}
                           <Button
                             color="dark"
                             className="px-4"
@@ -172,17 +157,6 @@ class Login extends Component {
                     <div>
                       <h2>Login</h2>
                       <p>Students with bits-email can login directly here</p>
-                      {/* <Link to="/dashboard">
-                        <Button
-                          color="light"
-                          className="mt-3"
-                          active
-                          tabIndex={-1}
-                          // onClick={this.handleSubmit}
-                        >
-                          Login
-                        </Button>
-                      </Link> */}
                       <GoogleLogin
                         clientId="1046329633263-d63770hr5scfj5mrgkgce4c0flj2iokh.apps.googleusercontent.com"
                         buttonText="Login"

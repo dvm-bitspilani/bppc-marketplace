@@ -2,7 +2,7 @@ import React from "react";
 import { Router } from "@reach/router";
 import HomePage from "./views/HomePage";
 import DefaultHeader from "./views/defaultHeader";
-import Login from "./views/Login";
+import Login from "./components/Login";
 import SignUp from "./views/Signup";
 import Dashboard from "./views/dashboard";
 import Buy from "./views/buy";
