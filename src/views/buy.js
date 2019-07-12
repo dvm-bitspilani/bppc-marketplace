@@ -65,6 +65,7 @@ class Buy extends Component {
                       src={require("../assets/avatars/tn.jpg")}
                       height="100"
                       width="100"
+                      alt="screenshot of books"
                     />
                   </td>
                   <td onClick={() => this.showModal(seller)}>{seller.name}</td>

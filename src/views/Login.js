@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { navigate } from "@reach/router";
 
-import { Link } from "@reach/router";
+// import { Link } from "@reach/router";
 import { Redirect } from "axios";
 import {
   Button,
