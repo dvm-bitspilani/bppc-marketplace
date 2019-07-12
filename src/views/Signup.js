@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { Router, Link } from "@reach/router";
+// import { Router, Link } from "@reach/router";
 
 import {
   Button,
   Card,
   CardBody,
-  CardFooter,
   Col,
   Container,
   Form,
@@ -15,7 +14,6 @@ import {
   InputGroupText,
   Row,
   FormGroup,
-  Label,
   CustomInput
 } from "reactstrap";
 import axios from "axios";
@@ -36,13 +34,13 @@ const initialState = {
 
 class Register extends Component {
   state = initialState;
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       yearOfStudy: 2019,
       dualDegree: false,
-      singleDegree: true,
-    }
+      singleDegree: true
+    };
     this.yearOfStudy = this.yearOfStudy.bind(this);
   }
   handleChange = event => {
@@ -95,12 +93,12 @@ class Register extends Component {
       let authData = {
         username: this.state.username,
         password: this.state.password
-      }
+      };
       // console.log(this.state);
       axios
-        .post('url', authData)
+        .post("url", authData)
         .then(data => {
-          console.log('Signed Up!')
+          console.log("Signed Up!");
           console.log(data);
         })
         .catch(error => {
@@ -111,21 +109,20 @@ class Register extends Component {
     }
   };
 
-  yearOfStudy = e =>{
+  yearOfStudy = e => {
     // console.log(e.target.value);
-    this.setState({yearOfStudy : e.target.value},function(){
+    this.setState({ yearOfStudy: e.target.value }, function() {
       console.log(this.state.yearOfStudy);
-      if(this.state.yearOfStudy != 2019 && this.state.dualDegree){
+      if (this.state.yearOfStudy !== 2019 && this.state.dualDegree) {
         this.setState({
-          singleDegree:true,
-          dualDegree:true
+          singleDegree: true,
+          dualDegree: true
         });
-      }
-      else{
-        if(this.state.yearOfStudy == 2019 && this.state.dualDegree){
+      } else {
+        if (this.state.yearOfStudy === 2019 && this.state.dualDegree) {
           this.setState({
-            singleDegree:false,
-            dualDegree:true
+            singleDegree: false,
+            dualDegree: true
           });
         }
       }
@@ -133,30 +130,27 @@ class Register extends Component {
   };
 
   showBothBranch = e => {
-    if(e.target.value == "Single Degree"){
+    if (e.target.value === "Single Degree") {
+      this.setState({
+        singleDegree: true,
+        dualDegree: false
+      });
+    } else if (e.target.value === "Dual Degree") {
+      if (this.state.yearOfStudy === 2019) {
         this.setState({
-          singleDegree:true,
-          dualDegree:false
+          singleDegree: false,
+          dualDegree: true
         });
+      } else {
+        this.setState({
+          singleDegree: true,
+          dualDegree: true
+        });
+      }
+    } else {
     }
-    else if(e.target.value == "Dual Degree"){
-        if(this.state.yearOfStudy == 2019){
-          this.setState({
-            singleDegree:false,
-            dualDegree:true
-          })
-        }else{
-          this.setState({
-            singleDegree:true,
-            dualDegree:true
-          })
-        }
-      }
-    else{
-        
-      }
-  }
-  
+  };
+
   render() {
     return (
       <div className="app flex-row align-items-center">
@@ -167,11 +161,14 @@ class Register extends Component {
                 <CardBody className="p-4">
                   <Form onSubmit={this.handleSubmit}>
                     <h1>Register</h1>
-                    <p className="text-muted">Create your account - <b>for 2019 batch only</b>. All other batches are required to login via BITS email</p>
+                    <p className="text-muted">
+                      Create your account - <b>for 2019 batch only</b>. All
+                      other batches are required to login via BITS email
+                    </p>
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                          <ion-icon name="person"></ion-icon>
+                          <ion-icon name="person" />
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
@@ -180,21 +177,32 @@ class Register extends Component {
                         placeholder="Full Name"
                         autoComplete="username"
                         onChange={this.handleChange}
-                      >
-                      </Input>
+                      />
                     </InputGroup>
 
                     <FormGroup>
-                          <div style={{paddingLeft: "50px"}}>
-                            <CustomInput inline type="radio" id="exampleCustomRadio" name="customRadio" label="Male" />
-                            <CustomInput inline type="radio" id="exampleCustomRadio2" name="customRadio" label="Female" />
-                          </div>
+                      <div style={{ paddingLeft: "50px" }}>
+                        <CustomInput
+                          inline
+                          type="radio"
+                          id="exampleCustomRadio"
+                          name="customRadio"
+                          label="Male"
+                        />
+                        <CustomInput
+                          inline
+                          type="radio"
+                          id="exampleCustomRadio2"
+                          name="customRadio"
+                          label="Female"
+                        />
+                      </div>
                     </FormGroup>
 
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                          <ion-icon name="call"></ion-icon>
+                          <ion-icon name="call" />
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
@@ -207,7 +215,9 @@ class Register extends Component {
 
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
-                        <InputGroupText><ion-icon name="mail"></ion-icon></InputGroupText>
+                        <InputGroupText>
+                          <ion-icon name="mail" />
+                        </InputGroupText>
                       </InputGroupAddon>
                       <Input
                         type="text"
@@ -220,7 +230,7 @@ class Register extends Component {
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                          <ion-icon name="finger-print" size="small"></ion-icon>
+                          <ion-icon name="finger-print" size="small" />
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
@@ -234,7 +244,7 @@ class Register extends Component {
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                          <ion-icon name="done-all"></ion-icon>
+                          <ion-icon name="done-all" />
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
@@ -265,31 +275,29 @@ class Register extends Component {
 
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <ion-icon name="home"></ion-icon>
-                          </InputGroupText>
+                        <InputGroupText>
+                          <ion-icon name="home" />
+                        </InputGroupText>
                       </InputGroupAddon>
                       <CustomInput
-                      type="select"
-                      id="exampleCustomSelect"
-                      name="customSelect"
+                        type="select"
+                        id="exampleCustomSelect"
+                        name="customSelect"
                       >
-                      <option value="">Select your Hostel.</option>
-                      <option>SR</option>
-                      <option>SR</option>
-                      <option>SR</option>
-                      <option>SR</option>
-                      <option>SR</option>
+                        <option value="">Select your Hostel.</option>
+                        <option>SR</option>
+                        <option>SR</option>
+                        <option>SR</option>
+                        <option>SR</option>
+                        <option>SR</option>
                       </CustomInput>
                     </InputGroup>
 
-                    
-                    
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <ion-icon name="home"></ion-icon>
-                          </InputGroupText>
+                        <InputGroupText>
+                          <ion-icon name="home" />
+                        </InputGroupText>
                       </InputGroupAddon>
                       <Input
                         type="number"
@@ -301,73 +309,71 @@ class Register extends Component {
 
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <ion-icon name="book"></ion-icon>
-                          </InputGroupText>
+                        <InputGroupText>
+                          <ion-icon name="book" />
+                        </InputGroupText>
                       </InputGroupAddon>
                       <CustomInput
-                      type="select"
-                      id="exampleCustomSelect"
-                      name="customSelect"
-                      onChange={this.showBothBranch}
+                        type="select"
+                        id="exampleCustomSelect"
+                        name="customSelect"
+                        onChange={this.showBothBranch}
                       >
-                      <option value="">Choose your degree type</option>
-                      <option>Single Degree</option>
-                      <option>Dual Degree</option>
+                        <option value="">Choose your degree type</option>
+                        <option>Single Degree</option>
+                        <option>Dual Degree</option>
                       </CustomInput>
                     </InputGroup>
-                    {(this.state.singleDegree)?(
+                    {this.state.singleDegree ? (
                       <InputGroup className="mb-4">
-                      <InputGroupAddon addonType="prepend">
+                        <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <ion-icon name="git-branch"></ion-icon>
+                            <ion-icon name="git-branch" />
                           </InputGroupText>
-                      </InputGroupAddon>
+                        </InputGroupAddon>
                         <CustomInput
                           type="select"
                           id="exampleCustomSelect"
                           name="customSelect"
-                          >
-                        <option value="">Enter your Single Degree Branch.</option>
-                        <option>A1 - B.E. Chemical</option>
-                        <option>A2 - B.E. Civil</option>
-                        <option>A3 - B.E. Electrical and Electronics</option>
-                        <option>A4 - B.E. Mechanical</option>
-                        <option>A5 - B.Pharma</option>
-                        <option>A7 - B.E. Computer Science</option>
-                        <option>A8 - B.E. Electronics and Instrumentation</option>
-                        <option>AB - B.E. Manufacturing</option>
+                        >
+                          <option value="">
+                            Enter your Single Degree Branch.
+                          </option>
+                          <option>A1 - B.E. Chemical</option>
+                          <option>A2 - B.E. Civil</option>
+                          <option>A3 - B.E. Electrical and Electronics</option>
+                          <option>A4 - B.E. Mechanical</option>
+                          <option>A5 - B.Pharma</option>
+                          <option>A7 - B.E. Computer Science</option>
+                          <option>
+                            A8 - B.E. Electronics and Instrumentation
+                          </option>
+                          <option>AB - B.E. Manufacturing</option>
                         </CustomInput>
-                    </InputGroup>
-                    ):(
-                      null
-                    )
-                    }
+                      </InputGroup>
+                    ) : null}
 
-                    {(this.state.dualDegree)?(
+                    {this.state.dualDegree ? (
                       <InputGroup className="mb-4">
-                      <InputGroupAddon addonType="prepend">
+                        <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <ion-icon name="git-branch"></ion-icon>
+                            <ion-icon name="git-branch" />
                           </InputGroupText>
-                      </InputGroupAddon>
+                        </InputGroupAddon>
                         <CustomInput
                           type="select"
                           id="exampleCustomSelect"
                           name="customSelect"
-                          >
-                        <option value="">Enter your Dual Branch.</option>
-                        <option>B1 - M.Sc. Biological Sciences</option>
-                        <option>B2 - M.Sc. Chemistry</option>
-                        <option>B3 - M.Sc. Economics</option>
-                        <option>B4 - M.Sc. Mathematics</option>
-                        <option>B5 - M.Sc. Physics</option>
+                        >
+                          <option value="">Enter your Dual Branch.</option>
+                          <option>B1 - M.Sc. Biological Sciences</option>
+                          <option>B2 - M.Sc. Chemistry</option>
+                          <option>B3 - M.Sc. Economics</option>
+                          <option>B4 - M.Sc. Mathematics</option>
+                          <option>B5 - M.Sc. Physics</option>
                         </CustomInput>
-                    </InputGroup>
-                    ):(
-                      null
-                    )
-                    }
+                      </InputGroup>
+                    ) : null}
                     <Button color="success" block onClick={this.handleSubmit}>
                       Create Account
                     </Button>

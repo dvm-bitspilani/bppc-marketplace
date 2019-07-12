@@ -1,5 +1,5 @@
 import React from "react";
-import { Router, Link } from "@reach/router";
+// import { Router, Link } from "@reach/router";
 
 import {
   CustomInput,
@@ -8,7 +8,6 @@ import {
   Container,
   Label,
   Button,
-  Row,
   Input
 } from "reactstrap";
 
@@ -62,12 +61,12 @@ class Stepper extends React.Component {
       },
       function() {
         console.log(this.state.currentTab);
-        if (this.state.currentTab == 4) {
+        if (this.state.currentTab === 4) {
           this.setState(() => {
             return { currentTab: 1 };
           });
         }
-        if (this.state.currentTab == 0) {
+        if (this.state.currentTab === 0) {
           this.setState(() => {
             return { currentTab: 1 };
           });

@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { Router, Link } from "@reach/router";
+// import { Router, Link } from "@reach/router";
 
 import {
   Button,
   Card,
   CardBody,
-  CardFooter,
   Col,
   Container,
   Form,
@@ -15,7 +14,6 @@ import {
   InputGroupText,
   Row,
   FormGroup,
-  Label,
   CustomInput
 } from "reactstrap";
 import axios from "axios";
@@ -108,14 +106,14 @@ class Register extends Component {
     // console.log(e.target.value);
     this.setState({yearOfStudy : e.target.value},function(){
       console.log(this.state.yearOfStudy);
-      if(this.state.yearOfStudy != 2019 && this.state.dualDegree){
+      if(this.state.yearOfStudy !== 2019 && this.state.dualDegree){
         this.setState({
           singleDegree:true,
           dualDegree:true
         });
       }
       else{
-        if(this.state.yearOfStudy == 2019 && this.state.dualDegree){
+        if(this.state.yearOfStudy === 2019 && this.state.dualDegree){
           this.setState({
             singleDegree:false,
             dualDegree:true
@@ -125,14 +123,14 @@ class Register extends Component {
     });
   };
   showBothBranch = e => {
-    if(e.target.value == "Single Degree"){
+    if(e.target.value === "Single Degree"){
         this.setState({
           singleDegree:true,
           dualDegree:false
         });
     }
-    else if(e.target.value == "Dual Degree"){
-        if(this.state.yearOfStudy == 2019){
+    else if(e.target.value === "Dual Degree"){
+        if(this.state.yearOfStudy === 2019){
           this.setState({
             singleDegree:false,
             dualDegree:true

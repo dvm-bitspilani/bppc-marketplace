@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { GoogleLogin } from "react-google-login";
-import { navigate } from '@reach/router'
+import { GoogleLogin, GoogleLogout } from "react-google-login";
+import { navigate } from "@reach/router";
 
 import { Link } from "@reach/router";
-import {Redirect} from "axios";
+import { Redirect } from "axios";
 import {
   Button,
   Card,
@@ -19,7 +19,7 @@ import {
   Row
 } from "reactstrap";
 // import styles from "./../css-modules/login.module.css";2
-const axios = require('axios');
+const axios = require("axios");
 
 const initialState = {
   username: "",
@@ -49,13 +49,14 @@ class Login extends Component {
     };
     // console.log(this.state);
 
-    axios.post("https://market.bits-dvm.org/api/login/", authData)
+    axios
+      .post("https://market.bits-dvm.org/api/login/", authData)
       .then(response => {
         console.log("connected!");
         console.log(response);
-        
+
         // navigate to dashboard once the user is authenticated
-        navigate('/dashboard');
+        navigate("/dashboard");
       })
       .catch(err => {
         console.log(err);
@@ -65,12 +66,33 @@ class Login extends Component {
     });
   };
 
-  handleGoogleLogin = (response) => {
+  handleGoogleLogin = response => {
+    // console.log(response.tokenObj.id_token);
+    if (response.tokenObj !== null) {
+      let googleAuthData = { id_token: response.tokenObj.id_token };
+      axios
+        .post("https://market.bits-dvm.org/api/login/", googleAuthData)
+        .then(response => {
+          console.log("logged in with google and communicated with server");
+          console.log(response);
+        })
+        .catch(err => {
+          console.log("error from server");
+          console.log(err);
+        });
+    }
+    else {
+      console.log('google auth failed');
+      window.alert("Google auth failed");
+    }
+  };
+
+  handleGoogleLogout = response => {
     console.log(response);
-  }
+    window.alert("Logged out of your account!");
+  };
 
   render() {
-
     return (
       <div className="app flex-row align-items-center">
         <Container>
@@ -87,11 +109,11 @@ class Login extends Component {
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <ion-icon name="person"></ion-icon>
+                            <ion-icon name="person" />
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
-                          name= "username"
+                          name="username"
                           type="text"
                           placeholder="Username"
                           autoComplete="username"
@@ -101,7 +123,7 @@ class Login extends Component {
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <ion-icon name="key"></ion-icon>
+                            <ion-icon name="key" />
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
@@ -167,6 +189,10 @@ class Login extends Component {
                         onSuccess={this.handleGoogleLogin}
                         onFailure={this.handleGoogleLogin}
                         cookiePolicy={"single_host_origin"}
+                      />
+                      <GoogleLogout
+                        buttonText="Logout"
+                        onLogoutSuccess={this.handleGoogleLogout}
                       />
                     </div>
                   </CardBody>
