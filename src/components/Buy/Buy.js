@@ -2,8 +2,8 @@ import React, { Component } from "react";
 // import { Router, Link } from "react-router-dom";
 
 import { Table } from "reactstrap";
-import Modal from "../components/Modal/Modal";
-import SellerSummary from "../components/SellerSummary/SellerSummary";
+import Modal from "./Modal/Modal";
+import SellerSummary from "./SellerSummary/SellerSummary";
 
 class Buy extends Component {
   constructor(props) {
@@ -62,7 +62,7 @@ class Buy extends Component {
                 <tr key={index}>
                   <td>
                     <img
-                      src={require("../assets/avatars/tn.jpg")}
+                      src={require("../../assets/avatars/tn.jpg")}
                       height="100"
                       width="100"
                       alt="screenshot of books"

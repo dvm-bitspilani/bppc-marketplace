@@ -5,7 +5,7 @@ import DefaultHeader from "./views/defaultHeader";
 import Login from "./components/Login";
 import SignUp from "./views/Signup";
 import Dashboard from "./views/dashboard";
-import Buy from "./views/buy";
+import Buy from "./components/Buy/Buy";
 import Sell from "./views/sell";
 import NextSell from "./views/NextSell";
 import DetailsCollectionForm from "./views/detailCollection";
