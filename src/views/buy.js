@@ -3,7 +3,7 @@ import React, { Component } from "react";
 
 import { Table } from "reactstrap";
 import Modal from "../components/Modal/Modal";
-// import SellerSummary from "../components/SellerSummary/SellerSummary";
+import SellerSummary from "../components/SellerSummary/SellerSummary";
 
 class Buy extends Component {
   constructor(props) {
@@ -81,7 +81,7 @@ class Buy extends Component {
           <div className="close-modal" onClick={() => this.hideModal()}>
             Close
           </div>
-          {/* <SellerSummary seller={this.state.seller} /> */}
+          <SellerSummary seller={this.state.seller} />
         </Modal>
       </div>
     );

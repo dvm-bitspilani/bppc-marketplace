@@ -20,6 +20,10 @@
   background: #ccc;
 }
 
+.close-modal:hover {
+  cursor: pointer;
+}
+
 @media all and (max-width: 450px) {
   .Modal {
     width: 100%;
