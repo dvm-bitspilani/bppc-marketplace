@@ -13,17 +13,15 @@ import {
   Form,
   FormGroup,
   Label,
-  Input,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter
+  Input
 } from "reactstrap";
-import Dropzone from "react-dropzone";
+import MultiSelect from "@kenshooui/react-multi-select";
+import "@kenshooui/react-multi-select/dist/style.css";
 
 class ListTransfer extends React.Component {
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
     this.state = {
       booksoption: [
         "thermo",
@@ -35,18 +33,19 @@ class ListTransfer extends React.Component {
         "m2",
         "elecsci"
       ],
-      selectedbooks: [],
-      this.toggle = this.toggle.bind(this);
-
+      items: [
+        { id: 0, label: "Thermodynamics Book", group: "Thermodynamics" },
+        { id: 2, label: "Thermodynamics Table", group: "Thermodynamics" },
+        { id: 3, label: "Mech Osc Waves", group: "MeOW" },
+        { id: 4, label: "AP French", group: "MeOW" },
+        { id: 8, label: "AP French", group: "MeOW" },
+        { id: 9, label: "Mathematics", group: "Mathematics 1" },
+        { id: 1, label: "Mathematics Book", group: "Mathematics 1" }
+      ],
+      selectedItems: [],
+      selectedbooks: []
     };
   }
-
-  toggle() {
-    this.setState(prevState => ({
-      modal: !prevState.modal
-    }));
-  }
-
   handleClick = i => {
     const booksoption = Object.assign([], this.state.booksoption);
     const selectedbooks = Object.assign([], this.state.selectedbooks);
@@ -63,6 +62,9 @@ class ListTransfer extends React.Component {
     this.setState({ booksoption: booksoption, selectedbooks: selectedbooks });
   };
 
+  handleChange(selectedItems) {
+    this.setState({ selectedItems });
+  }
   render() {
     const booklist = this.state.booksoption.map((item, i) => (
       <option key={i} onClick={() => this.handleClick(i)}>
@@ -77,7 +79,7 @@ class ListTransfer extends React.Component {
     ));
     const listtransfer = (
       <div>
-        <FormGroup>
+        {/* <FormGroup>
           <Label for="exampleSelectMulti">Select Books</Label>
           <Input
             type="select"
@@ -98,7 +100,13 @@ class ListTransfer extends React.Component {
           >
             {newlist}
           </Input>
-        </FormGroup>
+        </FormGroup> */}
+        <MultiSelect
+          items={this.state.items}
+          withGrouping
+          selectedItems={this.state.selectedItems}
+          onChange={this.handleChange}
+        />
       </div>
     );
     return <div>{listtransfer}</div>;
@@ -110,7 +118,7 @@ class FileInput extends React.Component {
       <div>
         <Container>
           <Form>
-            {/* <Label>
+            <Label>
               <Label for="exampleCustomFileBrowser">Upload an Image</Label>
               <CustomInput
                 type="file"
@@ -118,36 +126,7 @@ class FileInput extends React.Component {
                 name="customFile"
                 label="pick a file"
               />
-            </Label> */}
-            <Button color="danger" onClick={this.toggle}>
-              {this.props.buttonLabel}
-            </Button>
-            <Modal
-              isOpen={this.state.modal}
-              toggle={this.toggle}
-              className={this.props.className}
-            >
-              <ModalHeader toggle={this.toggle} close={closeBtn}>
-                Modal title
-              </ModalHeader>
-              <ModalBody>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </ModalBody>
-              <ModalFooter>
-                <Button color="primary" onClick={this.toggle}>
-                  Do Something
-                </Button>{" "}
-                <Button color="secondary" onClick={this.toggle}>
-                  Cancel
-                </Button>
-              </ModalFooter>
-            </Modal>
+            </Label>
             <FormGroup>
               <Label for="exampleText">Description</Label>
               <Input type="textarea" name="text" id="exampleText" />
