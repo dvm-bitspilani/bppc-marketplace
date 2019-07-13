@@ -21,24 +21,37 @@ class ListTransfer extends React.Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      booksoption: [
-        "thermo",
-        "meow",
-        "cp",
-        "genchem",
-        "bio",
-        "m1",
-        "m2",
-        "elecsci"
-      ],
-      items: [
-        { id: 0, label: "Thermodynamics Book", group: "Thermodynamics" },
-        { id: 2, label: "Thermodynamics Table", group: "Thermodynamics" },
-        { id: 3, label: "Mech Osc Waves", group: "MeOW" },
-        { id: 4, label: "AP French", group: "MeOW" },
-        { id: 8, label: "AP French", group: "MeOW" },
-        { id: 9, label: "Mathematics", group: "Mathematics 1" },
-        { id: 1, label: "Mathematics Book", group: "Mathematics 1" }
+      books: [
+        {
+          id: 1,
+          category: "Thermodynamics",
+          title: "Book 1"
+        },
+        {
+          id: 2,
+          category: "Thermodynamics",
+          title: "Book 2"
+        },
+        {
+          id: 6,
+          category: "MeOW",
+          title: "Book 1"
+        },
+        {
+          id: 1,
+          category: "MeOW",
+          title: "Book 2"
+        },
+        {
+          id: 8,
+          category: "Biology",
+          title: "Book 1"
+        },
+        {
+          id: 2,
+          category: "Biology",
+          title: "Book 2"
+        }
       ],
       selectedItems: [],
       selectedbooks: []
@@ -64,20 +77,77 @@ class ListTransfer extends React.Component {
     this.setState({ selectedItems });
   }
   render() {
-    const booklist = this.state.booksoption.map((item, i) => (
-      <option key={i} onClick={() => this.handleClick(i)}>
-        {item}
-      </option>
-    ));
+    const items = this.state.books;
 
-    const newlist = this.state.selectedbooks.map((item, i) => (
-      <option key={i} onClick={() => this.removehandleClick(i)}>
-        {item}
-      </option>
-    ));
+    const divStyle = {
+      width: "45%",
+      height: "50vh",
+      border: "1px solid grey",
+      margin: "auto",
+      borderRadius: "5px",
+      overflowX: "hidden"
+    };
+    const groupstyle = {
+      width: "100%",
+      height: "auto",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-evenly"
+    };
+    const headingstyle = {
+      width: "100%",
+      padding: "5px",
+      color: "grey",
+      backgroundColor: "lightgrey"
+    };
+
+    const spanstyle = {
+      width: "100%",
+      padding: "5px"
+    };
+
+    const containerstyle = {
+      display: "flex",
+      justifyContent: "center"
+    };
+
+    const cats = items.reduce((catsSoFar, { category, title }) => {
+      if (!catsSoFar[category]) catsSoFar[category] = [];
+      catsSoFar[category].push(title);
+      return catsSoFar;
+    }, {});
+
+    console.log(cats);
+
+    const show = Object.keys(cats).map(key => {
+      return (
+        <div key={key} style={groupstyle}>
+          <span style={headingstyle}>{key}</span>
+          {cats[key].map(dataItem => {
+            return (
+              <span key={Math.random()} style={spanstyle}>
+                {dataItem}
+              </span>
+            );
+          })}
+        </div>
+      );
+    });
+
+    // const booklist = this.state.booksoption.map((item, i) => (
+    //   <option key={i} onClick={() => this.handleClick(i)}>
+    //     {item}
+    //   </option>
+    // ));
+
+    // const newlist = this.state.selectedbooks.map((item, i) => (
+    //   <option key={i} onClick={() => this.removehandleClick(i)}>
+    //     {item}
+    //   </option>
+    // ));
     const listtransfer = (
-      <div>
-        <FormGroup>
+      <div style={containerstyle}>
+        {/* <FormGroup>
           <Label for="exampleSelectMulti">Select Books</Label>
           <Input
             type="select"
@@ -98,7 +168,11 @@ class ListTransfer extends React.Component {
           >
             {newlist}
           </Input>
-        </FormGroup>
+        </FormGroup> */}
+        <div className="bookslist" style={divStyle}>
+          <div style={groupstyle}>{show}</div>
+        </div>
+        <div className="bookslist" style={divStyle} />
       </div>
     );
     return <div>{listtransfer}</div>;
