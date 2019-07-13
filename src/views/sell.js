@@ -58,11 +58,12 @@ class ListTransfer extends React.Component {
     };
   }
   handleClick = i => {
-    const booksoption = Object.assign([], this.state.booksoption);
+    const books = Object.assign([], this.state.books);
     const selectedbooks = Object.assign([], this.state.selectedbooks);
-    selectedbooks.push(booksoption[i]);
-    delete booksoption[i];
-    this.setState({ booksoption: booksoption, selectedbooks: selectedbooks });
+    selectedbooks.push(books[i]);
+    delete books[i];
+    this.setState({ booksoption: books, selectedbooks: selectedbooks });
+    console.log(this.state.selectedbooks);
   };
 
   removehandleClick = i => {
@@ -125,7 +126,11 @@ class ListTransfer extends React.Component {
           <span style={headingstyle}>{key}</span>
           {cats[key].map(dataItem => {
             return (
-              <span key={Math.random()} style={spanstyle}>
+              <span
+                key={dataItem.id}
+                style={spanstyle}
+                onClick={this.handleClick}
+              >
                 {dataItem}
               </span>
             );
