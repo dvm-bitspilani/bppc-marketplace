@@ -40,11 +40,11 @@ class Register extends Component {
       yearOfStudy: 2019,
       dualDegree: false,
       singleDegree: true,
-      gender:"Male"
-    }
+      gender: "Male"
+    };
     this.yearOfStudy = this.yearOfStudy.bind(this);
-    this.gender= this.gender.bind(this);
-    }
+    this.gender = this.gender.bind(this);
+  }
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -149,20 +149,21 @@ class Register extends Component {
           dualDegree: true
         });
       }
-  }}
-  
-  gender = e =>{
-    if(e.target.value == "Male"){
-        this.setState({
-          gender: "Male"
-        });
-    }else{
+    }
+  };
+
+  gender = e => {
+    if (e.target.value === "Male") {
+      this.setState({
+        gender: "Male"
+      });
+    } else {
       this.setState({
         gender: "Female"
       });
     }
-  }
-  
+  };
+
   render() {
     return (
       <div className="app flex-row align-items-center">
@@ -193,10 +194,27 @@ class Register extends Component {
                     </InputGroup>
 
                     <FormGroup>
-                          <div style={{paddingLeft: "50px"}} onChange={this.gender}>
-                            <CustomInput inline type="radio" value="Male" id="exampleCustomRadio" name="customRadio" label="Male" />
-                            <CustomInput inline type="radio" value="Female" id="exampleCustomRadio2" name="customRadio" label="Female" />
-                          </div>
+                      <div
+                        style={{ paddingLeft: "50px" }}
+                        onChange={this.gender}
+                      >
+                        <CustomInput
+                          inline
+                          type="radio"
+                          value="Male"
+                          id="exampleCustomRadio"
+                          name="customRadio"
+                          label="Male"
+                        />
+                        <CustomInput
+                          inline
+                          type="radio"
+                          value="Female"
+                          id="exampleCustomRadio2"
+                          name="customRadio"
+                          label="Female"
+                        />
+                      </div>
                     </FormGroup>
 
                     <InputGroup className="mb-3">
@@ -279,12 +297,12 @@ class Register extends Component {
                           <ion-icon name="home" />
                         </InputGroupText>
                       </InputGroupAddon>
-                      {(this.state.gender == "Male")?(
-                          <CustomInput
+                      {this.state.gender === "Male" ? (
+                        <CustomInput
                           type="select"
                           id="exampleCustomSelect"
                           name="customSelect"
-                          >
+                        >
                           <option value="">Select your Hostel.</option>
                           <option>Ram Bhawan</option>
                           <option>Budh Bhawan</option>
@@ -301,21 +319,21 @@ class Register extends Component {
                           <option>Rana Pratap Bhawan</option>
                           <option>Ashok Bhawan</option>
                           <option>Malviya Bhawan</option>
-                          </CustomInput>
-                      ):(
+                        </CustomInput>
+                      ) : (
                         <CustomInput
-                        type="select"
-                        id="exampleCustomSelect"
-                        name="customSelect"
+                          type="select"
+                          id="exampleCustomSelect"
+                          name="customSelect"
                         >
-                        <option value="">Select your Hostel.</option>
-                        <option>Meera Block A</option>
-                        <option>Meera Block B</option>
-                        <option>Meera Block C</option>
+                          <option value="">Select your Hostel.</option>
+                          <option>Meera Block A</option>
+                          <option>Meera Block B</option>
+                          <option>Meera Block C</option>
                         </CustomInput>
                       )}
-                      </InputGroup>
-                
+                    </InputGroup>
+
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>

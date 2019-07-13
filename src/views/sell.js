@@ -66,17 +66,17 @@ class ListTransfer extends React.Component {
     this.setState({ selectedItems });
   }
   render() {
-    const booklist = this.state.booksoption.map((item, i) => (
-      <option key={i} onClick={() => this.handleClick(i)}>
-        {item}
-      </option>
-    ));
+    // const booklist = this.state.booksoption.map((item, i) => (
+    //   <option key={i} onClick={() => this.handleClick(i)}>
+    //     {item}
+    //   </option>
+    // ));
 
-    const newlist = this.state.selectedbooks.map((item, i) => (
-      <option key={i} onClick={() => this.removehandleClick(i)}>
-        {item}
-      </option>
-    ));
+    // const newlist = this.state.selectedbooks.map((item, i) => (
+    //   <option key={i} onClick={() => this.removehandleClick(i)}>
+    //     {item}
+    //   </option>
+    // ));
     const listtransfer = (
       <div>
         {/* <FormGroup>
@@ -104,6 +104,7 @@ class ListTransfer extends React.Component {
         <MultiSelect
           items={this.state.items}
           withGrouping
+          showSearch
           selectedItems={this.state.selectedItems}
           onChange={this.handleChange}
         />
