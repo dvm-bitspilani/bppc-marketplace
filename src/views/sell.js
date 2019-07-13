@@ -15,8 +15,6 @@ import {
   Label,
   Input
 } from "reactstrap";
-import MultiSelect from "@kenshooui/react-multi-select";
-import "@kenshooui/react-multi-select/dist/style.css";
 
 class ListTransfer extends React.Component {
   constructor(props) {
@@ -66,20 +64,20 @@ class ListTransfer extends React.Component {
     this.setState({ selectedItems });
   }
   render() {
-    // const booklist = this.state.booksoption.map((item, i) => (
-    //   <option key={i} onClick={() => this.handleClick(i)}>
-    //     {item}
-    //   </option>
-    // ));
+    const booklist = this.state.booksoption.map((item, i) => (
+      <option key={i} onClick={() => this.handleClick(i)}>
+        {item}
+      </option>
+    ));
 
-    // const newlist = this.state.selectedbooks.map((item, i) => (
-    //   <option key={i} onClick={() => this.removehandleClick(i)}>
-    //     {item}
-    //   </option>
-    // ));
+    const newlist = this.state.selectedbooks.map((item, i) => (
+      <option key={i} onClick={() => this.removehandleClick(i)}>
+        {item}
+      </option>
+    ));
     const listtransfer = (
       <div>
-        {/* <FormGroup>
+        <FormGroup>
           <Label for="exampleSelectMulti">Select Books</Label>
           <Input
             type="select"
@@ -100,14 +98,7 @@ class ListTransfer extends React.Component {
           >
             {newlist}
           </Input>
-        </FormGroup> */}
-        <MultiSelect
-          items={this.state.items}
-          withGrouping
-          showSearch
-          selectedItems={this.state.selectedItems}
-          onChange={this.handleChange}
-        />
+        </FormGroup>
       </div>
     );
     return <div>{listtransfer}</div>;
