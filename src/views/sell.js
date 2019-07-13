@@ -126,11 +126,7 @@ class ListTransfer extends React.Component {
           <span style={headingstyle}>{key}</span>
           {cats[key].map(dataItem => {
             return (
-              <span
-                key={dataItem.id}
-                style={spanstyle}
-                onClick={this.handleClick}
-              >
+              <span key={Math.random()} style={spanstyle}>
                 {dataItem}
               </span>
             );
