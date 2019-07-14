@@ -15,6 +15,7 @@ import {
   Label,
   Input
 } from "reactstrap";
+import Dropzone from "./dropzone/Dropzone";
 
 class ListTransfer extends React.Component {
   constructor(props) {
@@ -185,7 +186,7 @@ class FileInput extends React.Component {
       <div>
         <Container>
           <Form>
-            <Label>
+            {/* <Label>
               <Label for="exampleCustomFileBrowser">Upload an Image</Label>
               <CustomInput
                 type="file"
@@ -193,7 +194,12 @@ class FileInput extends React.Component {
                 name="customFile"
                 label="pick a file"
               />
-            </Label>
+            </Label> */}
+            <div className="App">
+              <div className="Card">
+                <Dropzone onFilesAdded={console.log} />
+              </div>
+            </div>
             <FormGroup>
               <Label for="exampleText">Description</Label>
               <Input type="textarea" name="text" id="exampleText" />
