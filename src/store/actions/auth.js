@@ -23,5 +23,6 @@ export const auth = (email, password) => {
     // ...
     // all auth related asynchronous actions here
     // ...
+    dispatch(authStart());
   }
 }

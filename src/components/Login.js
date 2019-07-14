@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+// import { connect } from "react-redux";
+import axios from "../axios-instance";
+
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { navigate } from "@reach/router";
-import axios from "../axios-instance";
+import * as actions from "../store/actions/index";
 
 import {
   Button,
@@ -80,7 +83,7 @@ class Login extends Component {
     } else {
       console.log("google auth failed");
       window.alert("Google auth failed");
-    } 
+    }
   };
 
   handleGoogleLogout = response => {
@@ -160,9 +163,7 @@ class Login extends Component {
                       <GoogleLogin
                         clientId="1046329633263-d63770hr5scfj5mrgkgce4c0flj2iokh.apps.googleusercontent.com"
                         buttonText="Login"
-                        onSuccess={ this.handleGoogleLogin
-                            
-                          }
+                        onSuccess={this.handleGoogleLogin}
                         onFailure={this.handleGoogleLogin}
                         cookiePolicy={"single_host_origin"}
                       />
@@ -181,5 +182,11 @@ class Login extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuth: (email, password) => dispatch(actions.auth(email, password))
+  };
+};
 
 export default Login;
