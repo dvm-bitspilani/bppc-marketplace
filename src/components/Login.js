@@ -20,6 +20,7 @@ import {
   InputGroupText,
   Row
 } from "reactstrap";
+import { connect } from "http2";
 
 const initialState = {
   username: "",
@@ -43,24 +44,8 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    let authData = {
-      username: this.state.username,
-      password: this.state.password
-    };
     // console.log(this.state);
-
-    axios
-      .post("/api/login/", authData)
-      .then(response => {
-        console.log("connected!");
-        console.log(response);
-
-        // navigate to dashboard once the user is authenticated
-        navigate("/dashboard");
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.props.onAuth(this.state.username, this.state.password);
     this.setState({
       ...initialState
     });
@@ -69,17 +54,7 @@ class Login extends Component {
   handleGoogleLogin = response => {
     // console.log(response.tokenObj.id_token);
     if (response.tokenObj !== null) {
-      let googleAuthData = { id_token: response.tokenObj.id_token };
-      axios
-        .post("/api/login/", googleAuthData)
-        .then(response => {
-          console.log("logged in with google and communicated with server");
-          console.log(response);
-        })
-        .catch(err => {
-          console.log("error from server");
-          console.log(err);
-        });
+      this.props.onGoogleAuth(response.tokenObj.id_token);
     } else {
       console.log("google auth failed");
       window.alert("Google auth failed");
@@ -185,8 +160,10 @@ class Login extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: (email, password) => dispatch(actions.auth(email, password))
+    onAuth: (username, password) => dispatch(actions.auth(username, password)),
+    onGoogleAuth: (id_token) => dispatch(actions.googleAuth(id_token))
   };
 };
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
+ 
