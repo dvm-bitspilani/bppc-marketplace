@@ -80,7 +80,7 @@ class Login extends Component {
     } else {
       console.log("google auth failed");
       window.alert("Google auth failed");
-    }
+    } 
   };
 
   handleGoogleLogout = response => {
@@ -160,7 +160,9 @@ class Login extends Component {
                       <GoogleLogin
                         clientId="1046329633263-d63770hr5scfj5mrgkgce4c0flj2iokh.apps.googleusercontent.com"
                         buttonText="Login"
-                        onSuccess={this.handleGoogleLogin}
+                        onSuccess={ this.handleGoogleLogin
+                            
+                          }
                         onFailure={this.handleGoogleLogin}
                         cookiePolicy={"single_host_origin"}
                       />
