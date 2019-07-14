@@ -20,6 +20,7 @@ class ListTransfer extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.onSelect = this.onSelect.bind(this);
     this.state = {
       books: [
         {
@@ -33,28 +34,29 @@ class ListTransfer extends React.Component {
           title: "Book 2"
         },
         {
-          id: 6,
+          id: 3,
           category: "MeOW",
           title: "Book 1"
         },
         {
-          id: 1,
+          id: 4,
           category: "MeOW",
           title: "Book 2"
         },
         {
-          id: 8,
+          id: 5,
           category: "Biology",
           title: "Book 1"
         },
         {
-          id: 2,
+          id: 6,
           category: "Biology",
           title: "Book 2"
         }
       ],
       selectedItems: [],
-      selectedbooks: []
+      selectedBooks: [],
+      transferredBooks: []
     };
   }
   handleClick = i => {
@@ -76,6 +78,12 @@ class ListTransfer extends React.Component {
 
   handleChange(selectedItems) {
     this.setState({ selectedItems });
+  }
+  onSelect = e => {
+     if(e.target.checked){
+       this.state.selectedBooks.push(e.target.value);
+     }
+     console.log(this.state.selectedBooks);
   }
   render() {
     const items = this.state.books;
@@ -103,7 +111,7 @@ class ListTransfer extends React.Component {
     };
 
     const spanstyle = {
-      width: "100%",
+      width: "50%",
       padding: "5px"
     };
 
@@ -120,20 +128,29 @@ class ListTransfer extends React.Component {
 
     console.log(cats);
 
-    const show = Object.keys(cats).map(key => {
-      return (
-        <div key={key} style={groupstyle}>
-          <span style={headingstyle}>{key}</span>
-          {cats[key].map(dataItem => {
-            return (
-              <span key={Math.random()} style={spanstyle}>
-                {dataItem}
-              </span>
-            );
-          })}
-        </div>
-      );
-    });
+    // const show = Object.keys(cats).map(key => {
+    //   return (
+    //     <div key={key} style={groupstyle} onChange={this.onSelect}>
+    //       <span style={headingstyle}>{key}</span>
+
+    //       {cats[key].map(dataItem => {
+            
+    //         return (
+    //            /* <span key={Math.random()} style={spanstyle}>
+    //              {dataItem}
+    //            </span> */
+    //           <Label >
+    //           <Input type="checkbox" key={Math.random()} style={spanstyle}/>{' '}
+    //             {dataItem}
+    //           </Label>
+    //         );
+          
+    //       })
+    //       }
+    //     </div>
+    //   );
+    // });
+    const show= <div>hehe</div>
 
     // const booklist = this.state.booksoption.map((item, i) => (
     //   <option key={i} onClick={() => this.handleClick(i)}>
@@ -148,30 +165,13 @@ class ListTransfer extends React.Component {
     // ));
     const listtransfer = (
       <div style={containerstyle}>
-        {/* <FormGroup>
-          <Label for="exampleSelectMulti">Select Books</Label>
-          <Input
-            type="select"
-            name="selectMulti"
-            id="exampleSelectMulti"
-            multiple
-          >
-            {booklist}
-          </Input>
-        </FormGroup>
-        <FormGroup>
-          <Label for="exampleSelectMulti">Books you selected</Label>
-          <Input
-            type="select"
-            name="selectMulti"
-            id="exampleSelectMulti"
-            multiple
-          >
-            {newlist}
-          </Input>
-        </FormGroup> */}
+      
         <div className="bookslist" style={divStyle}>
           <div style={groupstyle}>{show}</div>
+        </div>
+        <div column="true">
+        <Button>Tranfer -></Button>
+        <Button>Transfer again</Button>
         </div>
         <div className="bookslist" style={divStyle} />
       </div>
@@ -179,6 +179,7 @@ class ListTransfer extends React.Component {
     return <div>{listtransfer}</div>;
   }
 }
+
 class FileInput extends React.Component {
   render() {
     return (
@@ -265,7 +266,7 @@ export default function VerticalLinearStepper() {
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
               <StepContent>
-                <Typography>{getStepContent(index)}</Typography>
+                <Typography component={'span'}>{getStepContent(index)}</Typography>
                 <div className={classes.actionsContainer}>
                   <div>
                     <Button
