@@ -1,6 +1,8 @@
 import axios from "../../axios-instance";
 import * as actionTypes from "./actionTypes";
 
+import { navigate } from "@reach/router";
+
 export const authStart = () => {
   return {
     type: actionTypes.AUTH_START
