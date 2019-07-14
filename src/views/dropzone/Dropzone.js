@@ -78,12 +78,14 @@ class Dropzone extends Component {
           multiple
           onChange={this.onFilesAdded}
         />
-        <img
-          alt="upload"
-          className="Icon"
-          src="baseline-cloud_upload-24px.svg"
-        />
-        <span>Upload images of selected books</span>
+        {this.props.imagearr.length > 0 && <span>Uplaoded some image</span>}
+        {this.props.imagearr.length === 0 && (
+          <img
+            alt="upload"
+            className="Icon"
+            src="baseline-cloud_upload-24px.svg"
+          />
+        )}
       </div>
     );
   }

@@ -181,6 +181,20 @@ class ListTransfer extends React.Component {
   }
 }
 class FileInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.uploadChange = this.uploadChange.bind(this);
+    this.state = {
+      imagesupload: []
+    };
+  }
+
+  uploadChange(files) {
+    console.log(files);
+    const imagesupload = Object.assign([], this.state.imagesupload);
+    imagesupload.push(files);
+    this.setState({ imagesupload });
+  }
   render() {
     return (
       <div>
@@ -197,7 +211,10 @@ class FileInput extends React.Component {
             </Label> */}
             <div className="App">
               <div className="Card">
-                <Dropzone onFilesAdded={console.log} />
+                <Dropzone
+                  onFilesAdded={this.uploadChange}
+                  imagearr={this.state.imagesupload}
+                />
               </div>
             </div>
             <FormGroup>
