@@ -4,7 +4,7 @@ import "./Dropzone.css";
 class Dropzone extends Component {
   constructor(props) {
     super(props);
-    this.state = { hightlight: false };
+    this.state = { hightlight: false, fileimg: this.props.imagearr };
     this.fileInputRef = React.createRef();
 
     this.openFileDialog = this.openFileDialog.bind(this);
@@ -62,6 +62,13 @@ class Dropzone extends Component {
   }
 
   render() {
+    // const listItems = this.state.fileimg.map(item => {
+    //   return (
+    //     <div>
+    //       <img src={item.image} alt="img" />
+    //     </div>
+    //   );
+    // });
     return (
       <div
         className={`Dropzone ${this.state.hightlight ? "Highlight" : ""}`}
@@ -78,7 +85,7 @@ class Dropzone extends Component {
           multiple
           onChange={this.onFilesAdded}
         />
-        {this.props.imagearr.length > 0 && <span>Uplaoded some image</span>}
+        {this.props.imagearr.length > 0 && <span>uploaded</span>}
         {this.props.imagearr.length === 0 && (
           <img
             alt="upload"
