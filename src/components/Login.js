@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-// import { connect } from "react-redux";
-import axios from "../axios-instance";
+import { connect } from "react-redux";
+// import axios from "../axios-instance";
 
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 // import { navigate } from "@reach/router";
@@ -20,7 +20,6 @@ import {
   InputGroupText,
   Row
 } from "reactstrap";
-import { connect } from "http2";
 
 const initialState = {
   username: "",

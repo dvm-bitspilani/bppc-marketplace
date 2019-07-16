@@ -4,7 +4,7 @@ import authReducer from "../store/reducers/auth";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export const configureStore = () => {
+const configureStore = () => {
   const store = createStore(
     authReducer,
     composeEnhancers(applyMiddleware(thunk))
@@ -12,3 +12,5 @@ export const configureStore = () => {
 
   return store;
 };
+
+export default configureStore;
