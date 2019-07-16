@@ -50,8 +50,8 @@ class List extends React.Component{
           const headingstyle = {
             width: "100%",
             padding: "5px",
-            color: "grey",
-            backgroundColor: "lightgrey"
+            color: "white",
+            backgroundColor: "#28a745"
           };
       
           const spanstyle = {
@@ -91,10 +91,12 @@ class List extends React.Component{
                {books.map(({id,category,title})=> {
                 if(category == Cat){
                   return(
-                    <Label key={id} style={spanstyle} >
-                      {title}
-                      <Input type="checkbox" key={id} value={title} onChange={(e) => this.handleChange(e,id,category,title)}/>{' '} 
-                    </Label>
+                    <FormGroup check key={id}>
+                      <Label check  style={spanstyle} >
+                        <Input type="checkbox" key={id} value={title} onChange={(e) => this.handleChange(e,id,category,title)}/>{' '} 
+                        {title}
+                      </Label>
+                  </FormGroup>
                   );}
                 }) } 
             </div>
@@ -190,33 +192,16 @@ class ListTransfer extends React.Component{
      }
      onSelectBack = (e,selectedId,selectedCategory,selectedTitle) => {
       if(e.target.checked){
-          // console.log("updatedTransferList "+updatedTransferList);
           this.state.transferList2.push({
               id: (selectedId-1000),
               category:selectedCategory,
               title:selectedTitle
             });
-           
-          // console.log("updatedBooks"+updatedBooks);
-    
-        // this.setState({
-        //   transferList1: updatedTransferList
-        //  });
       }
       else{
-        // this.setState({
-        //   transferList1: this.state.transferList1.filter(function({id,category,title}){
-        //                   return (id -1000)!= selectedId;
-        //                   })
-        //     })
-          this.state.transferList1 = this.state.transferList1.filter(function({id,category,title}){
+          this.state.transferList2 = this.state.transferList2.filter(function({id,category,title}){
             return (id + 1000)!= selectedId;
             });
-        // this.state.transferList1.push({
-        //     id: selectedId,
-        //     category:selectedCategory,
-        //     title:selectedTitle
-        //   });
       }
    }
 
@@ -260,14 +245,26 @@ class ListTransfer extends React.Component{
         const containerstyle = {
             display: "flex",
             justifyContent: "center"
-          };
-
+        };
+        const buttonsContainer={
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center"         
+        }
+        const buttons={
+            width: "85%",
+            marginBottom: "15px",
+            color: "white",
+            backgroundColor: "#3f51b5",
+            boxShadow: "0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)"
+        }
         return(
             <div style={containerstyle}>
                 <List books={this.state.books} onSelect={this.onSelect}/>
-                <div column="true">
-                    <Button onClick={this.transfer}>Tranfer </Button>
-                    <Button onClick={this.transferBack}>Transfer again</Button>
+                <div column="true" style={buttonsContainer}>
+                    <Button style={buttons} onClick={this.transfer}>Select Books</Button>
+                    <Button style={buttons} onClick={this.transferBack}>Deselect Books</Button>
                 </div>
                 <List books={this.state.transferredList1} onSelect={this.onSelectBack}/>
             </div>
