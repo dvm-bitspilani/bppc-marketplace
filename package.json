@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/runtime": "^7.5.4",
     "@kenshooui/react-multi-select": "^1.1.3",
     "@material-ui/core": "^4.2.0",
     "@reach/router": "^1.2.1",

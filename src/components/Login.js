@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-// import { connect } from "react-redux";
-import axios from "../axios-instance";
+import { connect } from "react-redux";
+// import axios from "../axios-instance";
 
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { navigate } from "@reach/router";
@@ -28,11 +28,20 @@ const initialState = {
 class Login extends Component {
   state = {
     ...initialState,
-    isAuthenticated: false
+    // isAuthenticated: false
   };
 
   componentDidMount() {
     console.log(this.props.navigate);
+    if (this.props.token !== null && this.props.error === null) {
+      navigate("/dashboard");
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.token !== null && this.props.error === null) {
+      navigate("/dashboard");
+    }
   }
 
   handleChange = event => {
@@ -43,43 +52,22 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    let authData = {
-      username: this.state.username,
-      password: this.state.password
-    };
     // console.log(this.state);
-
-    axios
-      .post("/api/login/", authData)
-      .then(response => {
-        console.log("connected!");
-        console.log(response);
-
-        // navigate to dashboard once the user is authenticated
-        navigate("/dashboard");
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.props.onAuth(this.state.username, this.state.password);
     this.setState({
       ...initialState
     });
   };
 
   handleGoogleLogin = response => {
-    // console.log(response.tokenObj.id_token);
+    // console.log(response.tokenObj.id_token);     
     if (response.tokenObj !== null) {
-      let googleAuthData = { id_token: response.tokenObj.id_token };
-      axios
-        .post("/api/login/", googleAuthData)
-        .then(response => {
-          console.log("logged in with google and communicated with server");
-          console.log(response);
-        })
-        .catch(err => {
-          console.log("error from server");
-          console.log(err);
-        });
+      this.props.onAuth(null,null,response.tokenObj.id_token);
+      if (this.props.token !== null && this.props.error !== null) {
+        console.log(this.props.token);
+        console.log('redirect now');
+        navigate("/dashboard");
+      }
     } else {
       console.log("google auth failed");
       window.alert("Google auth failed");
@@ -183,10 +171,20 @@ class Login extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
   return {
-    onAuth: (email, password) => dispatch(actions.auth(email, password))
+    token: state.token,
+    error: state.error
   };
 };
 
-export default Login;
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuth: (username, password, id_token) => dispatch(actions.auth(username, password, id_token)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

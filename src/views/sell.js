@@ -15,6 +15,7 @@ import {
   Label,
   Input
 } from "reactstrap";
+import Dropzone from "./dropzone/Dropzone";
 
 class List extends React.Component{
     constructor(props){
@@ -273,12 +274,26 @@ class ListTransfer extends React.Component{
 }
 
 class FileInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.uploadChange = this.uploadChange.bind(this);
+    this.state = {
+      imagesupload: []
+    };
+  }
+
+  uploadChange(files) {
+    console.log(files);
+    const imagesupload = Object.assign([], this.state.imagesupload);
+    imagesupload.push(files);
+    this.setState({ imagesupload });
+  }
   render() {
     return (
       <div>
         <Container>
           <Form>
-            <Label>
+            {/* <Label>
               <Label for="exampleCustomFileBrowser">Upload an Image</Label>
               <CustomInput
                 type="file"
@@ -286,7 +301,15 @@ class FileInput extends React.Component {
                 name="customFile"
                 label="pick a file"
               />
-            </Label>
+            </Label> */}
+            <div className="App">
+              <div className="Card">
+                <Dropzone
+                  onFilesAdded={this.uploadChange}
+                  imagearr={this.state.imagesupload}
+                />
+              </div>
+            </div>
             <FormGroup>
               <Label for="exampleText">Description</Label>
               <Input type="textarea" name="text" id="exampleText" />
