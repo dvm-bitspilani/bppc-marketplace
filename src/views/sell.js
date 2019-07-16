@@ -243,7 +243,6 @@ class ListTransfer extends React.Component{
     }
 
     render(){
-    
         const containerstyle = {
             display: "flex",
             justifyContent: "center"
@@ -341,7 +340,7 @@ class TagsContainer extends React.Component{
   add = (e) =>{
     let current =  this.state.currentTag;
     let alltags = this.state.tags;
-    if(current != null){
+    if(current != null && alltags.length <= 4){
     alltags.push(current);}
     this.setState({
       tags: alltags,
