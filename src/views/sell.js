@@ -317,7 +317,7 @@ class FileInput extends React.Component {
     );
   }
 }
-class Tags extends React.Component{
+class TagsContainer extends React.Component{
   constructor(props){
     super(props);
     this.state = {
@@ -349,6 +349,16 @@ class Tags extends React.Component{
       pressed: true
     });
   }
+  removeTag = (value) =>{
+    let tags = this.state.tags;
+    tags = tags.filter(function(tag){
+      return tag !=value;
+    });
+    this.setState({
+        tags:tags
+      }
+    );
+  }
   render(){
     let tags =this.state.tags;
     let tagContainer = {
@@ -359,6 +369,40 @@ class Tags extends React.Component{
       marginBottom: "10px",
       width:"100%"  
     }
+    const button={
+      marginTop: "15px",
+      color: "white",
+      backgroundColor: "#3f51b5",
+      boxShadow: "0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)"
+  }
+    return(
+      <div>
+        <div style={tagContainer}>{
+          tags.map((el,index)=>
+            {
+              return (<Tags value={el} key={index} onPress={this.removeTag}/>)
+            }
+          )
+        }</div>
+        <span>
+          <Input onChange={this.input}></Input>
+          <Button onClick={this.add} style={button}>Add</Button>
+        </span>
+      </div>
+    )
+  }
+}
+class Tags extends React.Component{
+  constructor(props){
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+   }
+   handleClick = (e) =>{
+    this.props.onPress(this.props.value);
+  }
+  
+  render(){
+
     let tagStyle = {
       margin: "5px",
       color: "white",
@@ -372,26 +416,13 @@ class Tags extends React.Component{
     let icon ={
       marginLeft: "7px"
     }
-    const button={
-      marginTop: "15px",
-      color: "white",
-      backgroundColor: "#3f51b5",
-      boxShadow: "0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)"
-  }
+
+    
     return(
-      <div>
-        <div style={tagContainer}>{
-          tags.map((el,index)=>
-            {
-              return (<div key={index} style={tagStyle}>{el}<ion-icon style={icon} name="close"></ion-icon></div>)
-            }
-          )
-        }</div>
-        <span>
-          <Input onChange={this.input}></Input>
-          <Button onClick={this.add} style={button}>Add</Button>
-        </span>
-      </div>
+      <div style={tagStyle}>
+        {this.props.value}
+        <ion-icon style={icon} name="close" onClick={this.handleClick}></ion-icon>
+    </div>
     )
   }
 }
@@ -409,7 +440,7 @@ class Description extends React.Component{
       </FormGroup>
       <FormGroup>
               <Label for="exampleText">Enter the additional material that you have such as slides etc.(Max 5):</Label>
-              <Tags></Tags>
+              <TagsContainer/>
       </FormGroup>
       <FormGroup>
               <Label for="exampleText">Any other details you would like to share with buyer</Label>
@@ -437,17 +468,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function getSteps() {
-  return ["Select Books which you want to sell", "Upload pictures","Description"];
+  return ["Select Books which you want to sell", "Upload pictures","Description and Tags"];
 }
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <Description/>;
+      return <ListTransfer/>;
     case 1:
       return <FileInput/>;
     case 2:
-      return <ListTransfer/>;
+      return <Description/>;
     default:
       return "Unknown step";
   }
