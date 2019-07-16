@@ -16,168 +16,263 @@ import {
   Input
 } from "reactstrap";
 
-class ListTransfer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.onSelect = this.onSelect.bind(this);
-    this.state = {
-      books: [
-        {
-          id: 1,
-          category: "Thermodynamics",
-          title: "Book 1"
-        },
-        {
-          id: 2,
-          category: "Thermodynamics",
-          title: "Book 2"
-        },
-        {
-          id: 3,
-          category: "MeOW",
-          title: "Book 1"
-        },
-        {
-          id: 4,
-          category: "MeOW",
-          title: "Book 2"
-        },
-        {
-          id: 5,
-          category: "Biology",
-          title: "Book 1"
-        },
-        {
-          id: 6,
-          category: "Biology",
-          title: "Book 2"
+class List extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            books: this.props.books
         }
-      ],
-      selectedItems: [],
-      selectedBooks: [],
-      transferredBooks: []
-    };
-  }
-  handleClick = i => {
-    const books = Object.assign([], this.state.books);
-    const selectedbooks = Object.assign([], this.state.selectedbooks);
-    selectedbooks.push(books[i]);
-    delete books[i];
-    this.setState({ booksoption: books, selectedbooks: selectedbooks });
-    console.log(this.state.selectedbooks);
-  };
-
-  removehandleClick = i => {
-    const booksoption = Object.assign([], this.state.booksoption);
-    const selectedbooks = Object.assign([], this.state.selectedbooks);
-    booksoption.push(selectedbooks[i]);
-    delete selectedbooks[i];
-    this.setState({ booksoption: booksoption, selectedbooks: selectedbooks });
-  };
-
-  handleChange(selectedItems) {
-    this.setState({ selectedItems });
-  }
-  onSelect = e => {
-     if(e.target.checked){
-       this.state.selectedBooks.push(e.target.value);
-     }
-     console.log(this.state.selectedBooks);
-  }
-  render() {
-    const items = this.state.books;
-
-    const divStyle = {
-      width: "45%",
-      height: "50vh",
-      border: "1px solid grey",
-      margin: "auto",
-      borderRadius: "5px",
-      overflowX: "hidden"
-    };
-    const groupstyle = {
-      width: "100%",
-      height: "auto",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-evenly"
-    };
-    const headingstyle = {
-      width: "100%",
-      padding: "5px",
-      color: "grey",
-      backgroundColor: "lightgrey"
-    };
-
-    const spanstyle = {
-      width: "50%",
-      padding: "5px"
-    };
-
-    const containerstyle = {
-      display: "flex",
-      justifyContent: "center"
-    };
-
-    const cats = items.reduce((catsSoFar, { category, title }) => {
-      if (!catsSoFar[category]) catsSoFar[category] = [];
-      catsSoFar[category].push(title);
-      return catsSoFar;
-    }, {});
-
-    console.log(cats);
-
-    // const show = Object.keys(cats).map(key => {
-    //   return (
-    //     <div key={key} style={groupstyle} onChange={this.onSelect}>
-    //       <span style={headingstyle}>{key}</span>
-
-    //       {cats[key].map(dataItem => {
-            
-    //         return (
-    //            /* <span key={Math.random()} style={spanstyle}>
-    //              {dataItem}
-    //            </span> */
-    //           <Label >
-    //           <Input type="checkbox" key={Math.random()} style={spanstyle}/>{' '}
-    //             {dataItem}
-    //           </Label>
-    //         );
-          
-    //       })
-    //       }
-    //     </div>
-    //   );
-    // });
-    const show= <div>hehe</div>
-
-    // const booklist = this.state.booksoption.map((item, i) => (
-    //   <option key={i} onClick={() => this.handleClick(i)}>
-    //     {item}
-    //   </option>
-    // ));
-
-    // const newlist = this.state.selectedbooks.map((item, i) => (
-    //   <option key={i} onClick={() => this.removehandleClick(i)}>
-    //     {item}
-    //   </option>
-    // ));
-    const listtransfer = (
-      <div style={containerstyle}>
+        this.handleChange = this.handleChange.bind(this);
+    }
+    componentWillReceiveProps(newProps) {
+        this.setState({ books: newProps.books });  
+    }
       
-        <div className="bookslist" style={divStyle}>
-          <div style={groupstyle}>{show}</div>
-        </div>
-        <div column="true">
-        <Button>Tranfer -></Button>
-        <Button>Transfer again</Button>
-        </div>
-        <div className="bookslist" style={divStyle} />
-      </div>
-    );
-    return <div>{listtransfer}</div>;
-  }
+    handleChange = (e,id,category,title) =>{
+        this.props.onSelect(e,id,category,title);
+    }
+    render(){
+        const divStyle = {
+            width: "45%",
+            height: "50vh",
+            border: "1px solid grey",
+            margin: "auto",
+            borderRadius: "5px",
+            overflowX: "hidden"
+          };
+          const groupstyle = {
+            width: "100%",
+            height: "auto",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-evenly"
+          };
+          const headingstyle = {
+            width: "100%",
+            padding: "5px",
+            color: "grey",
+            backgroundColor: "lightgrey"
+          };
+      
+          const spanstyle = {
+            width: "100%",
+            padding: "5px"
+          };
+
+          const books = [];
+          const categories = [];
+          var items = this.state.books;
+
+          items.map(({id,category, title}) => {
+            let alreadyCat=false;
+            categories.map(cat => {
+              if(category == cat){alreadyCat= true};
+            })
+            // console.log(alreadyCat); 
+            if(!alreadyCat){
+              const Cat = category;
+              categories.push(category);
+              items.map(({id,category, title}) => {
+                // console.log("category == b "+ (Cat) + " " + (category) + " " + (Cat== category));
+                if(Cat == category){
+                  books.push({
+                   id:id,
+                   category: category,
+                   title:title
+                  });
+                }
+              })
+            }
+          });
+          let showList = categories.map((Cat,index) => {
+            return(
+            <div key={index} style={groupstyle}>
+               <span style={headingstyle}>{Cat}</span>
+               {books.map(({id,category,title})=> {
+                if(category == Cat){
+                  return(
+                    <Label key={id} style={spanstyle} >
+                      {title}
+                      <Input type="checkbox" key={id} value={title} onChange={(e) => this.handleChange(e,id,category,title)}/>{' '} 
+                    </Label>
+                  );}
+                }) } 
+            </div>
+            )
+          }) ;
+
+        return(
+            <div className="bookslist" style={divStyle}>
+            <div style={groupstyle}>{showList}</div>
+            </div>
+        )
+    }
+
+
+}
+class ListTransfer extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            books: [
+                {
+                  id: 1,
+                  category: "Thermodynamics",
+                  title: "Book 1"
+                },
+                {
+                  id: 2,
+                  category: "Thermodynamics",
+                  title: "Book 2"
+                },
+                {
+                  id: 3,
+                  category: "MeOW",
+                  title: "Book 1"
+                },
+                {
+                  id: 4,
+                  category: "MeOW",
+                  title: "Book 2"
+                },
+                {
+                  id: 5,
+                  category: "Biology",
+                  title: "Book 1"
+                },
+                {
+                  id: 6,
+                  category: "Biology",
+                  title: "Book 2"
+                }
+              ],
+            transferList1:[],
+            transferList2:[],
+            transferredList1:[],
+            isbuttonClicked: false
+        }
+      this.onSelect = this.onSelect.bind(this);
+      this.transfer = this.transfer.bind(this);
+      this.transferBack = this.transferBack.bind(this);
+      this.onSelectBack = this.onSelectBack.bind(this);
+    }
+
+    onSelect = (e,selectedId,selectedCategory,selectedTitle) => {
+        if(e.target.checked){
+            // console.log("updatedTransferList "+updatedTransferList);
+            this.state.transferList1.push({
+                id: (selectedId+1000),
+                category:selectedCategory,
+                title:selectedTitle
+              });
+             
+            // console.log("updatedBooks"+updatedBooks);
+      
+          // this.setState({
+          //   transferList1: updatedTransferList
+          //  });
+        }
+        else{
+          // this.setState({
+          //   transferList1: this.state.transferList1.filter(function({id,category,title}){
+          //                   return (id -1000)!= selectedId;
+          //                   })
+          //     })
+            this.state.transferList1 = this.state.transferList1.filter(function({id,category,title}){
+              return (id -1000)!= selectedId;
+              });
+          // this.state.transferList1.push({
+          //     id: selectedId,
+          //     category:selectedCategory,
+          //     title:selectedTitle
+          //   });
+        }
+     }
+     onSelectBack = (e,selectedId,selectedCategory,selectedTitle) => {
+      if(e.target.checked){
+          // console.log("updatedTransferList "+updatedTransferList);
+          this.state.transferList2.push({
+              id: (selectedId-1000),
+              category:selectedCategory,
+              title:selectedTitle
+            });
+           
+          // console.log("updatedBooks"+updatedBooks);
+    
+        // this.setState({
+        //   transferList1: updatedTransferList
+        //  });
+      }
+      else{
+        // this.setState({
+        //   transferList1: this.state.transferList1.filter(function({id,category,title}){
+        //                   return (id -1000)!= selectedId;
+        //                   })
+        //     })
+          this.state.transferList1 = this.state.transferList1.filter(function({id,category,title}){
+            return (id + 1000)!= selectedId;
+            });
+        // this.state.transferList1.push({
+        //     id: selectedId,
+        //     category:selectedCategory,
+        //     title:selectedTitle
+        //   });
+      }
+   }
+
+    transfer = (e) =>{        
+        const transferredBooks = this.state.transferList1;
+        let updatedBooks = this.state.books;  
+        // console.log("updatedBooks"+this.state.books);
+
+        transferredBooks.map(function(list){
+          updatedBooks = updatedBooks.filter(function(obj){
+          console.log(list.id);
+          return (obj.id != (list.id-1000));
+          })
+        })
+        this.setState({
+          transferredList1: this.state.transferredList1.concat(transferredBooks),
+          books: updatedBooks,
+          transferList1: []
+        }); 
+    }
+    transferBack = (e) =>{
+      const transferredBooks = this.state.transferList2;
+        let updatedBooks = this.state.transferredList1;  
+        // console.log("updatedBooks"+this.state.books);
+
+        transferredBooks.map(function(list){
+          updatedBooks = updatedBooks.filter(function(obj){
+          console.log(list.id);
+          return (obj.id != (list.id+1000));
+          })
+        })
+        this.setState({
+          books: this.state.books.concat(transferredBooks),
+          transferredList1: updatedBooks,
+          transferList2: []
+        }); 
+    }
+
+    render(){
+    
+        const containerstyle = {
+            display: "flex",
+            justifyContent: "center"
+          };
+
+        return(
+            <div style={containerstyle}>
+                <List books={this.state.books} onSelect={this.onSelect}/>
+                <div column="true">
+                    <Button onClick={this.transfer}>Tranfer </Button>
+                    <Button onClick={this.transferBack}>Transfer again</Button>
+                </div>
+                <List books={this.state.transferredList1} onSelect={this.onSelectBack}/>
+            </div>
+        )
+    }
 }
 
 class FileInput extends React.Component {
@@ -229,7 +324,7 @@ function getSteps() {
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <ListTransfer />;
+      return <ListTransfer/>;
     case 1:
       return <FileInput />;
     case 2:
