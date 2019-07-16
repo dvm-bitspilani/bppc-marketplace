@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 // import axios from "../axios-instance";
 
 import { GoogleLogin, GoogleLogout } from "react-google-login";
-// import { navigate } from "@reach/router";
+import { navigate } from "@reach/router";
 import * as actions from "../store/actions/index";
 
 import {
@@ -28,11 +28,20 @@ const initialState = {
 class Login extends Component {
   state = {
     ...initialState,
-    isAuthenticated: false
+    // isAuthenticated: false
   };
 
   componentDidMount() {
     console.log(this.props.navigate);
+    if (this.props.token !== null && this.props.error === null) {
+      navigate("/dashboard");
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.token !== null && this.props.error === null) {
+      navigate("/dashboard");
+    }
   }
 
   handleChange = event => {
@@ -51,9 +60,14 @@ class Login extends Component {
   };
 
   handleGoogleLogin = response => {
-    // console.log(response.tokenObj.id_token);
+    // console.log(response.tokenObj.id_token);     
     if (response.tokenObj !== null) {
-      this.props.onGoogleAuth(response.tokenObj.id_token);
+      this.props.onAuth(null,null,response.tokenObj.id_token);
+      if (this.props.token !== null && this.props.error !== null) {
+        console.log(this.props.token);
+        console.log('redirect now');
+        navigate("/dashboard");
+      }
     } else {
       console.log("google auth failed");
       window.alert("Google auth failed");
@@ -157,12 +171,20 @@ class Login extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
   return {
-    onAuth: (username, password) => dispatch(actions.auth(username, password)),
-    onGoogleAuth: (id_token) => dispatch(actions.googleAuth(id_token))
+    token: state.token,
+    error: state.error
   };
 };
 
-export default connect(null, mapDispatchToProps)(Login);
- 
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuth: (username, password, id_token) => dispatch(actions.auth(username, password, id_token)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

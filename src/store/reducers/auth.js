@@ -20,7 +20,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.AUTH_SUCCESS:
       return {
         ...state,
-        token: action.authData.jwt,
+        token: action.authData.JWT,
         userId: action.authData.user_id,
         name: action.authData.name,
         email: action.authData.email,

@@ -1,19 +1,21 @@
 import axios from "../../axios-instance";
 import * as actionTypes from "./actionTypes";
 
-import { navigate } from "@reach/router";
+// import { navigate } from "@reach/router";
 
 export const authStart = () => {
   return {
     type: actionTypes.AUTH_START
   };
 };
+
 export const authSuccess = authData => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     authData: authData
   };
 };
+
 export const authFail = error => {
   return {
     type: actionTypes.AUTH_FAIL,
@@ -21,7 +23,28 @@ export const authFail = error => {
   };
 };
 
-export const auth = (username, password) => {
+export const auth = (username, password, id_token) => {
+  if (id_token !== null) {
+    // google login
+    console.log('google login called')
+    let googleAuthData = { id_token: id_token };
+
+    return dispatch => {
+      dispatch(authStart());
+      axios
+        .post("/api/login/", googleAuthData)
+        .then(response => {
+          console.log("logged in with google and communicated with server");
+          console.log(response);
+          dispatch(authSuccess(response.data));
+        })
+        .catch(err => {
+          console.log("error from server");
+          console.log(err);
+          dispatch(authFail(err));
+        });
+    };
+  }
   return dispatch => {
     let authData = {
       username: username,
@@ -35,7 +58,7 @@ export const auth = (username, password) => {
         console.log(response);
         dispatch(authSuccess(response.data));
         // navigate to dashboard once the user is authenticated
-        navigate("/dashboard");
+        // navigate("/dashboard");
       })
       .catch(err => {
         console.log(err);
@@ -44,22 +67,22 @@ export const auth = (username, password) => {
   };
 };
 
-export const googleAuth = id_token => {
-  let googleAuthData = { id_token: id_token };
+// export const googleAuth = id_token => {
+//   let googleAuthData = { id_token: id_token };
 
-  return dispatch => {
-    dispatch(authStart());
-    axios
-      .post("/api/login/", googleAuthData)
-      .then(response => {
-        console.log("logged in with google and communicated with server");
-        console.log(response);
-        dispatch(authSuccess(response.data));
-      })
-      .catch(err => {
-        console.log("error from server");
-        console.log(err);
-        dispatch(authFail(err));
-      });
-  };
-};
+//   return dispatch => {
+//     dispatch(authStart());
+//     axios
+//       .post("/api/login/", googleAuthData)
+//       .then(response => {
+//         console.log("logged in with google and communicated with server");
+//         console.log(response);
+//         dispatch(authSuccess(response.data));
+//       })
+//       .catch(err => {
+//         console.log("error from server");
+//         console.log(err);
+//         dispatch(authFail(err));
+//       });
+//   };
+// };
