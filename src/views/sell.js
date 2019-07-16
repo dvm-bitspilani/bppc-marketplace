@@ -426,11 +426,54 @@ class Tags extends React.Component{
   }
 }
 
+class AdditionalDetails extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      additionalDetails : {
+        // border: "black solid 10px"
+      }
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.charactersLimitation =this.charactersLimitation.bind(this);
+
+  }
+  handleChange= (e) =>{
+    this.props.handleChange(e.target.value,this.props.styles);
+  }
+  charactersLimitation = (e) =>{
+    if(e.target.value.length > 200){
+      this.setState({
+        additionalDetails: {
+          // boxShadow: "0px 1px 5px 0px red, 0px 2px 2px 0px red, 0px 3px 1px -2px red" 
+             boxShadow:"0 0 0 0.2rem rgba(255,0,0,0.25)" ,
+             border: "1px solid red"        
+        }
+      })
+    }else{
+      this.setState({
+        additionalDetails: {
+        }
+      })
+    }
+  }
+  render(){
+  
+    return(
+      <div>
+      <Input type="textarea" name="text" id="otherDetails" onChange={this.charactersLimitation} style={this.state.additionalDetails}/>
+      </div>
+    )
+  }
+} 
+
 class Description extends React.Component{
   constructor(props){
     super(props);
   }
+  
   render(){
+  
     return(
       <Form>
       <FormGroup>
@@ -442,8 +485,8 @@ class Description extends React.Component{
               <TagsContainer/>
       </FormGroup>
       <FormGroup>
-              <Label for="exampleText">Any other details you would like to share with buyer</Label>
-              <Input type="textarea" name="text" id="otherDetails" />
+              <Label for="exampleText">Any other details you would like to share with buyer(Max 200 characters)</Label>
+              <AdditionalDetails/>
       </FormGroup>
       </Form>
     )
