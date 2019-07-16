@@ -576,10 +576,11 @@ export default function VerticalLinearStepper() {
         </Stepper>
         {activeStep === steps.length && (
           <Paper square elevation={0} className={classes.resetContainer}>
-            <Typography>All steps completed - you&apos;re finished</Typography>
-            <Button onClick={handleReset} className={classes.button}>
+            <Typography>All steps are completed. You can follow up your selling status on dashboard and also, you are allowed to edit 
+              these details when you visit this page again</Typography>
+            {/* <Button onClick={handleReset} className={classes.button}>
               Reset
-            </Button>
+            </Button> */}
           </Paper>
         )}
       </div>
