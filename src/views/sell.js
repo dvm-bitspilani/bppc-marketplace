@@ -310,14 +310,33 @@ class FileInput extends React.Component {
                 />
               </div>
             </div>
-            <FormGroup>
-              <Label for="exampleText">Description</Label>
-              <Input type="textarea" name="text" id="exampleText" />
-            </FormGroup>
           </Form>
         </Container>
       </div>
     );
+  }
+}
+class Description extends React.Component{
+  constructor(props){
+    super(props);
+  }
+  render(){
+    return(
+      <Form>
+      <FormGroup>
+              <Label for="exampleText">Description:</Label>
+              <Input type="textarea" name="text" id="description" />
+      </FormGroup>
+      <FormGroup>
+              <Label for="exampleText">Enter the additional material that you have such as slides etc.(Max 5):</Label>
+              <Input type="textarea" name="text" id="exampleText" />
+      </FormGroup>
+      <FormGroup>
+              <Label for="exampleText">Any other details you would like to share with buyer</Label>
+              <Input type="textarea" name="text" id="otherDetails" />
+      </FormGroup>
+      </Form>
+    )
   }
 }
 
@@ -338,7 +357,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function getSteps() {
-  return ["Select Books which you want to sell", "Upload pictures"];
+  return ["Select Books which you want to sell", "Upload pictures","Description"];
 }
 
 function getStepContent(step) {
@@ -346,12 +365,9 @@ function getStepContent(step) {
     case 0:
       return <ListTransfer/>;
     case 1:
-      return <FileInput />;
+      return <FileInput/>;
     case 2:
-      return `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`;
+      return <Description/>;
     default:
       return "Unknown step";
   }

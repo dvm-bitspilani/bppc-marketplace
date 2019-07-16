@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { navigate } from "@reach/router";
 import * as actions from "../store/actions/index";
-
 import {
   Button,
   Card,
