@@ -16,6 +16,7 @@ import {
   Input
 } from "reactstrap";
 import Dropzone from "./dropzone/Dropzone";
+import { lightBlue } from "@material-ui/core/colors";
 
 class List extends React.Component{
     constructor(props){
@@ -316,6 +317,85 @@ class FileInput extends React.Component {
     );
   }
 }
+class Tags extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      tags:[],
+      currentTag: null,
+      pressed: false
+    }
+    this.input = this.input.bind(this);
+    this.add = this.add.bind(this);
+  }
+  input = (e)=>{
+    let el = e;
+    this.setState({
+      pressed: false,
+      currentTag: e.target.value
+    })
+    if(this.state.pressed){
+      e.target.value = null;
+    }
+  }
+  add = (e) =>{
+    let current =  this.state.currentTag;
+    let alltags = this.state.tags;
+    if(current != null){
+    alltags.push(current);}
+    this.setState({
+      tags: alltags,
+      currentTag: null,
+      pressed: true
+    });
+  }
+  render(){
+    let tags =this.state.tags;
+    let tagContainer = {
+      display: "flex",
+      alignItems: "center",
+      height: "50px",
+      boundary: lightBlue,
+      marginBottom: "10px",
+      width:"100%"  
+    }
+    let tagStyle = {
+      margin: "5px",
+      color: "white",
+      backgroundColor: "#28a745",
+      padding: "5px",
+      height: "35px",
+      borderRadius: "4px",
+      display: "flex",
+      alignItems: "center"
+    }
+    let icon ={
+      marginLeft: "7px"
+    }
+    const button={
+      marginTop: "15px",
+      color: "white",
+      backgroundColor: "#3f51b5",
+      boxShadow: "0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)"
+  }
+    return(
+      <div>
+        <div style={tagContainer}>{
+          tags.map((el,index)=>
+            {
+              return (<div key={index} style={tagStyle}>{el}<ion-icon style={icon} name="close"></ion-icon></div>)
+            }
+          )
+        }</div>
+        <span>
+          <Input onChange={this.input}></Input>
+          <Button onClick={this.add} style={button}>Add</Button>
+        </span>
+      </div>
+    )
+  }
+}
+
 class Description extends React.Component{
   constructor(props){
     super(props);
@@ -329,7 +409,7 @@ class Description extends React.Component{
       </FormGroup>
       <FormGroup>
               <Label for="exampleText">Enter the additional material that you have such as slides etc.(Max 5):</Label>
-              <Input type="textarea" name="text" id="exampleText" />
+              <Tags></Tags>
       </FormGroup>
       <FormGroup>
               <Label for="exampleText">Any other details you would like to share with buyer</Label>
@@ -363,11 +443,11 @@ function getSteps() {
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <ListTransfer/>;
+      return <Description/>;
     case 1:
       return <FileInput/>;
     case 2:
-      return <Description/>;
+      return <ListTransfer/>;
     default:
       return "Unknown step";
   }
