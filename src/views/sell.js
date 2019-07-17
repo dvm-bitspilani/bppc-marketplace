@@ -18,259 +18,282 @@ import {
 import Dropzone from "./dropzone/Dropzone";
 import { lightBlue } from "@material-ui/core/colors";
 
-class List extends React.Component{
-    constructor(props){
-        super(props);
-        this.state={
-            books: this.props.books
+class List extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      books: this.props.books
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  componentWillReceiveProps(newProps) {
+    this.setState({ books: newProps.books });
+  }
+
+  handleChange = (e, id, category, title) => {
+    this.props.onSelect(e, id, category, title);
+  };
+  render() {
+    const divStyle = {
+      width: "45%",
+      height: "50vh",
+      border: "1px solid grey",
+      margin: "auto",
+      borderRadius: "5px",
+      overflowX: "hidden"
+    };
+    const groupstyle = {
+      width: "100%",
+      height: "auto",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-evenly"
+    };
+    const headingstyle = {
+      width: "100%",
+      padding: "5px",
+      color: "white",
+      backgroundColor: "#28a745"
+    };
+
+    const spanstyle = {
+      width: "100%",
+      padding: "5px"
+    };
+
+    const books = [];
+    const categories = [];
+    var items = this.state.books;
+
+    items.map(({ id, category, title }) => {
+      let alreadyCat = false;
+      categories.map(cat => {
+        if (category === cat) {
+          alreadyCat = true;
         }
-        this.handleChange = this.handleChange.bind(this);
-    }
-    componentWillReceiveProps(newProps) {
-        this.setState({ books: newProps.books });  
-    }
-      
-    handleChange = (e,id,category,title) =>{
-        this.props.onSelect(e,id,category,title);
-    }
-    render(){
-        const divStyle = {
-            width: "45%",
-            height: "50vh",
-            border: "1px solid grey",
-            margin: "auto",
-            borderRadius: "5px",
-            overflowX: "hidden"
-          };
-          const groupstyle = {
-            width: "100%",
-            height: "auto",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-evenly"
-          };
-          const headingstyle = {
-            width: "100%",
-            padding: "5px",
-            color: "white",
-            backgroundColor: "#28a745"
-          };
-      
-          const spanstyle = {
-            width: "100%",
-            padding: "5px"
-          };
-
-          const books = [];
-          const categories = [];
-          var items = this.state.books;
-
-          items.map(({id,category, title}) => {
-            let alreadyCat=false;
-            categories.map(cat => {
-              if(category == cat){alreadyCat= true};
-            })
-            // console.log(alreadyCat); 
-            if(!alreadyCat){
-              const Cat = category;
-              categories.push(category);
-              items.map(({id,category, title}) => {
-                // console.log("category == b "+ (Cat) + " " + (category) + " " + (Cat== category));
-                if(Cat == category){
-                  books.push({
-                   id:id,
-                   category: category,
-                   title:title
-                  });
-                }
-              })
+      });
+      // console.log(alreadyCat);
+      if (!alreadyCat) {
+        const Cat = category;
+        categories.push(category);
+        items.map(({ id, category, title }) => {
+          // console.log("category == b "+ (Cat) + " " + (category) + " " + (Cat== category));
+          if (Cat == category) {
+            books.push({
+              id: id,
+              category: category,
+              title: title
+            });
+          }
+        });
+      }
+    });
+    let showList = categories.map((Cat, index) => {
+      return (
+        <div key={index} style={groupstyle}>
+          <span style={headingstyle}>{Cat}</span>
+          {books.map(({ id, category, title }) => {
+            if (category === Cat) {
+              return (
+                <FormGroup check key={id}>
+                  <Label check style={spanstyle}>
+                    <Input
+                      type="checkbox"
+                      key={id}
+                      value={title}
+                      onChange={e => this.handleChange(e, id, category, title)}
+                    />{" "}
+                    {title}
+                  </Label>
+                </FormGroup>
+              );
             }
-          });
-          let showList = categories.map((Cat,index) => {
-            return(
-            <div key={index} style={groupstyle}>
-               <span style={headingstyle}>{Cat}</span>
-               {books.map(({id,category,title})=> {
-                if(category == Cat){
-                  return(
-                    <FormGroup check key={id}>
-                      <Label check  style={spanstyle} >
-                        <Input type="checkbox" key={id} value={title} onChange={(e) => this.handleChange(e,id,category,title)}/>{' '} 
-                        {title}
-                      </Label>
-                  </FormGroup>
-                  );}
-                }) } 
-            </div>
-            )
-          }) ;
+          })}
+        </div>
+      );
+    });
 
-        return(
-            <div className="bookslist" style={divStyle}>
-            <div style={groupstyle}>{showList}</div>
-            </div>
-        )
-    }
-
-
+    return (
+      <div className="bookslist" style={divStyle}>
+        <div style={groupstyle}>{showList}</div>
+      </div>
+    );
+  }
 }
-class ListTransfer extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            books: [
-                {
-                  id: 1,
-                  category: "Thermodynamics",
-                  title: "Book 1"
-                },
-                {
-                  id: 2,
-                  category: "Thermodynamics",
-                  title: "Book 2"
-                },
-                {
-                  id: 3,
-                  category: "MeOW",
-                  title: "Book 1"
-                },
-                {
-                  id: 4,
-                  category: "MeOW",
-                  title: "Book 2"
-                },
-                {
-                  id: 5,
-                  category: "Biology",
-                  title: "Book 1"
-                },
-                {
-                  id: 6,
-                  category: "Biology",
-                  title: "Book 2"
-                }
-              ],
-            transferList1:[],
-            transferList2:[],
-            transferredList1:[],
-            isbuttonClicked: false
+class ListTransfer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      books: [
+        {
+          id: 1,
+          category: "Thermodynamics",
+          title: "Book 1"
+        },
+        {
+          id: 2,
+          category: "Thermodynamics",
+          title: "Book 2"
+        },
+        {
+          id: 3,
+          category: "MeOW",
+          title: "Book 1"
+        },
+        {
+          id: 4,
+          category: "MeOW",
+          title: "Book 2"
+        },
+        {
+          id: 5,
+          category: "Biology",
+          title: "Book 1"
+        },
+        {
+          id: 6,
+          category: "Biology",
+          title: "Book 2"
         }
-      this.onSelect = this.onSelect.bind(this);
-      this.transfer = this.transfer.bind(this);
-      this.transferBack = this.transferBack.bind(this);
-      this.onSelectBack = this.onSelectBack.bind(this);
+      ],
+      transferList1: [],
+      transferList2: [],
+      transferredList1: [],
+      isbuttonClicked: false
+    };
+    this.onSelect = this.onSelect.bind(this);
+    this.transfer = this.transfer.bind(this);
+    this.transferBack = this.transferBack.bind(this);
+    this.onSelectBack = this.onSelectBack.bind(this);
+  }
+
+  onSelect = (e, selectedId, selectedCategory, selectedTitle) => {
+    if (e.target.checked) {
+      // console.log("updatedTransferList "+updatedTransferList);
+      this.state.transferList1.push({
+        id: selectedId + 1000,
+        category: selectedCategory,
+        title: selectedTitle
+      });
+
+      // console.log("updatedBooks"+updatedBooks);
+
+      // this.setState({
+      //   transferList1: updatedTransferList
+      //  });
+    } else {
+      // this.setState({
+      //   transferList1: this.state.transferList1.filter(function({id,category,title}){
+      //                   return (id -1000)!= selectedId;
+      //                   })
+      //     })
+      let transferList1 = this.state.transferList1.filter(function({
+        id,
+        category,
+        title
+      }) {
+        return id - 1000 !== selectedId;
+      });
+
+      this.setState({ transferList1: transferList1 });
+      // this.state.transferList1.push({
+      //     id: selectedId,
+      //     category:selectedCategory,
+      //     title:selectedTitle
+      //   });
     }
-
-    onSelect = (e,selectedId,selectedCategory,selectedTitle) => {
-        if(e.target.checked){
-            // console.log("updatedTransferList "+updatedTransferList);
-            this.state.transferList1.push({
-                id: (selectedId+1000),
-                category:selectedCategory,
-                title:selectedTitle
-              });
-             
-            // console.log("updatedBooks"+updatedBooks);
-      
-          // this.setState({
-          //   transferList1: updatedTransferList
-          //  });
-        }
-        else{
-          // this.setState({
-          //   transferList1: this.state.transferList1.filter(function({id,category,title}){
-          //                   return (id -1000)!= selectedId;
-          //                   })
-          //     })
-            this.state.transferList1 = this.state.transferList1.filter(function({id,category,title}){
-              return (id -1000)!= selectedId;
-              });
-          // this.state.transferList1.push({
-          //     id: selectedId,
-          //     category:selectedCategory,
-          //     title:selectedTitle
-          //   });
-        }
-     }
-     onSelectBack = (e,selectedId,selectedCategory,selectedTitle) => {
-      if(e.target.checked){
-          this.state.transferList2.push({
-              id: (selectedId-1000),
-              category:selectedCategory,
-              title:selectedTitle
-            });
-      }
-      else{
-          this.state.transferList2 = this.state.transferList2.filter(function({id,category,title}){
-            return (id + 1000)!= selectedId;
-            });
-      }
-   }
-
-    transfer = (e) =>{        
-        const transferredBooks = this.state.transferList1;
-        let updatedBooks = this.state.books;  
-        // console.log("updatedBooks"+this.state.books);
-
-        transferredBooks.map(function(list){
-          updatedBooks = updatedBooks.filter(function(obj){
-          console.log(list.id);
-          return (obj.id != (list.id-1000));
-          })
-        })
-        this.setState({
-          transferredList1: this.state.transferredList1.concat(transferredBooks),
-          books: updatedBooks,
-          transferList1: []
-        }); 
+  };
+  onSelectBack = (e, selectedId, selectedCategory, selectedTitle) => {
+    if (e.target.checked) {
+      this.state.transferList2.push({
+        id: selectedId - 1000,
+        category: selectedCategory,
+        title: selectedTitle
+      });
+    } else {
+      let transferList2 = this.state.transferList2.filter(function({
+        id,
+        category,
+        title
+      }) {
+        return id + 1000 != selectedId;
+      });
+      this.setState({ transferList2: transferList2 });
     }
-    transferBack = (e) =>{
-      const transferredBooks = this.state.transferList2;
-        let updatedBooks = this.state.transferredList1;  
-        // console.log("updatedBooks"+this.state.books);
+  };
 
-        transferredBooks.map(function(list){
-          updatedBooks = updatedBooks.filter(function(obj){
-          console.log(list.id);
-          return (obj.id != (list.id+1000));
-          })
-        })
-        this.setState({
-          books: this.state.books.concat(transferredBooks),
-          transferredList1: updatedBooks,
-          transferList2: []
-        }); 
-    }
+  transfer = e => {
+    const transferredBooks = this.state.transferList1;
+    let updatedBooks = this.state.books;
+    // console.log("updatedBooks"+this.state.books);
 
-    render(){
-        const containerstyle = {
-            display: "flex",
-            justifyContent: "center"
-        };
-        const buttonsContainer={
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            alignItems: "center"         
-        }
-        const buttons={
-            width: "85%",
-            marginBottom: "15px",
-            color: "white",
-            backgroundColor: "#3f51b5",
-            boxShadow: "0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)"
-        }
-        return(
-            <div style={containerstyle}>
-                <List books={this.state.books} onSelect={this.onSelect}/>
-                <div column="true" style={buttonsContainer}>
-                    <Button style={buttons} onClick={this.transfer}>Select Books</Button>
-                    <Button style={buttons} onClick={this.transferBack}>Deselect Books</Button>
-                </div>
-                <List books={this.state.transferredList1} onSelect={this.onSelectBack}/>
-            </div>
-        )
-    }
+    transferredBooks.map(function(list) {
+      updatedBooks = updatedBooks.filter(function(obj) {
+        console.log(list.id);
+        return obj.id !== list.id - 1000;
+      });
+    });
+    this.setState({
+      transferredList1: this.state.transferredList1.concat(transferredBooks),
+      books: updatedBooks,
+      transferList1: []
+    });
+  };
+  transferBack = e => {
+    const transferredBooks = this.state.transferList2;
+    let updatedBooks = this.state.transferredList1;
+    // console.log("updatedBooks"+this.state.books);
+
+    transferredBooks.map(function(list) {
+      updatedBooks = updatedBooks.filter(function(obj) {
+        console.log(list.id);
+        return obj.id !== list.id + 1000;
+      });
+    });
+    this.setState({
+      books: this.state.books.concat(transferredBooks),
+      transferredList1: updatedBooks,
+      transferList2: []
+    });
+  };
+
+  render() {
+    const containerstyle = {
+      display: "flex",
+      justifyContent: "center"
+    };
+    const buttonsContainer = {
+      display: "flex",
+      justifyContent: "center",
+      flexDirection: "column",
+      alignItems: "center"
+    };
+    const buttons = {
+      width: "85%",
+      marginBottom: "15px",
+      color: "white",
+      backgroundColor: "#3f51b5",
+      boxShadow:
+        "0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)"
+    };
+    return (
+      <div style={containerstyle}>
+        <List books={this.state.books} onSelect={this.onSelect} />
+        <div column="true" style={buttonsContainer}>
+          <Button style={buttons} onClick={this.transfer}>
+            Select Books
+          </Button>
+          <Button style={buttons} onClick={this.transferBack}>
+            Deselect Books
+          </Button>
+        </div>
+        <List
+          books={this.state.transferredList1}
+          onSelect={this.onSelectBack}
+        />
+      </div>
+    );
+  }
 }
 
 class FileInput extends React.Component {
@@ -316,92 +339,92 @@ class FileInput extends React.Component {
     );
   }
 }
-class TagsContainer extends React.Component{
-  constructor(props){
+class TagsContainer extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
-      tags:[],
+      tags: [],
       currentTag: null,
       pressed: false
-    }
+    };
     this.input = this.input.bind(this);
     this.add = this.add.bind(this);
   }
-  input = (e)=>{
+  input = e => {
     let el = e;
     this.setState({
       pressed: false,
       currentTag: e.target.value
-    })
-    if(this.state.pressed){
+    });
+    if (this.state.pressed) {
       e.target.value = null;
     }
-  }
-  add = (e) =>{
-    let current =  this.state.currentTag;
+  };
+  add = e => {
+    let current = this.state.currentTag;
     let alltags = this.state.tags;
-    if(current != null && alltags.length <= 4){
-    alltags.push(current);}
+    if (current != null && alltags.length <= 4) {
+      alltags.push(current);
+    }
     this.setState({
       tags: alltags,
       currentTag: null,
       pressed: true
     });
-  }
-  removeTag = (value) =>{
+  };
+  removeTag = value => {
     let tags = this.state.tags;
-    tags = tags.filter(function(tag){
-      return tag !=value;
+    tags = tags.filter(function(tag) {
+      return tag !== value;
     });
     this.setState({
-        tags:tags
-      }
-    );
-  }
-  render(){
-    let tags =this.state.tags;
+      tags: tags
+    });
+  };
+  render() {
+    let tags = this.state.tags;
     let tagContainer = {
       display: "flex",
       alignItems: "center",
       height: "50px",
       boundary: lightBlue,
       marginBottom: "10px",
-      width:"100%"  
-    }
-    const button={
+      width: "100%"
+    };
+    const button = {
       marginTop: "15px",
       color: "white",
       backgroundColor: "#3f51b5",
-      boxShadow: "0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)"
-  }
-    return(
+      boxShadow:
+        "0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)"
+    };
+    return (
       <div>
-        <div style={tagContainer}>{
-          tags.map((el,index)=>
-            {
-              return (<Tags value={el} key={index} onPress={this.removeTag}/>)
-            }
-          )
-        }</div>
+        <div style={tagContainer}>
+          {tags.map((el, index) => {
+            return <Tags value={el} key={index} onPress={this.removeTag} />;
+          })}
+        </div>
         <span>
-          <Input onChange={this.input}></Input>
-          <Button onClick={this.add} style={button}>Add</Button>
+          <Input onChange={this.input} />
+          <Button onClick={this.add} style={button}>
+            Add
+          </Button>
         </span>
       </div>
-    )
+    );
   }
 }
-class Tags extends React.Component{
-  constructor(props){
+class Tags extends React.Component {
+  constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
-   }
-   handleClick = (e) =>{
-    this.props.onPress(this.props.value);
   }
-  
-  render(){
+  handleClick = e => {
+    this.props.onPress(this.props.value);
+  };
 
+  render() {
     let tagStyle = {
       margin: "5px",
       color: "white",
@@ -411,85 +434,92 @@ class Tags extends React.Component{
       borderRadius: "4px",
       display: "flex",
       alignItems: "center"
-    }
-    let icon ={
+    };
+    let icon = {
       marginLeft: "7px"
-    }
+    };
 
-    
-    return(
+    return (
       <div style={tagStyle}>
         {this.props.value}
-        <ion-icon style={icon} name="close" onClick={this.handleClick}></ion-icon>
-    </div>
-    )
+        <ion-icon style={icon} name="close" onClick={this.handleClick} />
+      </div>
+    );
   }
 }
 
-class AdditionalDetails extends React.Component{
-  constructor(props){
+class AdditionalDetails extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
-      additionalDetails : {
+      additionalDetails: {
         // border: "black solid 10px"
       }
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
-    this.charactersLimitation =this.charactersLimitation.bind(this);
-
+    this.charactersLimitation = this.charactersLimitation.bind(this);
   }
-  handleChange= (e) =>{
-    this.props.handleChange(e.target.value,this.props.styles);
-  }
-  charactersLimitation = (e) =>{
-    if(e.target.value.length > 200){
+  handleChange = e => {
+    this.props.handleChange(e.target.value, this.props.styles);
+  };
+  charactersLimitation = e => {
+    if (e.target.value.length > 200) {
       this.setState({
         additionalDetails: {
-          // boxShadow: "0px 1px 5px 0px red, 0px 2px 2px 0px red, 0px 3px 1px -2px red" 
-             boxShadow:"0 0 0 0.2rem rgba(255,0,0,0.25)" ,
-             border: "1px solid red"        
+          // boxShadow: "0px 1px 5px 0px red, 0px 2px 2px 0px red, 0px 3px 1px -2px red"
+          boxShadow: "0 0 0 0.2rem rgba(255,0,0,0.25)",
+          border: "1px solid red"
         }
-      })
-    }else{
+      });
+    } else {
       this.setState({
-        additionalDetails: {
-        }
-      })
+        additionalDetails: {}
+      });
     }
-  }
-  render(){
-  
-    return(
+  };
+  render() {
+    return (
       <div>
-      <Input type="textarea" name="text" id="otherDetails" onChange={this.charactersLimitation} style={this.state.additionalDetails}/>
+        <Input
+          type="textarea"
+          name="text"
+          id="otherDetails"
+          onChange={this.charactersLimitation}
+          style={this.state.additionalDetails}
+        />
       </div>
-    )
+    );
   }
-} 
+}
 
-class Description extends React.Component{
-  constructor(props){
+class Description extends React.Component {
+  constructor(props) {
     super(props);
   }
-  
-  render(){
-  
-    return(
+
+  render() {
+    return (
       <Form>
-      <FormGroup>
-              <Label for="exampleText">Description:</Label>
-              <Input type="textarea" name="text" id="description" />
-      </FormGroup>
-      <FormGroup>
-              <Label for="exampleText">Enter the additional material that you have such as slides etc.(Max 5):</Label>
-              <TagsContainer/>
-      </FormGroup>
-      <FormGroup>
-              <Label for="exampleText">Any other details you would like to share with buyer(Max 200 characters)</Label>
-              <AdditionalDetails/>
-      </FormGroup>
+        <FormGroup>
+          <Label for="exampleText">Description:</Label>
+          <Input type="textarea" name="text" id="description" />
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleText">
+            Enter the additional material that you have such as slides etc.(Max
+            5):
+          </Label>
+          <TagsContainer />
+        </FormGroup>
+        <FormGroup>
+          <Label for="exampleText">
+            Any other details you would like to share with buyer(Max 200
+            characters)
+          </Label>
+          <AdditionalDetails />
+        </FormGroup>
       </Form>
-    )
+    );
   }
 }
 
@@ -510,17 +540,21 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function getSteps() {
-  return ["Select Books which you want to sell", "Upload pictures","Description and Tags"];
+  return [
+    "Select Books which you want to sell",
+    "Upload pictures",
+    "Description and Tags"
+  ];
 }
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <ListTransfer/>;
+      return <ListTransfer />;
     case 1:
-      return <FileInput/>;
+      return <FileInput />;
     case 2:
-      return <Description/>;
+      return <Description />;
     default:
       return "Unknown step";
   }
@@ -550,7 +584,9 @@ export default function VerticalLinearStepper() {
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
               <StepContent>
-                <Typography component={'span'}>{getStepContent(index)}</Typography>
+                <Typography component={"span"}>
+                  {getStepContent(index)}
+                </Typography>
                 <div className={classes.actionsContainer}>
                   <div>
                     <Button
@@ -576,8 +612,11 @@ export default function VerticalLinearStepper() {
         </Stepper>
         {activeStep === steps.length && (
           <Paper square elevation={0} className={classes.resetContainer}>
-            <Typography>All steps are completed. You can follow up your selling status on dashboard and also, you are allowed to edit 
-              these details when you visit this page again</Typography>
+            <Typography>
+              All steps are completed. You can follow up your selling status on
+              dashboard and also, you are allowed to edit these details when you
+              visit this page again
+            </Typography>
             {/* <Button onClick={handleReset} className={classes.button}>
               Reset
             </Button> */}
