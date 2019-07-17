@@ -106,7 +106,7 @@ class Register extends Component {
   };
   yearOfStudy = e => {
     // console.log(e.target.value);
-    this.setState({ yearOfStudy: e.target.value }, function() {
+    this.setState({ yearOfStudy: parseInt(e.target.value)}, function() {
       console.log(this.state.yearOfStudy);
       if (this.state.yearOfStudy !== 2019 && this.state.dualDegree) {
         this.setState({
