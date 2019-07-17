@@ -32,7 +32,7 @@ export const auth = (username, password, id_token) => {
     return dispatch => {
       dispatch(authStart());
       axios
-        .post("/api/login/", googleAuthData)
+        .post("/api/auth/login/", googleAuthData)
         .then(response => {
           console.log("logged in with google and communicated with server");
           console.log(response);
@@ -52,7 +52,7 @@ export const auth = (username, password, id_token) => {
   return dispatch => {
     dispatch(authStart());
     axios
-      .post("/api/login/", authData)
+      .post("/api/auth/login/", authData)
       .then(response => {
         console.log("connected!");
         console.log(response);
