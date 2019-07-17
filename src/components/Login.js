@@ -52,7 +52,7 @@ class Login extends Component {
   handleSubmit = event => {
     event.preventDefault();
     // console.log(this.state);
-    this.props.onAuth(this.state.username, this.state.password);
+    this.props.onAuth(this.state.username, this.state.password, null);
     this.setState({
       ...initialState
     });

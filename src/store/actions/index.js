@@ -2,4 +2,4 @@
 // export all actions here
 // ...
 
-export { auth, googleAuth } from "./auth";
+export { auth } from "./auth";
