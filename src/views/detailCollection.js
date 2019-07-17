@@ -40,7 +40,7 @@ class Register extends Component {
       yearOfStudy: 2019,
       dualDegree: false,
       singleDegree: true,
-      gender: "Male"
+      gender: "none"
     };
     this.yearOfStudy = this.yearOfStudy.bind(this);
     this.gender = this.gender.bind(this);
@@ -157,6 +157,14 @@ class Register extends Component {
   };
 
   render() {
+    let enabled;
+    if(this.state.gender=="none")
+    {enabled= true;
+    }
+    else{
+      enabled=false;
+    }
+
     return (
       <div className="app flex-row align-items-center">
         <Container>
@@ -298,6 +306,7 @@ class Register extends Component {
                           type="select"
                           id="exampleCustomSelect"
                           name="customSelect"
+                          disabled ={enabled}
                         >
                           <option value="">Select your Hostel.</option>
                           <option>Ram Bhawan</option>
@@ -314,18 +323,28 @@ class Register extends Component {
                           <option>Bhagirath Bhawan</option>
                           <option>Rana Pratap Bhawan</option>
                           <option>Ashok Bhawan</option>
-                          <option>Malviya Bhawan</option>
+                          <option>Malviya Bhawan A</option>
+                          <option>Malviya Bhawan B</option>
+                          <option>Malviya Bhawan C</option>
                         </CustomInput>
                       ) : (
                         <CustomInput
                           type="select"
                           id="exampleCustomSelect"
                           name="customSelect"
+                          disabled ={enabled}
                         >
                           <option value="">Select your Hostel.</option>
-                          <option>Meera Block A</option>
-                          <option>Meera Block B</option>
-                          <option>Meera Block C</option>
+                          <option>Meera Block 1</option>
+                          <option>Meera Block 2</option>
+                          <option>Meera Block 3</option>
+                          <option>Meera Block 4</option>
+                          <option>Meera Block 5</option>
+                          <option>Meera Block 6</option>
+                          <option>Meera Block 7</option>
+                          <option>Meera Block 8</option>
+                          <option>Meera Block 9</option>
+                          <option>Meera Block 10</option>
                         </CustomInput>
                       )}
                     </InputGroup>
