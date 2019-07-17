@@ -349,6 +349,7 @@ class TagsContainer extends React.Component {
     };
     this.input = this.input.bind(this);
     this.add = this.add.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
   input = e => {
     let el = e;
@@ -368,7 +369,7 @@ class TagsContainer extends React.Component {
     }
     this.setState({
       tags: alltags,
-      currentTag: "",
+      currentTag: "", 
       pressed: true
     });
   };
@@ -381,6 +382,12 @@ class TagsContainer extends React.Component {
       tags: tags
     });
   };
+  handleKeyPress = (e) => {
+    if(e.key === 'Enter'){
+      e.preventDefault();      
+      this.add();
+    }
+  }
   render() {
     let tags = this.state.tags;
     let tagContainer = {
@@ -406,7 +413,7 @@ class TagsContainer extends React.Component {
           })}
         </div>
         <span>
-          <Input onChange={this.input} type="text" name="taginput" id="taginput" value={currentTag}/>
+          <Input onChange={this.input} type="text" name="taginput" id="taginput" value={currentTag} onKeyPress={this.handleKeyPress}/>
           <Button onClick={this.add} style={button}>
             Add
           </Button>
@@ -550,11 +557,11 @@ function getSteps() {
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <Description />;
+      return <ListTransfer />;
     case 1:
       return <FileInput />;
     case 2:
-      return <ListTransfer />;
+      return <Description />;
     default:
       return "Unknown step";
   }
@@ -576,9 +583,10 @@ export default function VerticalLinearStepper() {
   function handleReset() {
     setActiveStep(0);
   }
+ 
   return (
     <Container>
-      <div className={classes.root}>
+      <div className={classes.root}  >
         <Stepper activeStep={activeStep} orientation="vertical">
           {steps.map((label, index) => (
             <Step key={label}>
