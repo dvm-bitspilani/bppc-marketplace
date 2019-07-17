@@ -435,6 +435,21 @@ class Register extends Component {
                         </CustomInput>
                       </InputGroup>
                     ) : null}
+                    
+                     <InputGroup className="mb-3">
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <ion-icon name="pricetag"/>
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input
+                        type="text"
+                        name="bitsId"
+                        placeholder="BITS ID"
+                        autoComplete="BitsId"
+                      />
+                    </InputGroup>
+
                     <Button color="success" block onClick={this.handleSubmit}>
                       Create Account
                     </Button>
