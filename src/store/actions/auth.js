@@ -45,11 +45,11 @@ export const auth = (username, password, id_token) => {
         });
     };
   }
+  let authData = {
+    username: username,
+    password: password
+  };
   return dispatch => {
-    let authData = {
-      username: username,
-      password: password
-    };
     dispatch(authStart());
     axios
       .post("/api/login/", authData)
