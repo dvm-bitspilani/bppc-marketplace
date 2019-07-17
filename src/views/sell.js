@@ -344,7 +344,7 @@ class TagsContainer extends React.Component {
     super(props);
     this.state = {
       tags: [],
-      currentTag: null,
+      currentTag: "",
       pressed: false
     };
     this.input = this.input.bind(this);
@@ -357,18 +357,18 @@ class TagsContainer extends React.Component {
       currentTag: e.target.value
     });
     if (this.state.pressed) {
-      e.target.value = null;
+      e.target.value = "";
     }
   };
   add = e => {
     let current = this.state.currentTag;
     let alltags = this.state.tags;
-    if (current != null && alltags.length <= 4) {
+    if (current != "" && alltags.length <= 4) {
       alltags.push(current);
     }
     this.setState({
       tags: alltags,
-      currentTag: null,
+      currentTag: "",
       pressed: true
     });
   };
@@ -397,6 +397,7 @@ class TagsContainer extends React.Component {
       boxShadow:
         "0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)"
     };
+    let currentTag = this.state.currentTag;
     return (
       <div>
         <div style={tagContainer}>
@@ -405,7 +406,7 @@ class TagsContainer extends React.Component {
           })}
         </div>
         <span>
-          <Input onChange={this.input} />
+          <Input onChange={this.input} type="text" name="taginput" id="taginput" value={currentTag}/>
           <Button onClick={this.add} style={button}>
             Add
           </Button>
@@ -549,11 +550,11 @@ function getSteps() {
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <ListTransfer />;
+      return <Description />;
     case 1:
       return <FileInput />;
     case 2:
-      return <Description />;
+      return <ListTransfer />;
     default:
       return "Unknown step";
   }
