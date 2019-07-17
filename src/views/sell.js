@@ -386,7 +386,6 @@ class TagsContainer extends React.Component {
     let tagContainer = {
       display: "flex",
       alignItems: "center",
-      height: "50px",
       boundary: lightBlue,
       marginBottom: "10px",
       width: "100%"
