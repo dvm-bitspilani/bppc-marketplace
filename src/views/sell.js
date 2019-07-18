@@ -307,9 +307,13 @@ class FileInput extends React.Component {
 
   uploadChange(files) {
     console.log(files);
-    const imagesupload = Object.assign([], this.state.imagesupload);
-    imagesupload.push(files);
-    this.setState({ imagesupload });
+    for (var i = 0; i < files.length; i++) {
+      var x = files[i];
+      console.log(x.name);
+      const imagesupload = Object.assign([], this.state.imagesupload);
+      imagesupload.push(x);
+      this.setState({ imagesupload });
+    }
   }
   render() {
     return (
@@ -369,7 +373,7 @@ class TagsContainer extends React.Component {
     }
     this.setState({
       tags: alltags,
-      currentTag: "", 
+      currentTag: "",
       pressed: true
     });
   };
@@ -382,12 +386,12 @@ class TagsContainer extends React.Component {
       tags: tags
     });
   };
-  handleKeyPress = (e) => {
-    if(e.key === 'Enter'){
-      e.preventDefault();      
+  handleKeyPress = e => {
+    if (e.key === "Enter") {
+      e.preventDefault();
       this.add();
     }
-  }
+  };
   render() {
     let tags = this.state.tags;
     let tagContainer = {
@@ -413,7 +417,14 @@ class TagsContainer extends React.Component {
           })}
         </div>
         <span>
-          <Input onChange={this.input} type="text" name="taginput" id="taginput" value={currentTag} onKeyPress={this.handleKeyPress}/>
+          <Input
+            onChange={this.input}
+            type="text"
+            name="taginput"
+            id="taginput"
+            value={currentTag}
+            onKeyPress={this.handleKeyPress}
+          />
           <Button onClick={this.add} style={button}>
             Add
           </Button>
@@ -583,10 +594,10 @@ export default function VerticalLinearStepper() {
   function handleReset() {
     setActiveStep(0);
   }
- 
+
   return (
     <Container>
-      <div className={classes.root}  >
+      <div className={classes.root}>
         <Stepper activeStep={activeStep} orientation="vertical">
           {steps.map((label, index) => (
             <Step key={label}>

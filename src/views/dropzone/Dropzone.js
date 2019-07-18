@@ -62,13 +62,13 @@ class Dropzone extends Component {
   }
 
   render() {
-    // const listItems = this.state.fileimg.map(item => {
-    //   return (
-    //     <div>
-    //       <img src={item.image} alt="img" />
-    //     </div>
-    //   );
-    // });
+    var image = [];
+    for (var i = 0; i < this.props.imagearr.length; i++) {
+      var x = this.props.imagearr[i];
+      image.push(x.name);
+      console.log(x.name);
+    }
+
     return (
       <div
         className={`Dropzone ${this.state.hightlight ? "Highlight" : ""}`}
@@ -85,7 +85,12 @@ class Dropzone extends Component {
           multiple
           onChange={this.onFilesAdded}
         />
-        {this.props.imagearr.length > 0 && <span>uploaded</span>}
+        {this.props.imagearr.length > 0 &&
+          image.map((item, index) => (
+            <span className="indent" key={index}>
+              {item}
+            </span>
+          ))}
         {this.props.imagearr.length === 0 && (
           <img
             alt="upload"
