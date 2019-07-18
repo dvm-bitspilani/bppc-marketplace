@@ -78,7 +78,7 @@ class List extends React.Component {
         categories.push(category);
         items.map(({ id, category, title }) => {
           // console.log("category == b "+ (Cat) + " " + (category) + " " + (Cat== category));
-          if (Cat == category) {
+          if (Cat === category) {
             books.push({
               id: id,
               category: category,
@@ -309,7 +309,6 @@ class FileInput extends React.Component {
     console.log(files);
     for (var i = 0; i < files.length; i++) {
       var x = files[i];
-      console.log(x.name);
       const imagesupload = Object.assign([], this.state.imagesupload);
       imagesupload.push(x);
       this.setState({ imagesupload });
@@ -368,7 +367,7 @@ class TagsContainer extends React.Component {
   add = e => {
     let current = this.state.currentTag;
     let alltags = this.state.tags;
-    if (current != "" && alltags.length <= 4) {
+    if (current !== "" && alltags.length <= 4) {
       alltags.push(current);
     }
     this.setState({
