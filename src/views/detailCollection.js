@@ -106,7 +106,7 @@ class Register extends Component {
   };
   yearOfStudy = e => {
     // console.log(e.target.value);
-    this.setState({ yearOfStudy: parseInt(e.target.value)}, function() {
+    this.setState({ yearOfStudy: parseInt(e.target.value) }, function() {
       console.log(this.state.yearOfStudy);
       if (this.state.yearOfStudy !== 2019 && this.state.dualDegree) {
         this.setState({
@@ -158,11 +158,10 @@ class Register extends Component {
 
   render() {
     let enabled;
-    if(this.state.gender=="none")
-    {enabled= true;
-    }
-    else{
-      enabled=false;
+    if (this.state.gender === "none") {
+      enabled = true;
+    } else {
+      enabled = false;
     }
 
     return (
@@ -306,7 +305,7 @@ class Register extends Component {
                           type="select"
                           id="exampleCustomSelect"
                           name="customSelect"
-                          disabled ={enabled}
+                          disabled={enabled}
                         >
                           <option value="">Select your Hostel.</option>
                           <option>Ram Bhawan</option>
@@ -332,7 +331,7 @@ class Register extends Component {
                           type="select"
                           id="exampleCustomSelect"
                           name="customSelect"
-                          disabled ={enabled}
+                          disabled={enabled}
                         >
                           <option value="">Select your Hostel.</option>
                           <option>Meera Block 1</option>
@@ -430,10 +429,10 @@ class Register extends Component {
                       </InputGroup>
                     ) : null}
 
-                      <InputGroup className="mb-3">
+                    <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                          <ion-icon name="pricetag"/>
+                          <ion-icon name="pricetag" />
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input

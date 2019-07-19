@@ -1,6 +1,6 @@
 import React from "react";
 
-import BookCarousel from '../Carousel';
+import BookCarousel from '../Modal/Carousel';
 // const carousel_items = [
 //   {
 //     src: "https://picsum.photos/300",
