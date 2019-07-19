@@ -308,7 +308,6 @@ class FileInput extends React.Component {
     console.log(files);
     for (var i = 0; i < files.length; i++) {
       var x = files[i];
-      console.log(x.name);
       const imagesupload = Object.assign([], this.state.imagesupload);
       imagesupload.push(x);
       this.setState({ imagesupload });
