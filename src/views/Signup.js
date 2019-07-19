@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import * as actions from '../store/actions/index';
+import * as actions from "../store/actions/index";
 // import { Router, Link } from "@reach/router";
 
 import {
@@ -79,7 +79,7 @@ class Register extends Component {
 
     if (this.state.password !== this.state.repeatpassword) {
       repeatpasswordError = "must be same";
-      this.setState({repeatpasswordError});
+      this.setState({ repeatpasswordError });
       return false;
     }
 
@@ -95,12 +95,12 @@ class Register extends Component {
     return true;
   };
 
-  configureRequestObj = (details) => {
+  configureRequestObj = details => {
     const requestObj = {};
 
     requestObj["name"] = details.username;
     requestObj["gender"] = details.gender;
-    requestObj["username"] = details.username;
+    requestObj["username"] = "johny45";
     requestObj["password"] = details.password;
     requestObj["email"] = details.email;
     requestObj["phone"] = details.phone;
@@ -110,14 +110,14 @@ class Register extends Component {
 
     if (details.dualDegree) {
       requestObj["is_dual_degree"] = "true";
-      requestObj["dual_branch"] = details.dual_branch.split(' ')[0];
+      requestObj["dual_branch"] = details.dual_branch.split(" ")[0];
     } else {
-      requestObj["is_dual_degree"] = "false";
-      requestObj["single_branch"] = details.single_branch.split(' ')[0];
+      requestObj["is_dual_degree"] = "";
+      requestObj["single_branch"] = details.single_branch.split(" ")[0];
     }
 
     return requestObj;
-  }
+  };
 
   handleSubmit = event => {
     event.preventDefault();
@@ -152,6 +152,13 @@ class Register extends Component {
     });
   };
 
+  // selectHostel = event => {
+  //   event.preventDefault();
+  //   this.setState({
+  //     hostel: event.target.value
+  //   });
+  // };
+
   showBothBranch = e => {
     if (e.target.value === "Single Degree") {
       this.setState({
@@ -174,7 +181,7 @@ class Register extends Component {
   };
 
   gender = e => {
-    if (e.target.value === "Male"){
+    if (e.target.value === "Male") {
       this.setState({
         gender: "M"
       });
@@ -187,11 +194,10 @@ class Register extends Component {
 
   render() {
     let enabled;
-    if(this.state.gender === "none")
-    {enabled= true;
-    }
-    else{
-      enabled=false;
+    if (this.state.gender === "none") {
+      enabled = true;
+    } else {
+      enabled = false;
     }
     return (
       <div className="app flex-row align-items-center">
@@ -330,9 +336,9 @@ class Register extends Component {
                         <CustomInput
                           type="select"
                           id="exampleCustomSelect"
-                          name="hostel" 
+                          name="hostel"
+                          disabled={enabled}
                           onChange={this.handleChange}
-                          disabled ={enabled}
                         >
                           <option value="">Select your Hostel.</option>
                           <option value="RM">Ram Bhawan</option>
@@ -352,28 +358,25 @@ class Register extends Component {
                           <option value="ML-A">Malviya Bhawan A</option>
                           <option value="ML-B">Malviya Bhawan B</option>
                           <option value="ML-C">Malviya Bhawan C</option>
-
                         </CustomInput>
                       ) : (
                         <CustomInput
                           type="select"
                           id="exampleCustomSelect"
                           name="hostel"
-                          disabled ={enabled}
-                          onChange={this.handleChange}
+                          disabled={enabled}
                         >
                           <option value="">Select your Hostel.</option>
-                          <option>Meera Block 1</option>
-                          <option>Meera Block 2</option>
-                          <option>Meera Block 3</option>
-                          <option>Meera Block 4</option>
-                          <option>Meera Block 5</option>
-                          <option>Meera Block 6</option>
-                          <option>Meera Block 7</option>
-                          <option>Meera Block 8</option>
-                          <option>Meera Block 9</option>
-                          <option>Meera Block 10</option>
-
+                          <option value="MR-1">Meera Block 1</option>
+                          <option value="MR-2">Meera Block 2</option>
+                          <option value="MR-3">Meera Block 3</option>
+                          <option value="MR-4">Meera Block 4</option>
+                          <option value="MR-5">Meera Block 5</option>
+                          <option value="MR-6">Meera Block 6</option>
+                          <option value="MR-7">Meera Block 7</option>
+                          <option value="MR-8">Meera Block 8</option>
+                          <option value="MR-9">Meera Block 9</option>
+                          <option value="MR-10">Meera Block 10</option>
                         </CustomInput>
                       )}
                     </InputGroup>
@@ -462,11 +465,11 @@ class Register extends Component {
                         </CustomInput>
                       </InputGroup>
                     ) : null}
-                    
-                     <InputGroup className="mb-3">
+
+                    <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                          <ion-icon name="pricetag"/>
+                          <ion-icon name="pricetag" />
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
@@ -506,10 +509,13 @@ class Register extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    onSignup: (signupData) => dispatch(actions.signup(signupData))
-  }
-}
+    onSignup: signupData => dispatch(actions.signup(signupData))
+  };
+};
 
-export default connect(null, mapDispatchToProps)(Register);
+export default connect(
+  null,
+  mapDispatchToProps
+)(Register);

@@ -9,7 +9,6 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import {
   Container,
-  CustomInput,
   Form,
   FormGroup,
   Label,
@@ -78,7 +77,7 @@ class List extends React.Component {
         categories.push(category);
         items.map(({ id, category, title }) => {
           // console.log("category == b "+ (Cat) + " " + (category) + " " + (Cat== category));
-          if (Cat == category) {
+          if (Cat === category) {
             books.push({
               id: id,
               category: category,
@@ -216,7 +215,7 @@ class ListTransfer extends React.Component {
         category,
         title
       }) {
-        return id + 1000 != selectedId;
+        return id + 1000 !== selectedId;
       });
       this.setState({ transferList2: transferList2 });
     }
@@ -356,7 +355,6 @@ class TagsContainer extends React.Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
   input = e => {
-    let el = e;
     this.setState({
       pressed: false,
       currentTag: e.target.value
@@ -368,7 +366,7 @@ class TagsContainer extends React.Component {
   add = e => {
     let current = this.state.currentTag;
     let alltags = this.state.tags;
-    if (current != "" && alltags.length <= 4) {
+    if (current !== "" && alltags.length <= 4) {
       alltags.push(current);
     }
     this.setState({
@@ -511,10 +509,6 @@ class AdditionalDetails extends React.Component {
 }
 
 class Description extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <Form>
