@@ -1,0 +1,22 @@
+.Summary h1 {
+  width: 100%;
+  text-align: center;
+}
+
+table.summaryTable {
+  margin: 40px auto;
+  width: 80%;
+}
+
+table.summaryTable tr td {
+  border: none;
+}
+
+/* table.summaryTable tr td {
+  display: flex;
+  justify-content: flex-start;
+} */
+
+table.summaryTable tr td:first-child {
+  font-weight: bold;
+}
