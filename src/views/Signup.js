@@ -50,7 +50,9 @@ class Register extends Component {
       yearOfStudy: 2019,
       dualDegree: false,
       singleDegree: true,
-      gender: "none"
+      gender: "none",
+      isPasswordCorrect: "none",
+      password: ""
     };
     this.yearOfStudy = this.yearOfStudy.bind(this);
     this.gender = this.gender.bind(this);
@@ -166,7 +168,7 @@ class Register extends Component {
       // console.log(authData);
     }
     // console.log(this.state);
-    if(this.state.isPasswordCorrect){
+    if(this.state.isPasswordCorrect || this.state.isPasswordCorrect==="none"){
       axios
         .post("https://market.bits-dvm.org/api/auth/signup/", authData, {
           headers: {
@@ -239,16 +241,21 @@ class Register extends Component {
   };
   
   passwordCheck = e =>{
-    if(this.state.password === this.state.repeatpassword){
-      alert("password matches");
-      this.setState({
-        isPasswordCorrect : true
-      });
-    }else{
-      alert("password do not match");
-      this.setState({
-        isPasswordCorrect : false
-      });
+    if(this.state.password === ""){
+      alert("Password is not entered");
+    }
+    else{
+      if(this.state.password === this.state.repeatpassword){
+        alert("password matches");
+        this.setState({
+          isPasswordCorrect : true
+        });
+      }else{
+        alert("password do not match");
+        this.setState({
+          isPasswordCorrect : false
+        });
+      }
     }
   }
 
