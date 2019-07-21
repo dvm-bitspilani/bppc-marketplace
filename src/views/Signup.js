@@ -44,13 +44,159 @@ class Register extends Component {
     };
     this.yearOfStudy = this.yearOfStudy.bind(this);
     this.gender = this.gender.bind(this);
+    this.handleBranch = this.handleBranch.bind(this);
+    this.handleHostel = this.handleHostel.bind(this);
   }
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
-    });
+    },console.log(this.state));
     // console.log(event.target.value);
   };
+
+  handleBranch = event =>{
+    let branch;
+    switch(event.target.value){
+      case "A1 - B.E. Chemical":
+      branch = "A1";
+      break;
+      case "A2 - B.E. Civil":
+      branch = "A2";
+      break;
+      case "A3 - B.E. Electrical and Electronics":
+      branch = "A3";
+      break;
+      case "A4 - B.E. Mechanical":
+      branch = "A4";
+      break;
+      case "A5 - B.Pharma":
+      branch = "A5";
+      break;
+      case "A7 - B.E. Computer Science":
+      branch = "A7";
+      break;
+      case "A8 - B.E. Electronics and Instrumentation":
+      branch = "A8";
+      break;
+      case "AB - B.E. Manufacturing":
+      branch = "AB";
+      break;
+      case "B1 - M.Sc. Biological Sciences":
+      branch = "B1";
+      break;
+      case "B2 - M.Sc. Chemistry":
+      branch = "B2";
+      break;
+      case "B3 - M.Sc. Economics":
+      branch = "B3";
+      break;
+      case "B4 - M.Sc. Mathematics":
+      branch = "B4";
+      break;
+      case "B5 - M.Sc. Physics":
+      branch = "B5";
+      break;
+      default:
+      branch ="none";
+      break; 
+    }
+    this.setState({
+      branch:branch
+    });
+  }
+
+  handleHostel = event =>{
+    let hostel;
+    switch(event.target.value){
+      case "Ram Bhawan":
+      hostel = "RM";
+      break;
+      case "Budh Bhawan":
+      hostel = "BUDH";
+      break;
+      case "Srinivasa Ramanujan A":
+      hostel = "SR-A";
+      break;
+      case "Srinivasa Ramanujan B":
+      hostel = "SR-B";
+      break;
+      case "Srinivasa Ramanujan C":
+      hostel = "SR-C";
+      break;
+      case "Srinivasa Ramanujan D":
+      hostel = "SR-D";
+      break;
+      case "Krishna Bhawan":
+      hostel = "KR";
+      break;
+      case "Gandhi Bhawan":
+      hostel = "GN";
+      break;
+      case "Shankar Bhawan":
+      hostel = "SK";
+      break;
+      case "Vyas Bhawan":
+      hostel = "VY";
+      break;
+      case "Vishwakarma Bhawan":
+      hostel = "VK";
+      break;
+      case "Bhagirath Bhawan":
+      hostel = "BG";
+      break;
+      case "Rana Pratap Bhawan":
+      hostel = "RP";
+      break;
+      case "Ashok Bhawan":
+      hostel = "AK";
+      break;
+      case "Malviya Bhawan A":
+      hostel = "MV-A";
+      break;
+      case "Malviya Bhawan B":
+      hostel = "MV-B";
+      break;
+      case "Malviya Bhawan C":
+      hostel = "MV-C";
+      break;
+      case "Meera Block 1":
+      hostel = "MR-1";
+      break;
+      case "Meera Block 2":
+      hostel = "MR-2";
+      break;
+      case "Meera Block 3":
+      hostel = "MR-3";
+      break;
+      case "Meera Block 4":
+      hostel = "MR-4";
+      break;
+      case "Meera Block 5":
+      hostel = "MR-5";
+      break;
+      case "Meera Block 6":
+      hostel = "MR-6";
+      break;
+      case "Meera Block 7":
+      hostel = "MR-7";
+      break;
+      case "Meera Block 8":
+      hostel = "MR-8";
+      break;
+      case "Meera Block 9":
+      hostel = "MR-9";
+      break;
+      case "Meera Block 10":
+      hostel = "MR-10";
+      break;
+      default:
+      hostel="none";
+      break;
+    }
+    this.setState({
+      hostel: hostel
+    });
+  }
 
   validate = () => {
     let usernameError = "";
@@ -90,26 +236,61 @@ class Register extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const isValid = this.validate();
-    if (isValid) {
-      let authData = {
-        username: this.state.username,
-        password: this.state.password
-      };
+    // const isValid = this.validate();
+    let authData;
+    // if (isValid) {
+      let gender;
+      if(this.state.gender === "Male"){
+        gender="M";
+      }else{
+        gender="F"; 
+      }
+      let isDualDegree = this.state.dualDegree;
+
+      if(!isDualDegree){
+        authData = {
+          name: this.state.fullName,
+          gender: gender,
+          username: this.state.username,
+          password: this.state.password,
+          email: this.state.email,
+          phone: this.state.phoneNumber,
+          bits_id: this.state.bitsId,
+          hostel: this.state.hostel,
+          room_no: this.state.roomNo,
+          is_dual_degree: "",
+          single_branch: this.state.branch
+        }
+      }else{
+        authData = {
+          name: this.state.fullName,
+          gender: gender,
+          username: this.state.username,
+          password: this.state.password,
+          email: this.state.email,
+          phone: this.state.phoneNumber,
+          bits_id: this.state.bitsId,
+          hostel: this.state.hostel,
+          room_no: this.state.roomNo,
+          is_dual_degree: true,
+          single_branch: this.state.branch
+        }
+      // }
+
+    };
       // console.log(this.state);
       axios
-        .post("url", authData)
-        .then(data => {
+        .post("https://market.bits-dvm.org/api/auth/signup/", authData)
+        .then(response => {
           console.log("Signed Up!");
-          console.log(data);
+          console.log(response);
         })
         .catch(error => {
           console.log(error);
         });
       // clear form
       this.setState(initialState);
-    }
-  };
+    };
 
   yearOfStudy = e => {
     // console.log(e.target.value);
@@ -193,8 +374,23 @@ class Register extends Component {
                       </InputGroupAddon>
                       <Input
                         type="text"
-                        name="username"
+                        name="fullName"
                         placeholder="Full Name"
+                        autoComplete="username"
+                        onChange={this.handleChange}
+                      />
+                    </InputGroup>
+
+                    <InputGroup className="mb-3">
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <ion-icon name="person" />
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input
+                        type="text"
+                        name="username"
+                        placeholder="User name"
                         autoComplete="username"
                         onChange={this.handleChange}
                       />
@@ -232,9 +428,10 @@ class Register extends Component {
                       </InputGroupAddon>
                       <Input
                         type="number"
-                        name="Phone-Number"
+                        name="phoneNumber"
                         id="exampleNumber"
                         placeholder="Phone number"
+                        onChange = {this.handleChange}
                       />
                     </InputGroup>
 
@@ -277,7 +474,7 @@ class Register extends Component {
                         name="repeatpassword"
                         placeholder="Repeat password"
                         autoComplete="new-password"
-                        onChange={this.handleChange}
+                        // onChange={this.handleChange}
                       />
                     </InputGroup>
                     {/*                     
@@ -308,8 +505,9 @@ class Register extends Component {
                         <CustomInput
                           type="select"
                           id="exampleCustomSelect"
-                          name="customSelect" 
+                          name="hostel" 
                           disabled ={enabled}
+                          onChange = {this.handleHostel}
                         >
                           <option value="">Select your Hostel.</option>
                           <option>Ram Bhawan</option>
@@ -335,8 +533,9 @@ class Register extends Component {
                         <CustomInput
                           type="select"
                           id="exampleCustomSelect"
-                          name="customSelect"
+                          name="hostel"
                           disabled ={enabled}
+                          onChange = {this.handleHostel}
                         >
                           <option value="">Select your Hostel.</option>
                           <option>Meera Block 1</option>
@@ -362,9 +561,10 @@ class Register extends Component {
                       </InputGroupAddon>
                       <Input
                         type="number"
-                        name="Phone Number"
+                        name="roomNo"
                         id="exampleNumber"
                         placeholder="Enter Room No"
+                        onChange = {this.handleChange}
                       />
                     </InputGroup>
 
@@ -395,7 +595,8 @@ class Register extends Component {
                         <CustomInput
                           type="select"
                           id="exampleCustomSelect"
-                          name="customSelect"
+                          name="branch"
+                          onChange = {this.handleBranch}
                         >
                           <option value="">
                             Enter your Single Degree Branch.
@@ -424,7 +625,8 @@ class Register extends Component {
                         <CustomInput
                           type="select"
                           id="exampleCustomSelect"
-                          name="customSelect"
+                          name="branch"
+                          onChange = {this.handleBranch}
                         >
                           <option value="">Enter your Dual Branch.</option>
                           <option>B1 - M.Sc. Biological Sciences</option>
@@ -447,6 +649,7 @@ class Register extends Component {
                         name="bitsId"
                         placeholder="BITS ID"
                         autoComplete="BitsId"
+                        onChange= {this.handleChange}
                       />
                     </InputGroup>
 
