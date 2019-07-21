@@ -181,18 +181,12 @@ class Register extends Component {
     // const isValid = this.validate();
     let authData;
     // if (isValid) {
-      let gender;
-      if(this.state.gender === "Male"){
-        gender="M";
-      }else{
-        gender="F"; 
-      }
       let isDualDegree = this.state.dualDegree;
 
       if(!isDualDegree){
         authData = {
           name: this.state.fullName,
-          gender: gender,
+          gender: this.state.gender,
           username: this.state.username,
           password: this.state.password,
           email: this.state.email,
@@ -206,7 +200,7 @@ class Register extends Component {
       }else{
         authData = {
           name: this.state.fullName,
-          gender: gender,
+          gender: this.state.gender,
           username: this.state.username,
           password: this.state.password,
           email: this.state.email,
