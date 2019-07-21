@@ -152,7 +152,7 @@ class ListTransfer extends React.Component {
   };
 
   selectCategory = (e, cat) => {
-    let toBeTransferred = this.state.transferList1;
+    // let toBeTransferred = this.state.transferList1;
     let list1Books = this.state.books;
     let checkboxes = document.getElementsByClassName(cat);
     if (e.target.checked) {
@@ -178,7 +178,7 @@ class ListTransfer extends React.Component {
         let isSelected = false;
         this.state.books.map(({ id, category, title }) => {
           // console.log(title);
-          if (checkboxes[i].value == title) {
+          if (checkboxes[i].value === title) {
             isSelected = true;
             return;
           }
@@ -194,7 +194,7 @@ class ListTransfer extends React.Component {
         let selectedId = id;
         if (cat === category) {
           b = b.filter(function({ id, category, title }) {
-            return id - 1000 != selectedId;
+            return id - 1000 !== selectedId;
           });
         }
       });

@@ -302,9 +302,9 @@ export default function VerticalLinearStepper() {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   }
 
-  function handleReset() {
-    setActiveStep(0);
-  }
+  // function handleReset() {
+  //   setActiveStep(0);
+  // }
 
   return (
     <Container>
