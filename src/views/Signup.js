@@ -182,7 +182,7 @@ class Register extends Component {
     let authData;
     // if (isValid) {
       let isDualDegree = this.state.dualDegree;
-
+      console.log(this.state);
       if(!isDualDegree){
         authData = {
           name: this.state.fullName,
@@ -209,23 +209,22 @@ class Register extends Component {
           hostel: this.state.hostel,
           room_no: this.state.roomNo,
           is_dual_degree: true,
-          single_branch: this.state.branch
+          dual_branch: this.state.branch
         }
       // }
-
+        console.log(authData);
     };
       // console.log(this.state);
       axios
         .post("https://market.bits-dvm.org/api/auth/signup/", authData)
         .then(response => {
-          console.log("Signed Up!");
-          console.log(response);
+          console.log(response.data);
         })
         .catch(error => {
           console.log(error);
         });
+     
       // clear form
-      this.setState(initialState);
     };
 
   yearOfStudy = e => {
@@ -248,12 +247,6 @@ class Register extends Component {
     });
   };
 
-  // selectHostel = event => {
-  //   event.preventDefault();
-  //   this.setState({
-  //     hostel: event.target.value
-  //   });
-  // };
 
   showBothBranch = e => {
     if (e.target.value === "Single Degree") {
