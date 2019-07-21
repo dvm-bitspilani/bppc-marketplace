@@ -1,27 +1,40 @@
 .Modal {
   position: fixed;
   z-index: 500;
-  background-color: #ccc;
+  background-color: #fff;
   width: 680px;
   min-height: 200px;
-  border: 1px solid #ccc;
-  box-shadow: 1px 1px 1px black;
+  max-height: 700px;
+  overflow-y: scroll;
+  border: 1px solid black;
+  border-radius: 10px;
   padding: 16px;
   left: calc(50% - 340px);
   top: 20%;
   box-sizing: border-box;
-  transition:all 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .close-modal {
   position: absolute;
   top: 20px;
   right: 30px;
-  background: #ccc;
 }
 
 .close-modal:hover {
   cursor: pointer;
+}
+
+.tag {
+  background-color: rgb(4, 165, 4);
+  border-radius: 2px;
+  color: #fff;
+  padding: 2px 5px;
+  margin: 0 5px;
+}
+
+.tags {
+  margin: 10px 0;
 }
 
 @media all and (max-width: 450px) {
