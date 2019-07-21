@@ -183,7 +183,7 @@ class ListTransfer extends React.Component {
           // console.log(title);
           if (checkboxes[i].value === title) {
             isSelected = true;
-            return;
+            return null;
           }
           return true;
         });

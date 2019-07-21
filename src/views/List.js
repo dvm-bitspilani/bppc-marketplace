@@ -78,6 +78,7 @@ class List extends React.Component {
           return true;
         });
       }
+      return null;
     });
     let showList = categories.map((Cat, index) => {
       return (

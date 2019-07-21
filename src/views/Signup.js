@@ -342,7 +342,7 @@ class Register extends Component {
                       <Input
                         type="number"
                         name="phoneNumber"
-                        id="exampleNumber"
+                        id="phoneNumber"
                         placeholder="Phone number"
                         onChange={this.handleChange}
                       />
@@ -418,7 +418,7 @@ class Register extends Component {
                       {this.state.gender === "M" ? (
                         <CustomInput
                           type="select"
-                          id="exampleCustomSelect"
+                          id="boysHostels"
                           name="hostel"
                           disabled={enabled}
                           onChange={this.handleChange}
@@ -445,7 +445,7 @@ class Register extends Component {
                       ) : (
                         <CustomInput
                           type="select"
-                          id="exampleCustomSelect"
+                          id="girlsHostels"
                           name="hostel"
                           disabled={enabled}
                           onChange={this.handleChange}
@@ -474,7 +474,7 @@ class Register extends Component {
                       <Input
                         type="number"
                         name="roomNo"
-                        id="exampleNumber"
+                        id="roomNo"
                         placeholder="Enter Room No"
                         onChange={this.handleChange}
                       />
@@ -488,7 +488,7 @@ class Register extends Component {
                       </InputGroupAddon>
                       <CustomInput
                         type="select"
-                        id="exampleCustomSelect"
+                        id="choiceDegree"
                         name="customSelect"
                         onChange={this.showBothBranch}
                       >
@@ -506,7 +506,7 @@ class Register extends Component {
                         </InputGroupAddon>
                         <CustomInput
                           type="select"
-                          id="exampleCustomSelect"
+                          id="singleDegree"
                           name="branch"
                           onChange={this.handleChange}
                         >
@@ -536,7 +536,7 @@ class Register extends Component {
                         </InputGroupAddon>
                         <CustomInput
                           type="select"
-                          id="exampleCustomSelect"
+                          id="dualDegree"
                           name="branch"
                           onChange={this.handleChange}
                         >
