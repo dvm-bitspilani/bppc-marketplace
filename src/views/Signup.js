@@ -61,7 +61,7 @@ class Register extends Component {
       {
         [event.target.name]: event.target.value
       },
-      console.log(this.state)
+      // console.log(this.state)
     );
     // console.log(event.target.value);
   };
@@ -163,9 +163,9 @@ class Register extends Component {
         dual_branch: this.state.branch
       };
       // }
-      console.log(authData);
+      // console.log(authData);
     }
-    console.log(this.state);
+    // console.log(this.state);
     if(this.state.isPasswordCorrect){
       axios
         .post("https://market.bits-dvm.org/api/auth/signup/", authData, {
@@ -182,7 +182,7 @@ class Register extends Component {
     }else{
       alert("password and repeat password do not match");
     }
-    // clear form
+
   };
 
   yearOfStudy = e => {
