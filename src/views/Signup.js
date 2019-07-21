@@ -20,7 +20,7 @@ import {
   CustomInput
 } from "reactstrap";
 
-const axios = require('axios');
+const axios = require("axios");
 
 // import { redirectTo } from "@reach/router";
 
@@ -57,64 +57,65 @@ class Register extends Component {
     // this.handleHostel = this.handleHostel.bind(this);
   }
   handleChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    },console.log(this.state));
+    this.setState(
+      {
+        [event.target.name]: event.target.value
+      },
+      console.log(this.state)
+    );
     // console.log(event.target.value);
   };
 
-  handleBranch = event =>{
+  handleBranch = event => {
     let branch;
-    switch(event.target.value){
+    switch (event.target.value) {
       case "A1 - B.E. Chemical":
-      branch = "A1";
-      break;
+        branch = "A1";
+        break;
       case "A2 - B.E. Civil":
-      branch = "A2";
-      break;
+        branch = "A2";
+        break;
       case "A3 - B.E. Electrical and Electronics":
-      branch = "A3";
-      break;
+        branch = "A3";
+        break;
       case "A4 - B.E. Mechanical":
-      branch = "A4";
-      break;
+        branch = "A4";
+        break;
       case "A5 - B.Pharma":
-      branch = "A5";
-      break;
+        branch = "A5";
+        break;
       case "A7 - B.E. Computer Science":
-      branch = "A7";
-      break;
+        branch = "A7";
+        break;
       case "A8 - B.E. Electronics and Instrumentation":
-      branch = "A8";
-      break;
+        branch = "A8";
+        break;
       case "AB - B.E. Manufacturing":
-      branch = "AB";
-      break;
+        branch = "AB";
+        break;
       case "B1 - M.Sc. Biological Sciences":
-      branch = "B1";
-      break;
+        branch = "B1";
+        break;
       case "B2 - M.Sc. Chemistry":
-      branch = "B2";
-      break;
+        branch = "B2";
+        break;
       case "B3 - M.Sc. Economics":
-      branch = "B3";
-      break;
+        branch = "B3";
+        break;
       case "B4 - M.Sc. Mathematics":
-      branch = "B4";
-      break;
+        branch = "B4";
+        break;
       case "B5 - M.Sc. Physics":
-      branch = "B5";
-      break;
+        branch = "B5";
+        break;
       default:
-      branch ="none";
-      break; 
+        branch = "none";
+        break;
     }
     this.setState({
-      branch:branch
+      branch: branch
     });
-  }
-
- 
+  };
 
   validate = () => {
     let usernameError = "";
@@ -181,51 +182,55 @@ class Register extends Component {
     // const isValid = this.validate();
     let authData;
     // if (isValid) {
-      let isDualDegree = this.state.dualDegree;
-      console.log(this.state);
-      if(!isDualDegree){
-        authData = {
-          name: this.state.fullName,
-          gender: this.state.gender,
-          username: this.state.username,
-          password: this.state.password,
-          email: this.state.email,
-          phone: this.state.phoneNumber,
-          bits_id: this.state.bitsId,
-          hostel: this.state.hostel,
-          room_no: this.state.roomNo,
-          is_dual_degree: "",
-          single_branch: this.state.branch
-        }
-      }else{
-        authData = {
-          name: this.state.fullName,
-          gender: this.state.gender,
-          username: this.state.username,
-          password: this.state.password,
-          email: this.state.email,
-          phone: this.state.phoneNumber,
-          bits_id: this.state.bitsId,
-          hostel: this.state.hostel,
-          room_no: this.state.roomNo,
-          is_dual_degree: true,
-          dual_branch: this.state.branch
-        }
+    let isDualDegree = this.state.dualDegree;
+    console.log(this.state);
+    if (!isDualDegree) {
+      authData = {
+        name: this.state.fullName,
+        gender: this.state.gender,
+        username: this.state.username,
+        password: this.state.password,
+        email: this.state.email,
+        phone: this.state.phoneNumber,
+        bits_id: this.state.bitsId,
+        hostel: this.state.hostel,
+        room_no: this.state.roomNo,
+        is_dual_degree: "",
+        single_branch: this.state.branch
+      };
+    } else {
+      authData = {
+        name: this.state.fullName,
+        gender: this.state.gender,
+        username: this.state.username,
+        password: this.state.password,
+        email: this.state.email,
+        phone: this.state.phoneNumber,
+        bits_id: this.state.bitsId,
+        hostel: this.state.hostel,
+        room_no: this.state.roomNo,
+        is_dual_degree: true,
+        dual_branch: this.state.branch
+      };
       // }
-        console.log(authData);
-    };
-      // console.log(this.state);
-      axios
-        .post("https://market.bits-dvm.org/api/auth/signup/", authData)
-        .then(response => {
-          console.log(response.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-     
-      // clear form
-    };
+      console.log(authData);
+    }
+    console.log(this.state);
+    axios
+      .post("https://market.bits-dvm.org/api/auth/signup/", authData, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
+
+    // clear form
+  };
 
   yearOfStudy = e => {
     // console.log(e.target.value);
@@ -246,7 +251,6 @@ class Register extends Component {
       }
     });
   };
-
 
   showBothBranch = e => {
     if (e.target.value === "Single Degree") {
@@ -283,11 +287,10 @@ class Register extends Component {
 
   render() {
     let enabled;
-    if(this.state.gender==="none")
-    {enabled= true;
-    }
-    else{
-      enabled=false;
+    if (this.state.gender === "none") {
+      enabled = true;
+    } else {
+      enabled = false;
     }
     return (
       <div className="app flex-row align-items-center">
@@ -367,7 +370,7 @@ class Register extends Component {
                         name="phoneNumber"
                         id="exampleNumber"
                         placeholder="Phone number"
-                        onChange = {this.handleChange}
+                        onChange={this.handleChange}
                       />
                     </InputGroup>
 
@@ -441,9 +444,9 @@ class Register extends Component {
                         <CustomInput
                           type="select"
                           id="exampleCustomSelect"
-                          name="hostel" 
-                          disabled ={enabled}
-                          onChange = {this.handleChange}
+                          name="hostel"
+                          disabled={enabled}
+                          onChange={this.handleChange}
                         >
                           <option value="">Select your Hostel.</option>
                           <option value="RM">Ram Bhawan</option>
@@ -469,8 +472,8 @@ class Register extends Component {
                           type="select"
                           id="exampleCustomSelect"
                           name="hostel"
-                          disabled ={enabled}
-                          onChange = {this.handleChange}
+                          disabled={enabled}
+                          onChange={this.handleChange}
                         >
                           <option value="">Select your Hostel.</option>
                           <option value="MR-1">Meera Block 1</option>
@@ -498,7 +501,7 @@ class Register extends Component {
                         name="roomNo"
                         id="exampleNumber"
                         placeholder="Enter Room No"
-                        onChange = {this.handleChange}
+                        onChange={this.handleChange}
                       />
                     </InputGroup>
 
@@ -530,14 +533,14 @@ class Register extends Component {
                           type="select"
                           id="exampleCustomSelect"
                           name="branch"
-                          onChange = {this.handleChange}
+                          onChange={this.handleChange}
                         >
-                          <option>
-                            Enter your Single Degree Branch.
-                          </option>
+                          <option>Enter your Single Degree Branch.</option>
                           <option value="A1">A1 - B.E. Chemical</option>
                           <option value="A2">A2 - B.E. Civil</option>
-                          <option value="A3">A3 - B.E. Electrical and Electronics</option>
+                          <option value="A3">
+                            A3 - B.E. Electrical and Electronics
+                          </option>
                           <option value="A4">A4 - B.E. Mechanical</option>
                           <option value="A5">A5 - B.Pharma</option>
                           <option value="A7">A7 - B.E. Computer Science</option>
@@ -548,7 +551,7 @@ class Register extends Component {
                         </CustomInput>
                       </InputGroup>
                     ) : null}
-                    
+
                     {this.state.dualDegree ? (
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
@@ -560,14 +563,16 @@ class Register extends Component {
                           type="select"
                           id="exampleCustomSelect"
                           name="branch"
-                          onChange = {this.handleChange}
+                          onChange={this.handleChange}
                         >
                           <option>Enter your Dual Branch.</option>
-                          <option value ="B1">B1 - M.Sc. Biological Sciences</option>
-                          <option value ="B2">B2 - M.Sc. Chemistry</option>
-                          <option value ="B3">B3 - M.Sc. Economics</option>
-                          <option value ="B4">B4 - M.Sc. Mathematics</option>
-                          <option value ="B5">B5 - M.Sc. Physics</option>
+                          <option value="B1">
+                            B1 - M.Sc. Biological Sciences
+                          </option>
+                          <option value="B2">B2 - M.Sc. Chemistry</option>
+                          <option value="B3">B3 - M.Sc. Economics</option>
+                          <option value="B4">B4 - M.Sc. Mathematics</option>
+                          <option value="B5">B5 - M.Sc. Physics</option>
                         </CustomInput>
                       </InputGroup>
                     ) : null}
@@ -583,7 +588,7 @@ class Register extends Component {
                         name="bits_id"
                         placeholder="BITS ID"
                         autoComplete="BitsId"
-                        onChange= {this.handleChange}
+                        onChange={this.handleChange}
                       />
                     </InputGroup>
 
