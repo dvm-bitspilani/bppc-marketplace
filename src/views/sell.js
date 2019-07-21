@@ -18,13 +18,14 @@ import {
 import Dropzone from "./dropzone/Dropzone";
 import { lightBlue } from "@material-ui/core/colors";
 
-class List extends React.Component {
+class List extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
       books: this.props.books
     };
     this.handleChange = this.handleChange.bind(this);
+    this.selectCategory = this.selectCategory.bind(this);
   }
   componentWillReceiveProps(newProps) {
     this.setState({ books: newProps.books });
@@ -33,6 +34,11 @@ class List extends React.Component {
   handleChange = (e, id, category, title) => {
     this.props.onSelect(e, id, category, title);
   };
+
+  selectCategory = (e, category) =>{
+    this.props.selectcategory( e, category );
+  }
+
   render() {
     const divStyle = {
       width: "45%",
@@ -51,7 +57,7 @@ class List extends React.Component {
     };
     const headingstyle = {
       width: "100%",
-      padding: "5px",
+      padding: "0px",
       color: "white",
       backgroundColor: "#28a745"
     };
@@ -90,19 +96,22 @@ class List extends React.Component {
     });
     let showList = categories.map((Cat, index) => {
       return (
-        <div key={index} style={groupstyle}>
-          <span style={headingstyle}>{Cat}</span>
+        <div key={Cat} style={groupstyle}>
+            <div style={headingstyle}>
+              <FormGroup check>
+                <Label check style={spanstyle}>
+                <Input type="checkbox" onChange={e => this.selectCategory( e, Cat)} />{" "}
+                  {Cat}
+                </Label>
+              </FormGroup>
+            </div>
+  
           {books.map(({ id, category, title }) => {
             if (category === Cat) {
               return (
                 <FormGroup check key={id}>
                   <Label check style={spanstyle}>
-                    <Input
-                      type="checkbox"
-                      key={id}
-                      value={title}
-                      onChange={e => this.handleChange(e, id, category, title)}
-                    />{" "}
+                    <Input type="checkbox" key={id} value={title} onChange={e => this.handleChange(e, id, category, title)} className={Cat}/>{" "}
                     {title}
                   </Label>
                 </FormGroup>
@@ -111,6 +120,7 @@ class List extends React.Component {
           })}
         </div>
       );
+
     });
 
     return (
@@ -165,17 +175,28 @@ class ListTransfer extends React.Component {
     this.transfer = this.transfer.bind(this);
     this.transferBack = this.transferBack.bind(this);
     this.onSelectBack = this.onSelectBack.bind(this);
+    this.selectCategory = this.selectCategory.bind(this);
+    this.selectCategoryBack = this.selectCategoryBack.bind(this);
   }
 
   onSelect = (e, selectedId, selectedCategory, selectedTitle) => {
     if (e.target.checked) {
       // console.log("updatedTransferList "+updatedTransferList);
-      this.state.transferList1.push({
-        id: selectedId + 1000,
-        category: selectedCategory,
-        title: selectedTitle
-      });
-
+      // let transferList1 = this.state.transferList1;
+      // let isAdd = true;
+      // transferList1.map(({id,category,title})=>{
+      //   if(id == (selectedId+1000)){
+      //     isAdd = false;
+      //     return;
+      //   }
+      // });
+      // if(isAdd){
+        this.state.transferList1.push({
+          id: selectedId + 1000,
+          category: selectedCategory,
+          title: selectedTitle
+        });
+      // }
       // console.log("updatedBooks"+updatedBooks);
 
       // this.setState({
@@ -239,7 +260,9 @@ class ListTransfer extends React.Component {
       transferList1: []
     });
   };
+
   transferBack = e => {
+    
     const transferredBooks = this.state.transferList2;
     let updatedBooks = this.state.transferredList1;
     // console.log("updatedBooks"+this.state.books);
@@ -256,6 +279,92 @@ class ListTransfer extends React.Component {
       transferList2: []
     });
   };
+
+  selectCategory = (e,cat) =>{
+    let toBeTransferred = this.state.transferList1;
+    let list1Books = this.state.books;
+    let checkboxes = document.getElementsByClassName(cat);
+    if (e.target.checked) {
+
+      // let isAdd = true;
+      list1Books.map(({id,category,title})=>{
+      
+      // toBeTransferred.map(({selectedId,selectedCategory,selectedTitle})=>{
+      //     if(id == (selectedId-1000)){
+      //       isAdd = false;
+      //       return;
+      //     }
+      // });
+
+      if(cat === category){
+            this.state.transferList1.push({
+            id: id + 1000,
+            category: category,
+            title: title
+          });
+        }
+      });
+
+      for(let i=0;i< checkboxes.length;i++){
+        let isSelected = false;
+        this.state.books.map(({id, category,title})=>{
+          // console.log(title);
+          if(checkboxes[i].value == title){
+            isSelected = true;
+            return;
+          }
+        });
+        // console.log(checkboxes[i].value);  
+        if(isSelected){checkboxes[i].checked = true};  
+      }
+
+    } else {
+      let b = this.state.transferList1;
+      this.state.books.map(({id, category,title})=>{
+        let selectedId = id;
+        if(cat === category){
+           b = b.filter(function({id, category,title}){
+              return ((id - 1000) != selectedId);
+            })
+        }
+      });
+      this.setState({ transferList1:b },function(){console.log(this.state.transferList1)});
+      for(let i=0;i< checkboxes.length;i++){
+        checkboxes[i].checked = false;  
+      }
+    }
+  }
+
+  selectCategoryBack = (e,cat) =>{
+    let toBeTransferred = this.state.transferList2;
+    let list1Books = this.state.transferredList1;
+
+    if (e.target.checked) {
+      list1Books.map(({id,category,title})=>{
+       
+        if(cat === category){
+          this.state.transferList2.push({
+            id: id - 1000,
+            category: category,
+            title: title
+          });
+        }
+
+      });
+   
+    } else {
+      toBeTransferred.map(({selectedId,selectedCategory,selecctedTitle})=>{
+        if(cat === selectedCategory){
+          let transferList2 = this.state.transferList2.filter(function({id, category,title}){
+            return id - 1000 !== selectedId;
+          });
+          this.setState({ transferList2: transferList2 });
+        }
+
+      });
+
+    }
+  }
 
   render() {
     const containerstyle = {
@@ -278,19 +387,16 @@ class ListTransfer extends React.Component {
     };
     return (
       <div style={containerstyle}>
-        <List books={this.state.books} onSelect={this.onSelect} />
+        <List books={this.state.books} onSelect={this.onSelect} selectcategory={this.selectCategory}/>
         <div column="true" style={buttonsContainer}>
-          <Button style={buttons} onClick={this.transfer}>
+          <Button style={buttons} onClick={this.transfer} >
             Select Books
           </Button>
           <Button style={buttons} onClick={this.transferBack}>
             Deselect Books
           </Button>
         </div>
-        <List
-          books={this.state.transferredList1}
-          onSelect={this.onSelectBack}
-        />
+        <List books={this.state.transferredList1} onSelect={this.onSelectBack} selectcategory={this.selectCategoryBack} />
       </div>
     );
   }
@@ -394,11 +500,11 @@ class TagsContainer extends React.Component {
   render() {
     let tags = this.state.tags;
     let tagContainer = {
-      display: "flex",
+      display: "block",
       alignItems: "center",
       boundary: lightBlue,
       marginBottom: "10px",
-      width: "100%"
+      width: "100%",
     };
     const button = {
       marginTop: "15px",
@@ -450,17 +556,18 @@ class Tags extends React.Component {
       height: "35px",
       borderRadius: "4px",
       display: "flex",
-      alignItems: "center"
+      alignItems: "center",
+      width:"fit-content"
     };
     let icon = {
       marginLeft: "7px"
     };
 
     return (
-      <div style={tagStyle}>
+      <span style={tagStyle}>
         {this.props.value}
         <ion-icon style={icon} name="close" onClick={this.handleClick} />
-      </div>
+      </span>
     );
   }
 }
