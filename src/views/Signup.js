@@ -20,6 +20,8 @@ import {
   CustomInput
 } from "reactstrap";
 
+const axios = require('axios');
+
 // import { redirectTo } from "@reach/router";
 
 const initialState = {
@@ -52,7 +54,7 @@ class Register extends Component {
     this.yearOfStudy = this.yearOfStudy.bind(this);
     this.gender = this.gender.bind(this);
     this.handleBranch = this.handleBranch.bind(this);
-    this.handleHostel = this.handleHostel.bind(this);
+    // this.handleHostel = this.handleHostel.bind(this);
   }
   handleChange = event => {
     this.setState({
@@ -112,98 +114,7 @@ class Register extends Component {
     });
   }
 
-  handleHostel = event =>{
-    let hostel;
-    switch(event.target.value){
-      case "Ram Bhawan":
-      hostel = "RM";
-      break;
-      case "Budh Bhawan":
-      hostel = "BUDH";
-      break;
-      case "Srinivasa Ramanujan A":
-      hostel = "SR-A";
-      break;
-      case "Srinivasa Ramanujan B":
-      hostel = "SR-B";
-      break;
-      case "Srinivasa Ramanujan C":
-      hostel = "SR-C";
-      break;
-      case "Srinivasa Ramanujan D":
-      hostel = "SR-D";
-      break;
-      case "Krishna Bhawan":
-      hostel = "KR";
-      break;
-      case "Gandhi Bhawan":
-      hostel = "GN";
-      break;
-      case "Shankar Bhawan":
-      hostel = "SK";
-      break;
-      case "Vyas Bhawan":
-      hostel = "VY";
-      break;
-      case "Vishwakarma Bhawan":
-      hostel = "VK";
-      break;
-      case "Bhagirath Bhawan":
-      hostel = "BG";
-      break;
-      case "Rana Pratap Bhawan":
-      hostel = "RP";
-      break;
-      case "Ashok Bhawan":
-      hostel = "AK";
-      break;
-      case "Malviya Bhawan A":
-      hostel = "MV-A";
-      break;
-      case "Malviya Bhawan B":
-      hostel = "MV-B";
-      break;
-      case "Malviya Bhawan C":
-      hostel = "MV-C";
-      break;
-      case "Meera Block 1":
-      hostel = "MR-1";
-      break;
-      case "Meera Block 2":
-      hostel = "MR-2";
-      break;
-      case "Meera Block 3":
-      hostel = "MR-3";
-      break;
-      case "Meera Block 4":
-      hostel = "MR-4";
-      break;
-      case "Meera Block 5":
-      hostel = "MR-5";
-      break;
-      case "Meera Block 6":
-      hostel = "MR-6";
-      break;
-      case "Meera Block 7":
-      hostel = "MR-7";
-      break;
-      case "Meera Block 8":
-      hostel = "MR-8";
-      break;
-      case "Meera Block 9":
-      hostel = "MR-9";
-      break;
-      case "Meera Block 10":
-      hostel = "MR-10";
-      break;
-      default:
-      hostel="none";
-      break;
-    }
-    this.setState({
-      hostel: hostel
-    });
-  }
+ 
 
   validate = () => {
     let usernameError = "";
@@ -545,7 +456,7 @@ class Register extends Component {
                           id="exampleCustomSelect"
                           name="hostel" 
                           disabled ={enabled}
-                          onChange = {this.handleHostel}
+                          onChange = {this.handleChange}
                         >
                           <option value="">Select your Hostel.</option>
                           <option value="RM">Ram Bhawan</option>
@@ -572,7 +483,7 @@ class Register extends Component {
                           id="exampleCustomSelect"
                           name="hostel"
                           disabled ={enabled}
-                          onChange = {this.handleHostel}
+                          onChange = {this.handleChange}
                         >
                           <option value="">Select your Hostel.</option>
                           <option value="MR-1">Meera Block 1</option>
@@ -632,25 +543,25 @@ class Register extends Component {
                           type="select"
                           id="exampleCustomSelect"
                           name="branch"
-                          onChange = {this.handleBranch}
+                          onChange = {this.handleChange}
                         >
-                          <option value="">
+                          <option>
                             Enter your Single Degree Branch.
                           </option>
-                          <option>A1 - B.E. Chemical</option>
-                          <option>A2 - B.E. Civil</option>
-                          <option>A3 - B.E. Electrical and Electronics</option>
-                          <option>A4 - B.E. Mechanical</option>
-                          <option>A5 - B.Pharma</option>
-                          <option>A7 - B.E. Computer Science</option>
-                          <option>
+                          <option value="A1">A1 - B.E. Chemical</option>
+                          <option value="A2">A2 - B.E. Civil</option>
+                          <option value="A3">A3 - B.E. Electrical and Electronics</option>
+                          <option value="A4">A4 - B.E. Mechanical</option>
+                          <option value="A5">A5 - B.Pharma</option>
+                          <option value="A7">A7 - B.E. Computer Science</option>
+                          <option value="A8">
                             A8 - B.E. Electronics and Instrumentation
                           </option>
-                          <option>AB - B.E. Manufacturing</option>
+                          <option value="AB">AB - B.E. Manufacturing</option>
                         </CustomInput>
                       </InputGroup>
                     ) : null}
-
+                    
                     {this.state.dualDegree ? (
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
@@ -662,14 +573,14 @@ class Register extends Component {
                           type="select"
                           id="exampleCustomSelect"
                           name="branch"
-                          onChange = {this.handleBranch}
+                          onChange = {this.handleChange}
                         >
-                          <option value="">Enter your Dual Branch.</option>
-                          <option>B1 - M.Sc. Biological Sciences</option>
-                          <option>B2 - M.Sc. Chemistry</option>
-                          <option>B3 - M.Sc. Economics</option>
-                          <option>B4 - M.Sc. Mathematics</option>
-                          <option>B5 - M.Sc. Physics</option>
+                          <option>Enter your Dual Branch.</option>
+                          <option value ="B1">B1 - M.Sc. Biological Sciences</option>
+                          <option value ="B2">B2 - M.Sc. Chemistry</option>
+                          <option value ="B3">B3 - M.Sc. Economics</option>
+                          <option value ="B4">B4 - M.Sc. Mathematics</option>
+                          <option value ="B5">B5 - M.Sc. Physics</option>
                         </CustomInput>
                       </InputGroup>
                     ) : null}
