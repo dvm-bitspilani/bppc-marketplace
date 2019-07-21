@@ -166,7 +166,7 @@ class Register extends Component {
 
   render() {
     let enabled;
-    if(this.state.gender=="none")
+    if(this.state.gender==="none")
     {enabled= true;
     }
     else{
