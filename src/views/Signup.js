@@ -53,7 +53,7 @@ class Register extends Component {
     };
     this.yearOfStudy = this.yearOfStudy.bind(this);
     this.gender = this.gender.bind(this);
-    this.handleBranch = this.handleBranch.bind(this);
+    // this.handleBranch = this.handleBranch.bind(this);
     // this.handleHostel = this.handleHostel.bind(this);
   }
   handleChange = event => {
@@ -63,58 +63,6 @@ class Register extends Component {
     // console.log(event.target.value);
   };
 
-  handleBranch = event =>{
-    let branch;
-    switch(event.target.value){
-      case "A1 - B.E. Chemical":
-      branch = "A1";
-      break;
-      case "A2 - B.E. Civil":
-      branch = "A2";
-      break;
-      case "A3 - B.E. Electrical and Electronics":
-      branch = "A3";
-      break;
-      case "A4 - B.E. Mechanical":
-      branch = "A4";
-      break;
-      case "A5 - B.Pharma":
-      branch = "A5";
-      break;
-      case "A7 - B.E. Computer Science":
-      branch = "A7";
-      break;
-      case "A8 - B.E. Electronics and Instrumentation":
-      branch = "A8";
-      break;
-      case "AB - B.E. Manufacturing":
-      branch = "AB";
-      break;
-      case "B1 - M.Sc. Biological Sciences":
-      branch = "B1";
-      break;
-      case "B2 - M.Sc. Chemistry":
-      branch = "B2";
-      break;
-      case "B3 - M.Sc. Economics":
-      branch = "B3";
-      break;
-      case "B4 - M.Sc. Mathematics":
-      branch = "B4";
-      break;
-      case "B5 - M.Sc. Physics":
-      branch = "B5";
-      break;
-      default:
-      branch ="none";
-      break; 
-    }
-    this.setState({
-      branch:branch
-    });
-  }
-
- 
 
   validate = () => {
     let usernameError = "";
