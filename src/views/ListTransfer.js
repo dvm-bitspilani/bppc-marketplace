@@ -125,6 +125,7 @@ class ListTransfer extends React.Component {
         console.log(list.id);
         return obj.id !== list.id - 1000;
       });
+      return true;
     });
     this.setState({
       transferredList1: this.state.transferredList1.concat(transferredBooks),
@@ -143,6 +144,7 @@ class ListTransfer extends React.Component {
         console.log(list.id);
         return obj.id !== list.id + 1000;
       });
+      return true;
     });
     this.setState({
       books: this.state.books.concat(transferredBooks),
@@ -172,6 +174,7 @@ class ListTransfer extends React.Component {
             title: title
           });
         }
+        return true;
       });
 
       for (let i = 0; i < checkboxes.length; i++) {
@@ -182,6 +185,7 @@ class ListTransfer extends React.Component {
             isSelected = true;
             return;
           }
+          return true;
         });
         // console.log(checkboxes[i].value);
         if (isSelected) {
@@ -197,6 +201,7 @@ class ListTransfer extends React.Component {
             return id - 1000 !== selectedId;
           });
         }
+        return true;
       });
       this.setState({ transferList1: b }, function() {
         console.log(this.state.transferList1);
@@ -220,6 +225,7 @@ class ListTransfer extends React.Component {
             title: title
           });
         }
+        return true;
       });
     } else {
       toBeTransferred.map(
@@ -234,6 +240,7 @@ class ListTransfer extends React.Component {
             });
             this.setState({ transferList2: transferList2 });
           }
+          return true;
         }
       );
     }

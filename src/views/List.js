@@ -60,6 +60,7 @@ class List extends React.Component {
         if (category === cat) {
           alreadyCat = true;
         }
+        return true;
       });
       // console.log(alreadyCat);
       if (!alreadyCat) {
@@ -74,6 +75,7 @@ class List extends React.Component {
               title: title
             });
           }
+          return true;
         });
       }
     });
@@ -108,6 +110,8 @@ class List extends React.Component {
                   </Label>
                 </FormGroup>
               );
+            } else {
+              return null;
             }
           })}
         </div>
