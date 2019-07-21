@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { navigate } from "@reach/router";
-import * as actions from "../store/actions/index";
+import * as actions from "../../store/actions/index";
 import {
   Button,
   Card,
@@ -172,8 +172,8 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    token: state.token,
-    error: state.error
+    token: state.auth.token,
+    error: state.auth.error
   };
 };
 

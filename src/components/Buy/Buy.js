@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 // import { Router, Link } from "react-router-dom";
 
-import { Table } from "reactstrap";
+// import { Table } from "reactstrap";
 import Modal from "./Modal/Modal";
 import SellerSummary from "./SellerSummary/SellerSummary";
+import "./Buy.css";
 
 class Buy extends Component {
   constructor(props) {
@@ -44,39 +45,45 @@ class Buy extends Component {
 
   render() {
     return (
-      <div>
+      <div className="Buy">
         <br />
-        <Table>
+        <h4>SELLERS AVAILABLE: </h4>
+        <br />
+        <table>
           <thead>
-            <tr>
-              <th>Thumbnail</th>
+            <tr className="header">
+              <th className="index">#</th>
               <th>Name of Seller</th>
+              <th>Tags</th>
               <th>Price</th>
               <th>No. of books</th>
+              <th />
             </tr>
           </thead>
           <tbody>
             {/* -------------- rendering table rows ---------------- */}
             {this.state.tableData.map((seller, index) => {
               return (
-                <tr key={index}>
-                  <td>
-                    <img
-                      src={require("../../assets/avatars/tn.jpg")}
-                      height="100"
-                      width="100"
-                      alt="screenshot of books"
-                    />
-                  </td>
-                  <td onClick={() => this.showModal(seller)}>{seller.name}</td>
+                <tr key={index} className="data">
+                  <td className="index">{index + 1}</td>
+                  <td>{seller.name}</td>
+                  <td />
                   <td>{seller.price}</td>
                   <td>{seller.numBooks.toString() + "/10"}</td>
+                  <td>
+                    <button
+                      className="details"
+                      onClick={() => this.showModal(seller)}
+                    >
+                      View Details
+                    </button>
+                  </td>
                 </tr>
               );
             })}
             {/* --------------------------------------------------- */}
           </tbody>
-        </Table>
+        </table>
         <Modal show={this.state.showModal}>
           <div className="close-modal" onClick={() => this.hideModal()}>
             Close

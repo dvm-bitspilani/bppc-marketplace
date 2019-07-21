@@ -9,7 +9,6 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import {
   Container,
-  CustomInput,
   Form,
   FormGroup,
   Label,
@@ -237,7 +236,7 @@ class ListTransfer extends React.Component {
         category,
         title
       }) {
-        return id + 1000 != selectedId;
+        return id + 1000 !== selectedId;
       });
       this.setState({ transferList2: transferList2 });
     }
@@ -461,7 +460,6 @@ class TagsContainer extends React.Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
   input = e => {
-    let el = e;
     this.setState({
       pressed: false,
       currentTag: e.target.value
@@ -617,10 +615,6 @@ class AdditionalDetails extends React.Component {
 }
 
 class Description extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <Form>

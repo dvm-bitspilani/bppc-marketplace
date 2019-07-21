@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import * as actions from "../store/actions/index";
 // import { Router, Link } from "@reach/router";
 
 import {
@@ -16,14 +19,18 @@ import {
   FormGroup,
   CustomInput
 } from "reactstrap";
-import axios from "axios";
 
 // import { redirectTo } from "@reach/router";
 
 const initialState = {
+  name: "",
   username: "",
   email: "",
   password: "",
+  hostel: "",
+  single_branch: "",
+  dual_branch: "",
+  phone: "",
   repeatpassword: "",
   usernameError: "",
   emailError: "",
@@ -218,7 +225,7 @@ class Register extends Component {
 
     if (this.state.password !== this.state.repeatpassword) {
       repeatpasswordError = "must be same";
-      this.setState(repeatpasswordError);
+      this.setState({ repeatpasswordError });
       return false;
     }
 
@@ -232,6 +239,30 @@ class Register extends Component {
     }
 
     return true;
+  };
+
+  configureRequestObj = details => {
+    const requestObj = {};
+
+    requestObj["name"] = details.username;
+    requestObj["gender"] = details.gender;
+    requestObj["username"] = "johny45";
+    requestObj["password"] = details.password;
+    requestObj["email"] = details.email;
+    requestObj["phone"] = details.phone;
+    requestObj["bits_id"] = details.bits_id;
+    requestObj["hostel"] = details.hostel;
+    requestObj["room_no"] = +details.room_no;
+
+    if (details.dualDegree) {
+      requestObj["is_dual_degree"] = "true";
+      requestObj["dual_branch"] = details.dual_branch.split(" ")[0];
+    } else {
+      requestObj["is_dual_degree"] = "";
+      requestObj["single_branch"] = details.single_branch.split(" ")[0];
+    }
+
+    return requestObj;
   };
 
   handleSubmit = event => {
@@ -312,6 +343,13 @@ class Register extends Component {
     });
   };
 
+  // selectHostel = event => {
+  //   event.preventDefault();
+  //   this.setState({
+  //     hostel: event.target.value
+  //   });
+  // };
+
   showBothBranch = e => {
     if (e.target.value === "Single Degree") {
       this.setState({
@@ -334,13 +372,13 @@ class Register extends Component {
   };
 
   gender = e => {
-    if (e.target.value === "Male"){
+    if (e.target.value === "Male") {
       this.setState({
-        gender: "Male"
+        gender: "M"
       });
     } else {
       this.setState({
-        gender: "Female"
+        gender: "F"
       });
     }
   };
@@ -501,7 +539,7 @@ class Register extends Component {
                           <ion-icon name="home" />
                         </InputGroupText>
                       </InputGroupAddon>
-                      {this.state.gender === "Male" ? (
+                      {this.state.gender === "M" ? (
                         <CustomInput
                           type="select"
                           id="exampleCustomSelect"
@@ -510,24 +548,23 @@ class Register extends Component {
                           onChange = {this.handleHostel}
                         >
                           <option value="">Select your Hostel.</option>
-                          <option>Ram Bhawan</option>
-                          <option>Budh Bhawan</option>
-                          <option>Srinivasa Ramanujan A</option>
-                          <option>Srinivasa Ramanujan B</option>
-                          <option>Srinivasa Ramanujan C</option>
-                          <option>Srinivasa Ramanujan D</option>
-                          <option>Krishna Bhawan</option>
-                          <option>Gandhi Bhawan</option>
-                          <option>Shankar Bhawan</option>
-                          <option>Vyas Bhawan</option>
-                          <option>Vishwakarma Bhawan</option>
-                          <option>Bhagirath Bhawan</option>
-                          <option>Rana Pratap Bhawan</option>
-                          <option>Ashok Bhawan</option>
-                          <option>Malviya Bhawan A</option>
-                          <option>Malviya Bhawan B</option>
-                          <option>Malviya Bhawan C</option>
-
+                          <option value="RM">Ram Bhawan</option>
+                          <option value="BD">Budh Bhawan</option>
+                          <option value="SR-A">Srinivasa Ramanujan A</option>
+                          <option value="SR-B">Srinivasa Ramanujan B</option>
+                          <option value="SR-C">Srinivasa Ramanujan C</option>
+                          <option value="SR-D">Srinivasa Ramanujan D</option>
+                          <option value="KR">Krishna Bhawan</option>
+                          <option value="GN">Gandhi Bhawan</option>
+                          <option value="SN">Shankar Bhawan</option>
+                          <option value="VS">Vyas Bhawan</option>
+                          <option value="VK">Vishwakarma Bhawan</option>
+                          <option value="BG">Bhagirath Bhawan</option>
+                          <option value="RP">Rana Pratap Bhawan</option>
+                          <option value="AK">Ashok Bhawan</option>
+                          <option value="ML-A">Malviya Bhawan A</option>
+                          <option value="ML-B">Malviya Bhawan B</option>
+                          <option value="ML-C">Malviya Bhawan C</option>
                         </CustomInput>
                       ) : (
                         <CustomInput
@@ -538,17 +575,16 @@ class Register extends Component {
                           onChange = {this.handleHostel}
                         >
                           <option value="">Select your Hostel.</option>
-                          <option>Meera Block 1</option>
-                          <option>Meera Block 2</option>
-                          <option>Meera Block 3</option>
-                          <option>Meera Block 4</option>
-                          <option>Meera Block 5</option>
-                          <option>Meera Block 6</option>
-                          <option>Meera Block 7</option>
-                          <option>Meera Block 8</option>
-                          <option>Meera Block 9</option>
-                          <option>Meera Block 10</option>
-
+                          <option value="MR-1">Meera Block 1</option>
+                          <option value="MR-2">Meera Block 2</option>
+                          <option value="MR-3">Meera Block 3</option>
+                          <option value="MR-4">Meera Block 4</option>
+                          <option value="MR-5">Meera Block 5</option>
+                          <option value="MR-6">Meera Block 6</option>
+                          <option value="MR-7">Meera Block 7</option>
+                          <option value="MR-8">Meera Block 8</option>
+                          <option value="MR-9">Meera Block 9</option>
+                          <option value="MR-10">Meera Block 10</option>
                         </CustomInput>
                       )}
                     </InputGroup>
@@ -637,16 +673,16 @@ class Register extends Component {
                         </CustomInput>
                       </InputGroup>
                     ) : null}
-                    
-                     <InputGroup className="mb-3">
+
+                    <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                          <ion-icon name="pricetag"/>
+                          <ion-icon name="pricetag" />
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
                         type="text"
-                        name="bitsId"
+                        name="bits_id"
                         placeholder="BITS ID"
                         autoComplete="BitsId"
                         onChange= {this.handleChange}
@@ -681,4 +717,13 @@ class Register extends Component {
   }
 }
 
-export default Register;
+const mapDispatchToProps = dispatch => {
+  return {
+    onSignup: signupData => dispatch(actions.signup(signupData))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Register);

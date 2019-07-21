@@ -1,0 +1,43 @@
+.Buy {
+  max-width: 80%;
+  /* background: salmon; */
+  margin: 0 auto;
+}
+
+.details {
+  background:rgb(60, 60, 255);
+  border-radius: 5px;
+  color: #fff;
+  border: none;
+  outline: none;
+  padding: 5px 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td,th {
+  border-bottom: 1px solid #dddddd;
+}
+
+.header {
+  padding: 5px 0;
+  font-size: 1.2em;
+  height: 70px;
+  border-top: 1px solid #ddd;
+}
+
+.index {
+  padding: 0 10px;
+}
+
+.data {
+  height: 60px;
+}
+
+.data:hover {
+  background-color: #eeeeee;
+  cursor: pointer;
+}
