@@ -38,6 +38,7 @@ const initialState = {
   emailError: "",
   passwordError: "",
   repeatpasswordError: "",
+  isPasswordCorrect:false,
   redirectToDashboard: true
 };
 
@@ -53,8 +54,7 @@ class Register extends Component {
     };
     this.yearOfStudy = this.yearOfStudy.bind(this);
     this.gender = this.gender.bind(this);
-    // this.handleBranch = this.handleBranch.bind(this);
-    // this.handleHostel = this.handleHostel.bind(this);
+    this.passwordCheck = this.passwordCheck.bind(this);
   }
   handleChange = event => {
     this.setState(
@@ -166,19 +166,22 @@ class Register extends Component {
       console.log(authData);
     }
     console.log(this.state);
-    axios
-      .post("https://market.bits-dvm.org/api/auth/signup/", authData, {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      .then(response => {
-        alert(response.data.display_message);
-      })
-      .catch(error => {
-        alert(error.response.data.display_message);
-      });
-
+    if(this.state.isPasswordCorrect){
+      axios
+        .post("https://market.bits-dvm.org/api/auth/signup/", authData, {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(response => {
+          alert(response.data.display_message);
+        })
+        .catch(error => {
+          alert(error.response.data.display_message);
+        });
+    }else{
+      alert("password and repeat password do not match");
+    }
     // clear form
   };
 
@@ -234,6 +237,20 @@ class Register extends Component {
       });
     }
   };
+  
+  passwordCheck = e =>{
+    if(this.state.password === this.state.repeatpassword){
+      alert("password matches");
+      this.setState({
+        isPasswordCorrect : true
+      });
+    }else{
+      alert("password do not match");
+      this.setState({
+        isPasswordCorrect : false
+      });
+    }
+  }
 
   render() {
     let enabled;
@@ -363,7 +380,8 @@ class Register extends Component {
                         name="repeatpassword"
                         placeholder="Repeat password"
                         autoComplete="new-password"
-                        // onChange={this.handleChange}
+                        onChange={this.handleChange}
+                        onBlur = {this.passwordCheck}
                       />
                     </InputGroup>
                     {/*                     
@@ -413,9 +431,9 @@ class Register extends Component {
                           <option value="BG">Bhagirath Bhawan</option>
                           <option value="RP">Rana Pratap Bhawan</option>
                           <option value="AK">Ashok Bhawan</option>
-                          <option value="ML-A">Malviya Bhawan A</option>
-                          <option value="ML-B">Malviya Bhawan B</option>
-                          <option value="ML-C">Malviya Bhawan C</option>
+                          <option value="MV-A">Malviya Bhawan A</option>
+                          <option value="MV-B">Malviya Bhawan B</option>
+                          <option value="MV-C">Malviya Bhawan C</option>
                         </CustomInput>
                       ) : (
                         <CustomInput
