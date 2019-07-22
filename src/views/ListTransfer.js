@@ -159,15 +159,21 @@ class ListTransfer extends React.Component {
     let checkboxes = document.getElementsByClassName(cat);
     if (e.target.checked) {
       // let isAdd = true;
+     
       list1Books.map(({ id, category, title }) => {
-        // toBeTransferred.map(({selectedId,selectedCategory,selectedTitle})=>{
-        //     if(id == (selectedId-1000)){
-        //       isAdd = false;
-        //       return;
-        //     }
-        // });
+       
+        let transferList1 = this.state.transferList1;
+        let isAdd = true;
+        let selectedId = id;
+        transferList1.map(({id,category,title})=>{
+          if(id == (selectedId+1000)){
+            isAdd = false;
+            return;
+          }
+        });
+      
 
-        if (cat === category) {
+        if (cat === category && isAdd == true) {
           this.state.transferList1.push({
             id: id + 1000,
             category: category,
@@ -220,8 +226,7 @@ class ListTransfer extends React.Component {
           checkboxes[i].checked = false;
         }
       }
-
-
+      
     }
   };
 
@@ -230,9 +235,20 @@ class ListTransfer extends React.Component {
     let list1Books = this.state.transferredList1;
     let checkboxes = document.getElementsByClassName(cat);
 
-      if (e.target.checked) {
+    if (e.target.checked) {
+
         list1Books.map(({ id, category, title }) => {
-          if (cat === category) {
+          let transferList2 = this.state.transferList2;
+          let isAdd = true;
+          let selectedId = id;
+          transferList2.map(({id,category,title})=>{
+            if(id == (selectedId-1000)){
+              isAdd = false;
+              return;
+            }
+          });
+
+          if(cat === category && isAdd === true) {
             this.state.transferList2.push({
               id: id - 1000,
               category: category,
@@ -240,8 +256,8 @@ class ListTransfer extends React.Component {
             });
           }
           return true;
-        });
-
+       });
+      
       for (let i = 0; i < checkboxes.length; i++) {
         let isSelected = false;
         console.log(this.state.books);
