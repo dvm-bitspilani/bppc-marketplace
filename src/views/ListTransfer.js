@@ -179,15 +179,14 @@ class ListTransfer extends React.Component {
 
       for (let i = 0; i < checkboxes.length; i++) {
         let isSelected = false;
+        console.log(this.state.books);
         this.state.books.map(({ id, category, title }) => {
-          // console.log(title);
-          if (checkboxes[i].value === title) {
+          if (checkboxes[i].value === title && checkboxes[i].className.split(" ")[0] === category) {
             isSelected = true;
             return null;
           }
           return true;
         });
-        // console.log(checkboxes[i].value);
         if (isSelected) {
           checkboxes[i].checked = true;
         }
@@ -203,46 +202,93 @@ class ListTransfer extends React.Component {
         }
         return true;
       });
+
       this.setState({ transferList1: b }, function() {
         console.log(this.state.transferList1);
       });
+
       for (let i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].checked = false;
+        let isSelected = true;
+        this.state.books.map(({ id, category, title }) => {
+          if (checkboxes[i].value === title && checkboxes[i].className.split(" ")[0] === category) {
+            isSelected = false;
+            return null;
+          }
+          return true;
+        });
+        if (!isSelected) {
+          checkboxes[i].checked = false;
+        }
       }
+
+
     }
   };
 
   selectCategoryBack = (e, cat) => {
     let toBeTransferred = this.state.transferList2;
     let list1Books = this.state.transferredList1;
+    let checkboxes = document.getElementsByClassName(cat);
 
-    if (e.target.checked) {
-      list1Books.map(({ id, category, title }) => {
+      if (e.target.checked) {
+        list1Books.map(({ id, category, title }) => {
+          if (cat === category) {
+            this.state.transferList2.push({
+              id: id - 1000,
+              category: category,
+              title: title
+            });
+          }
+          return true;
+        });
+
+      for (let i = 0; i < checkboxes.length; i++) {
+        let isSelected = false;
+        console.log(this.state.books);
+        this.state.transferredList1.map(({ id, category, title }) => {
+          if (checkboxes[i].value === title && checkboxes[i].className.split(" ")[0] === category) {
+            isSelected = true;
+            return null;
+          }
+          return true;
+        });
+        if (isSelected) {
+          checkboxes[i].checked = true;
+        }
+      }
+
+    } else {
+        
+      let b = this.state.transferList2;
+      this.state.transferredList1.map(({ id, category, title }) => {
+        let selectedId = id;
         if (cat === category) {
-          this.state.transferList2.push({
-            id: id - 1000,
-            category: category,
-            title: title
+          b = b.filter(function({ id, category, title }) {
+            return id + 1000 !== selectedId;
           });
         }
         return true;
       });
-    } else {
-      toBeTransferred.map(
-        ({ selectedId, selectedCategory, selecctedTitle }) => {
-          if (cat === selectedCategory) {
-            let transferList2 = this.state.transferList2.filter(function({
-              id,
-              category,
-              title
-            }) {
-              return id - 1000 !== selectedId;
-            });
-            this.setState({ transferList2: transferList2 });
+
+      this.setState({ transferList2: b }, function() {
+        console.log(this.state.transferList2);
+      });
+
+      
+      for (let i = 0; i < checkboxes.length; i++) {
+        let isSelected = true;
+        this.state.transferredList1.map(({ id, category, title }) => {
+          if (checkboxes[i].value === title && checkboxes[i].className.split(" ")[0] === category) {
+            isSelected = false;
+            return null;
           }
           return true;
+        });
+        if (!isSelected) {
+          checkboxes[i].checked = false;
         }
-      );
+      }
+
     }
   };
 

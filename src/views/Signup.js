@@ -425,15 +425,15 @@ class Register extends Component {
                         >
                           <option value="">Select your Hostel.</option>
                           <option value="RM">Ram Bhawan</option>
-                          <option value="BD">Budh Bhawan</option>
+                          <option value="BUDH">Budh Bhawan</option>
                           <option value="SR-A">Srinivasa Ramanujan A</option>
                           <option value="SR-B">Srinivasa Ramanujan B</option>
                           <option value="SR-C">Srinivasa Ramanujan C</option>
                           <option value="SR-D">Srinivasa Ramanujan D</option>
                           <option value="KR">Krishna Bhawan</option>
                           <option value="GN">Gandhi Bhawan</option>
-                          <option value="SN">Shankar Bhawan</option>
-                          <option value="VS">Vyas Bhawan</option>
+                          <option value="SK">Shankar Bhawan</option>
+                          <option value="VY">Vyas Bhawan</option>
                           <option value="VK">Vishwakarma Bhawan</option>
                           <option value="BG">Bhagirath Bhawan</option>
                           <option value="RP">Rana Pratap Bhawan</option>
