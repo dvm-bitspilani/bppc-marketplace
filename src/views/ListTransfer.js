@@ -22,7 +22,7 @@ class ListTransfer extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.books);
+    console.log(this.props);
   }
 
   onSelect = (e, selectedId, selectedCategory, selectedTitle) => {
@@ -303,7 +303,8 @@ class ListTransfer extends React.Component {
 const mapStateToProps = state => {
   return {
     books: state.sell.books,
-    transferredList1: state.sell.transferredList1
+    transferredList1: state.sell.transferredList1,
+    token: state.auth.token
   };
 };
 
