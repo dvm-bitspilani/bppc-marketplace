@@ -105,7 +105,7 @@ class List extends React.Component {
                       key={id}
                       value={title}
                       onChange={e => this.handleChange(e, id, category, title)}
-                      className={Cat}
+                      className={Cat} id={id}
                     />{" "}
                     {title}
                   </Label>

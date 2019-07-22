@@ -10,12 +10,12 @@ class ListTransfer extends React.Component {
         {
           id: 1,
           category: "Thermodynamics",
-          title: "Book 1"
+          title: "Book "
         },
         {
           id: 2,
           category: "Thermodynamics",
-          title: "Book 2"
+          title: "Book "
         },
         {
           id: 3,
@@ -154,12 +154,20 @@ class ListTransfer extends React.Component {
   };
 
   selectCategory = (e, cat) => {
-    // let toBeTransferred = this.state.transferList1;
+    
     let list1Books = this.state.books;
     let checkboxes = document.getElementsByClassName(cat);
+    let inList1 =[];
+    list1Books.map(({ id, category, title }) => {
+      for(let i=0;i< checkboxes.length ;i++){
+        if((checkboxes[i].id.toString() === id.toString()) && (checkboxes[i].className.split(" ")[0] == category)){   
+          inList1.push(checkboxes[i]);
+        }  
+      }
+    });
+
     if (e.target.checked) {
-      // let isAdd = true;
-     
+
       list1Books.map(({ id, category, title }) => {
        
         let transferList1 = this.state.transferList1;
@@ -171,7 +179,6 @@ class ListTransfer extends React.Component {
             return;
           }
         });
-      
 
         if (cat === category && isAdd == true) {
           this.state.transferList1.push({
@@ -183,20 +190,10 @@ class ListTransfer extends React.Component {
         return true;
       });
 
-      for (let i = 0; i < checkboxes.length; i++) {
-        let isSelected = false;
-        console.log(this.state.books);
-        this.state.books.map(({ id, category, title }) => {
-          if (checkboxes[i].value === title && checkboxes[i].className.split(" ")[0] === category) {
-            isSelected = true;
-            return null;
-          }
-          return true;
-        });
-        if (isSelected) {
-          checkboxes[i].checked = true;
-        }
+      for (let i = 0; i < inList1.length; i++) {
+        inList1[i].checked = true;
       }
+
     } else {
       let b = this.state.transferList1;
       this.state.books.map(({ id, category, title }) => {
@@ -212,28 +209,26 @@ class ListTransfer extends React.Component {
       this.setState({ transferList1: b }, function() {
         console.log(this.state.transferList1);
       });
-
-      for (let i = 0; i < checkboxes.length; i++) {
-        let isSelected = true;
-        this.state.books.map(({ id, category, title }) => {
-          if (checkboxes[i].value === title && checkboxes[i].className.split(" ")[0] === category) {
-            isSelected = false;
-            return null;
-          }
-          return true;
-        });
-        if (!isSelected) {
-          checkboxes[i].checked = false;
-        }
-      }
       
+      for (let i = 0; i < inList1.length; i++) {
+        inList1[i].checked = false;
+      }
+
     }
   };
 
   selectCategoryBack = (e, cat) => {
-    let toBeTransferred = this.state.transferList2;
     let list1Books = this.state.transferredList1;
     let checkboxes = document.getElementsByClassName(cat);
+
+    let inList2 =[];
+    list1Books.map(({ id, category, title }) => {
+      for(let i=0;i< checkboxes.length ;i++){
+        if((checkboxes[i].id.toString() === id.toString()) && (checkboxes[i].className.split(" ")[0] == category)){   
+          inList2.push(checkboxes[i]);
+        }  
+      }
+    });
 
     if (e.target.checked) {
 
@@ -257,24 +252,14 @@ class ListTransfer extends React.Component {
           }
           return true;
        });
-      
-      for (let i = 0; i < checkboxes.length; i++) {
-        let isSelected = false;
-        console.log(this.state.books);
-        this.state.transferredList1.map(({ id, category, title }) => {
-          if (checkboxes[i].value === title && checkboxes[i].className.split(" ")[0] === category) {
-            isSelected = true;
-            return null;
-          }
-          return true;
-        });
-        if (isSelected) {
-          checkboxes[i].checked = true;
-        }
+       
+       for (let i = 0; i < inList2.length; i++) {
+        inList2[i].checked = true;
       }
 
+
     } else {
-        
+
       let b = this.state.transferList2;
       this.state.transferredList1.map(({ id, category, title }) => {
         let selectedId = id;
@@ -290,19 +275,8 @@ class ListTransfer extends React.Component {
         console.log(this.state.transferList2);
       });
 
-      
-      for (let i = 0; i < checkboxes.length; i++) {
-        let isSelected = true;
-        this.state.transferredList1.map(({ id, category, title }) => {
-          if (checkboxes[i].value === title && checkboxes[i].className.split(" ")[0] === category) {
-            isSelected = false;
-            return null;
-          }
-          return true;
-        });
-        if (!isSelected) {
-          checkboxes[i].checked = false;
-        }
+      for (let i = 0; i < inList2.length; i++) {
+        inList2[i].checked = false;
       }
 
     }
