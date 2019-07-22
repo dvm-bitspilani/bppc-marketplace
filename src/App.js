@@ -1,5 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
 import { Router } from "@reach/router";
+
 import HomePage from "./views/HomePage";
 import DefaultHeader from "./views/defaultHeader";
 import Login from "./components/Login/Login";
@@ -10,8 +11,7 @@ import Sell from "./views/sell";
 import NextSell from "./views/NextSell";
 import DetailsCollectionForm from "./views/detailCollection";
 import DashboardLinks from "./components/DashboardLinks/DashboardLinks";
-import Logout from "./components/Logout";
-
+import Logout from "./components/Logout/Logout";
 import { NavItem, NavLink } from "reactstrap";
 import styles from "./css-modules/header.module.css";
 
@@ -33,32 +33,34 @@ function HomepageLinks() {
   );
 }
 
-function App() {
-  return (
-    <div className={styles.container}>
-      <DefaultHeader>
+class App extends Component {
+  render() {
+    return (
+      <div className={styles.container}>
+        <DefaultHeader>
+          <Router>
+            <HomepageLinks path="/" />
+            <HomepageLinks path="/login" />
+            <HomepageLinks path="/signup" />
+            <DashboardLinks path="/dashboard" />
+            <DashboardLinks path="/buy" />
+            <DashboardLinks path="/sell" />
+          </Router>
+        </DefaultHeader>
         <Router>
-          <HomepageLinks path="/" />
-          <HomepageLinks path="/login" />
-          <HomepageLinks path="/signup" />
-          <DashboardLinks path="/dashboard" />
-          <DashboardLinks path="/buy" />
-          <DashboardLinks path="/sell" />
+          <HomePage path="/" />
+          <Login path="/login" />
+          <SignUp path="/signup" />
+          <Dashboard path="/dashboard" />
+          <Buy path="/buy" />
+          <Sell path="/sell" />
+          <Logout path="/logout" />
+          <NextSell path="/NextSell" />
+          <DetailsCollectionForm path="/detailsCollection" />
         </Router>
-      </DefaultHeader>
-      <Router>
-        <HomePage path="/" />
-        <Login path="/login" />
-        <SignUp path="/signup" />
-        <Dashboard path="/dashboard" />
-        <Buy path="/buy" />
-        <Sell path="/sell" />
-        <Logout path="/logout" />
-        <NextSell path="/NextSell" />
-        <DetailsCollectionForm path="/detailsCollection" />
-      </Router>
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 export default App;

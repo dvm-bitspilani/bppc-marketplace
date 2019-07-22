@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import styles from "../../css-modules/header.module.css";
+import GoogleLogout from "../../components/Logout/GoogleLogout";
 import {
   NavItem,
   NavLink,
@@ -26,6 +28,11 @@ class DashboardLinks extends Component {
     });
   }
 
+  handleGoogleLogout = response => {
+    console.log(response);
+    window.alert("Logged out of your account!");
+  };
+
   render() {
     return (
       <div className={styles.linkContainer}>
@@ -43,7 +50,11 @@ class DashboardLinks extends Component {
         <NavItem>
           <NavLink href="/logout" className={styles.link}>
             {" "}
-            Logout
+            {this.props.isGoogle ? (
+              <GoogleLogout handleGoogleLogout={this.handleGoogleLogout} />
+            ) : (
+              "Logout"
+            )}
           </NavLink>
         </NavItem>
         <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggle}>
@@ -63,4 +74,10 @@ class DashboardLinks extends Component {
   }
 }
 
-export default DashboardLinks;
+const mapStateToProps = state => {
+  return {
+    isGoogle: state.auth.email !== "" ? true : false
+  };
+};
+
+export default connect(mapStateToProps)(DashboardLinks);

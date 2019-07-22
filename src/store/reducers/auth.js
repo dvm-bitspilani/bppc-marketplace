@@ -6,7 +6,7 @@ const initialState = {
   name: null,
   email: null,
   error: null,
-  loading: false
+  loading: false,
 };
 
 const reducer = (state = initialState, action) => {

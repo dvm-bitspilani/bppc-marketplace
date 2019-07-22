@@ -24,6 +24,7 @@ export const authFail = error => {
 };
 
 export const logout = () => {
+  localStorage.removeItem("token");
   return {
     type: actionTypes.AUTH_LOGOUT
   };
@@ -34,18 +35,16 @@ export const auth = (username, password, id_token) => {
     // google login
     console.log("google login called");
     let googleAuthData = { id_token: id_token };
-
     return dispatch => {
       dispatch(authStart());
       axios
         .post("/api/auth/login/", googleAuthData)
         .then(response => {
-          console.log("logged in with google and communicated with server");
           console.log(response);
+          localStorage.setItem("token", response.data.JWT);
           dispatch(authSuccess(response.data));
         })
         .catch(err => {
-          console.log("error from server");
           console.log(err);
           dispatch(authFail(err));
         });
@@ -60,11 +59,9 @@ export const auth = (username, password, id_token) => {
     axios
       .post("/api/auth/login/", authData)
       .then(response => {
-        console.log("connected!");
         console.log(response);
+        localStorage.setItem("token", response.data.JWT);
         dispatch(authSuccess(response.data));
-        // navigate to dashboard once the user is authenticated
-        // navigate("/dashboard");
       })
       .catch(err => {
         console.log(err);
@@ -72,3 +69,14 @@ export const auth = (username, password, id_token) => {
       });
   };
 };
+
+export const checkAuthState = () => {
+  return dispatch => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      dispatch(logout());
+    } else {
+      dispatch(authSuccess());
+    }
+  }
+}

@@ -73,11 +73,6 @@ class Login extends Component {
     }
   };
 
-  handleGoogleLogout = response => {
-    console.log(response);
-    window.alert("Logged out of your account!");
-  };
-
   render() {
     return (
       <div className="app flex-row align-items-center">

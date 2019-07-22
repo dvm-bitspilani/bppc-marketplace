@@ -1,7 +1,7 @@
 import React from "react";
 import { navigate } from "@reach/router";
 import { connect } from "react-redux";
-import * as actions from "../store/actions/index";
+import * as actions from "../../store/actions/index";
 
 class Logout extends React.Component {
   componentDidMount() {
