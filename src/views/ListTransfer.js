@@ -1,43 +1,13 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import List from "./List";
+import { connect } from "react-redux";
 
 class ListTransfer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: [
-        {
-          id: 1,
-          category: "Thermodynamics",
-          title: "Book "
-        },
-        {
-          id: 2,
-          category: "Thermodynamics",
-          title: "Book "
-        },
-        {
-          id: 3,
-          category: "MeOW",
-          title: "Book 1"
-        },
-        {
-          id: 4,
-          category: "MeOW",
-          title: "Book 2"
-        },
-        {
-          id: 5,
-          category: "Biology",
-          title: "Book 1"
-        },
-        {
-          id: 6,
-          category: "Biology",
-          title: "Book 2"
-        }
-      ],
+      books: this.props.books,
       transferList1: [],
       transferList2: [],
       transferredList1: [],
@@ -49,6 +19,10 @@ class ListTransfer extends React.Component {
     this.onSelectBack = this.onSelectBack.bind(this);
     this.selectCategory = this.selectCategory.bind(this);
     this.selectCategoryBack = this.selectCategoryBack.bind(this);
+  }
+
+  componentDidMount() {
+    console.log(this.props.books);
   }
 
   onSelect = (e, selectedId, selectedCategory, selectedTitle) => {
@@ -326,4 +300,10 @@ class ListTransfer extends React.Component {
   }
 }
 
-export default ListTransfer;
+const mapStateToProps = state => {
+  return {
+    books: state.sell.books
+  };
+};
+
+export default connect(mapStateToProps)(ListTransfer);
