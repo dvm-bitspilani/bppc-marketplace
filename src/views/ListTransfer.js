@@ -8,7 +8,7 @@ class ListTransfer extends React.Component {
     super(props);
     this.state = {
       books: this.props.books,
-      transferList1: [],
+      transferList1: this.props.transferredList1,
       transferList2: [],
       transferredList1: [],
       isbuttonClicked: false
@@ -302,7 +302,8 @@ class ListTransfer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    books: state.sell.books
+    books: state.sell.books,
+    transferredList1: state.sell.transferredList1
   };
 };
 

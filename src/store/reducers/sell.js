@@ -32,7 +32,8 @@ const initialState = {
       category: "Biology",
       title: "Book 2"
     }
-  ]
+  ],
+  transferredList1: []
 };
 
 const reducer = (state = initialState, action) => {
