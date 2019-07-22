@@ -66,23 +66,3 @@ export const auth = (username, password, id_token) => {
       });
   };
 };
-
-// export const googleAuth = id_token => {
-//   let googleAuthData = { id_token: id_token };
-
-//   return dispatch => {
-//     dispatch(authStart());
-//     axios
-//       .post("/api/login/", googleAuthData)
-//       .then(response => {
-//         console.log("logged in with google and communicated with server");
-//         console.log(response);
-//         dispatch(authSuccess(response.data));
-//       })
-//       .catch(err => {
-//         console.log("error from server");
-//         console.log(err);
-//         dispatch(authFail(err));
-//       });
-//   };
-// };
