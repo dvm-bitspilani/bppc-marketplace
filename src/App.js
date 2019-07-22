@@ -10,6 +10,7 @@ import Sell from "./views/sell";
 import NextSell from "./views/NextSell";
 import DetailsCollectionForm from "./views/detailCollection";
 import DashboardLinks from "./components/DashboardLinks/DashboardLinks";
+import Logout from "./components/Logout";
 
 import { NavItem, NavLink } from "reactstrap";
 import styles from "./css-modules/header.module.css";
@@ -52,6 +53,7 @@ function App() {
         <Dashboard path="/dashboard" />
         <Buy path="/buy" />
         <Sell path="/sell" />
+        <Logout path="/logout" />
         <NextSell path="/NextSell" />
         <DetailsCollectionForm path="/detailsCollection" />
       </Router>

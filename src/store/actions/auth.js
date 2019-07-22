@@ -23,10 +23,16 @@ export const authFail = error => {
   };
 };
 
+export const logout = () => {
+  return {
+    type: actionTypes.AUTH_LOGOUT
+  };
+};
+
 export const auth = (username, password, id_token) => {
   if (id_token !== null) {
     // google login
-    console.log('google login called')
+    console.log("google login called");
     let googleAuthData = { id_token: id_token };
 
     return dispatch => {
