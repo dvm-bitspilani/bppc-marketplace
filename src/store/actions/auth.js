@@ -45,7 +45,7 @@ export const auth = (username, password, id_token) => {
           dispatch(authSuccess(response.data));
         })
         .catch(err => {
-          console.log(err);
+          window.alert(err.response.data.display_message);
           dispatch(authFail(err));
         });
     };
@@ -64,7 +64,7 @@ export const auth = (username, password, id_token) => {
         dispatch(authSuccess(response.data));
       })
       .catch(err => {
-        console.log(err);
+        window.alert(err.response.data.display_message);
         dispatch(authFail(err));
       });
   };

@@ -6,10 +6,10 @@ import GoogleLogout from "../../components/Logout/GoogleLogout";
 import {
   NavItem,
   NavLink,
-  Dropdown,
-  DropdownItem,
-  DropdownToggle,
-  DropdownMenu
+  // Dropdown,
+  // DropdownItem,
+  // DropdownToggle,
+  // DropdownMenu
 } from "reactstrap";
 
 class DashboardLinks extends Component {
@@ -57,18 +57,17 @@ class DashboardLinks extends Component {
             )}
           </NavLink>
         </NavItem>
-        <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+        {/* <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggle}>
           <DropdownToggle nav caret className={styles.dropdown}>
             Hi, user
           </DropdownToggle>
           <DropdownMenu>
             <DropdownItem>Status</DropdownItem>
-            {/* <DropdownItem disabled>Selling</DropdownItem> */}
             <DropdownItem> Notifications</DropdownItem>
             <DropdownItem divider />
             <DropdownItem header>settings</DropdownItem>
           </DropdownMenu>
-        </Dropdown>
+        </Dropdown> */}
       </div>
     );
   }
