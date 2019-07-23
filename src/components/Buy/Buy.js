@@ -1,12 +1,20 @@
 import React, { Component } from "react";
-// import { Router, Link } from "react-router-dom";
-
+import { connect } from "react-redux";
 // import { Table } from "reactstrap";
 import Modal from "./Modal/Modal";
 import SellerSummary from "./SellerSummary/SellerSummary";
 import "./Buy.css";
+// import { navigate } from "@reach/router";
+// import Redirect from '../Redirect';
 
 class Buy extends Component {
+  // componentDidMount() {
+  //   if (this.props.token === null) {
+  //     window.alert("Unauthenticated user. Please login first!");
+  //     navigate("/login");
+  //   }
+  // }
+
   constructor(props) {
     super(props);
 
@@ -95,4 +103,10 @@ class Buy extends Component {
   }
 }
 
-export default Buy;
+const mapStateToProps = state => {
+  return {
+    token: state.auth.token
+  };
+};
+
+export default connect(mapStateToProps)(Buy);

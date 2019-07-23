@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Router } from "@reach/router";
+import { connect } from "react-redux";
 
 import HomePage from "./views/HomePage";
 import DefaultHeader from "./views/defaultHeader";
@@ -43,8 +44,8 @@ class App extends Component {
             <HomepageLinks path="/login" />
             <HomepageLinks path="/signup" />
             <DashboardLinks path="/dashboard" />
-            <DashboardLinks path="/buy" />
-            <DashboardLinks path="/sell" />
+            {this.props.token !== null ? <DashboardLinks path="/buy" /> : null}
+            {this.props.token !== null ? <DashboardLinks path="/sell" /> : null}
           </Router>
         </DefaultHeader>
         <Router>
@@ -52,8 +53,8 @@ class App extends Component {
           <Login path="/login" />
           <SignUp path="/signup" />
           <Dashboard path="/dashboard" />
-          <Buy path="/buy" />
-          <Sell path="/sell" />
+          {this.props.token !== null ? <Buy path="/buy" /> : null}
+          {this.props.token !== null ? <Sell path="/sell" /> : null}
           <Logout path="/logout" />
           <NextSell path="/NextSell" />
           <DetailsCollectionForm path="/detailsCollection" />
@@ -63,4 +64,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    token: state.auth.token
+  };
+};
+
+export default connect(mapStateToProps)(App);

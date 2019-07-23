@@ -38,21 +38,18 @@ class Login extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.token !== null && this.props.error === null) {
+    if (this.props.token !== null) {
+      // login was successful
+      if (this.props.email !== "" && this.props.new_bitsian === true) {
+        // logged in with google and first time login
+        // redirect to detail collction page
+        navigate("/detailsCollection");
+      }
+
+      // normal login
+      // redirect to dashboard
       navigate("/dashboard");
     }
-    // if (this.props.token !== null) {
-    //   login was successful
-    //   if (this.props.email !== "" && this.props.new_bitsian === true) {
-    //     logged in with google and first time login
-    //     redirect to detail collction page
-    //     navigate("/detail-collection");
-    //   }
-
-    //   normal login
-    //   redirect to dashboard
-    //   navigate("/dashboard");
-    // }
   }
 
   handleChange = event => {
