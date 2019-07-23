@@ -36,6 +36,7 @@ function HomepageLinks() {
 
 class App extends Component {
   render() {
+    console.log(this.props.token)
     return (
       <div className={styles.container}>
         <DefaultHeader>
@@ -53,8 +54,10 @@ class App extends Component {
           <Login path="/login" />
           <SignUp path="/signup" />
           <Dashboard path="/dashboard" />
-          {this.props.token !== null ? <Buy path="/buy" /> : null}
-          {this.props.token !== null ? <Sell path="/sell" /> : null}
+          {(this.props.token !== null) ? <Buy path="/buy" /> : null}
+          {(this.props.token !== null) ? <Sell path="/sell" /> : null}
+          {/* <Buy path="/buy" />
+          <Sell path="/sell" /> */}
           <Logout path="/logout" />
           <NextSell path="/NextSell" />
           <DetailsCollectionForm path="/detailsCollection" />

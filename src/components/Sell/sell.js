@@ -55,7 +55,18 @@ class AdditionalDetails extends React.Component {
     );
   }
 }
-
+class Price extends React.Component{
+  render(){
+    return(
+    <Form>
+        <FormGroup>
+          <Label for="exampleText">Price in Rs:</Label>
+          <Input type="number" name="text" id="description" />
+        </FormGroup>
+     </Form>
+    )
+  }
+}
 class Description extends React.Component {
   render() {
     return (
@@ -103,7 +114,8 @@ function getSteps() {
   return [
     "Select Books which you want to sell",
     "Upload pictures",
-    "Description and Tags"
+    "Description and Tags",
+    "Price"
   ];
 }
 
@@ -115,6 +127,8 @@ function getStepContent(step) {
       return <FileInput />;
     case 2:
       return <Description />;
+    case 3:
+      return <Price/>
     default:
       return "Unknown step";
   }
@@ -162,7 +176,7 @@ export default function VerticalLinearStepper() {
                       color="primary"
                       onClick={handleNext}
                       className={classes.button}
-                    >
+                    > 
                       {activeStep === steps.length - 1 ? "Finish" : "Next"}
                     </Button>
                   </div>
@@ -181,6 +195,13 @@ export default function VerticalLinearStepper() {
             {/* <Button onClick={handleReset} className={classes.button}>
               Reset
             </Button> */}
+              <Button
+                      disabled={activeStep === 0}
+                      onClick={handleBack}
+                      className={classes.button}
+                    >
+                      Go to last step
+              </Button>
           </Paper>
         )}
       </div>
