@@ -6,6 +6,7 @@ const initialState = {
   name: null,
   email: null,
   error: null,
+  new_bitsian: false,
   loading: false,
 };
 
@@ -24,6 +25,7 @@ const reducer = (state = initialState, action) => {
         userId: action.authData.user_id,
         name: action.authData.name,
         email: action.authData.email,
+        new_bitsian: action.authData.new_bitsian,
         error: null,
         loading: false
       }

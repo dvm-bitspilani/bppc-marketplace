@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 // import axios from "../axios-instance";
 
-import { GoogleLogin, GoogleLogout } from "react-google-login";
+import { GoogleLogin } from "react-google-login";
 import { navigate } from "@reach/router";
 import * as actions from "../../store/actions/index";
 import {
@@ -26,7 +26,7 @@ const initialState = {
 };
 class Login extends Component {
   state = {
-    ...initialState,
+    ...initialState
     // isAuthenticated: false
   };
 
@@ -41,6 +41,18 @@ class Login extends Component {
     if (this.props.token !== null && this.props.error === null) {
       navigate("/dashboard");
     }
+    // if (this.props.token !== null) {
+    //   login was successful
+    //   if (this.props.email !== "" && this.props.new_bitsian === true) {
+    //     logged in with google and first time login
+    //     redirect to detail collction page
+    //     navigate("/detail-collection");
+    //   }
+
+    //   normal login
+    //   redirect to dashboard
+    //   navigate("/dashboard");
+    // }
   }
 
   handleChange = event => {
@@ -59,12 +71,12 @@ class Login extends Component {
   };
 
   handleGoogleLogin = response => {
-    // console.log(response.tokenObj.id_token);     
+    // console.log(response.tokenObj.id_token);
     if (response.tokenObj !== null) {
-      this.props.onAuth(null,null,response.tokenObj.id_token);
+      this.props.onAuth(null, null, response.tokenObj.id_token);
       if (this.props.token !== null && this.props.error !== null) {
         console.log(this.props.token);
-        console.log('redirect now');
+        console.log("redirect now");
         navigate("/dashboard");
       }
     } else {
@@ -149,10 +161,6 @@ class Login extends Component {
                         onFailure={this.handleGoogleLogin}
                         cookiePolicy={"single_host_origin"}
                       />
-                      <GoogleLogout
-                        buttonText="Logout"
-                        onLogoutSuccess={this.handleGoogleLogout}
-                      />
                     </div>
                   </CardBody>
                 </Card>
@@ -168,13 +176,16 @@ class Login extends Component {
 const mapStateToProps = state => {
   return {
     token: state.auth.token,
+    email: state.auth.email,
+    new_bitsian: state.auth.new_bitsian,
     error: state.auth.error
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: (username, password, id_token) => dispatch(actions.auth(username, password, id_token)),
+    onAuth: (username, password, id_token) =>
+      dispatch(actions.auth(username, password, id_token))
   };
 };
 
