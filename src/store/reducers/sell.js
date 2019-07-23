@@ -33,7 +33,8 @@ const initialState = {
       title: "Book 2"
     }
   ],
-  transferredList1: []
+  transferredList1: [],
+  imagesupload: []
 };
 
 const reducer = (state = initialState, action) => {

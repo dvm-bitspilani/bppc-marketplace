@@ -8,56 +8,10 @@ import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { Container, Form, FormGroup, Label, Input } from "reactstrap";
-import Dropzone from "./dropzone/Dropzone";
 import { lightBlue } from "@material-ui/core/colors";
 import ListTransfer from "./ListTransfer";
+import FileInput from "./FileInput";
 
-class FileInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.uploadChange = this.uploadChange.bind(this);
-    this.state = {
-      imagesupload: []
-    };
-  }
-
-  uploadChange(files) {
-    console.log(files);
-    for (var i = 0; i < files.length; i++) {
-      var x = files[i];
-      const imagesupload = Object.assign([], this.state.imagesupload);
-      imagesupload.push(x);
-      this.setState({ imagesupload });
-    }
-  }
-  render() {
-    return (
-      <div>
-        <Container>
-          <Form>
-            {/* <Label>
-              <Label for="exampleCustomFileBrowser">Upload an Image</Label>
-              <CustomInput
-                type="file"
-                id="exampleCustomFileBrowser"
-                name="customFile"
-                label="pick a file"
-              />
-            </Label> */}
-            <div className="App">
-              <div className="Card">
-                <Dropzone
-                  onFilesAdded={this.uploadChange}
-                  imagearr={this.state.imagesupload}
-                />
-              </div>
-            </div>
-          </Form>
-        </Container>
-      </div>
-    );
-  }
-}
 class TagsContainer extends React.Component {
   constructor(props) {
     super(props);
