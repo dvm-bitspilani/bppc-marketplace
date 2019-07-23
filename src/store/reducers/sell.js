@@ -34,7 +34,8 @@ const initialState = {
     }
   ],
   transferredList1: [],
-  imagesupload: []
+  imagesupload: [],
+  tags: []
 };
 
 const reducer = (state = initialState, action) => {
