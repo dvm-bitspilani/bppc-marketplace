@@ -12,6 +12,7 @@ import ListTransfer from "./ListTransfer";
 import FileInput from "./FileInput";
 import TagsContainer from "./TagsContainer";
 // import { ReactComponent } from "*.svg";
+import { navigate } from "@reach/router";
 
 class AdditionalDetails extends React.Component {
   constructor(props) {
@@ -212,10 +213,22 @@ class Sell extends React.Component{
     super(props);
   }
 
+  componentDidMount() {
+    if (localStorage.getItem("token") === null) {
+      window.alert("Unauthenticated user. Please login first!");
+      setTimeout(() => navigate("/login"), 100);
+    }
+  }
+
   render(){
-    return(
-      <VerticalLinearStepper/>
-    )
+    let sell;
+    if(localStorage.getItem("token")){
+     sell = (<VerticalLinearStepper/>)
+    }else
+    {
+      sell = <div>{" "}</div>;
+    }
+    return sell;
   }
 }
 
