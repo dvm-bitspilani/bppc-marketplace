@@ -49,8 +49,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.TRANSFER_LIST:
       return {
         ...state,
-        books: action.transfersuccess.arr,
-        transferredList1: action.transfersuccess.arr1
+        books: action.transfersuccess.books,
+        transferredList1: action.transfersuccess.transferredList1
       };
 
     default:
