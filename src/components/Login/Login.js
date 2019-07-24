@@ -33,7 +33,7 @@ class Login extends Component {
   componentDidMount() {
     console.log(this.props.navigate);
     if (this.props.token !== null && this.props.error === null) {
-      navigate("/dashboard");
+      setTimeout(() => navigate("/dashboard"), 100);
     }
   }
 
@@ -43,12 +43,12 @@ class Login extends Component {
       if (this.props.email !== "" && this.props.new_bitsian === true) {
         // logged in with google and first time login
         // redirect to detail collction page
-        navigate("/detailsCollection");
+        setTimeout(() => navigate("/detailsCollection"), 100);;
       }
 
       // normal login
       // redirect to dashboard
-      navigate("/dashboard");
+      setTimeout(() => navigate("/dashboard"), 100);;
     }
   }
 

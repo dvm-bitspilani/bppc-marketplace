@@ -6,7 +6,7 @@ import * as actions from "../../store/actions/index";
 class Logout extends React.Component {
   componentDidMount() {
     this.props.onLogout();
-    navigate("/login");
+    setTimeout(() => navigate("/login"), 100);;
   }
 
   render() {

@@ -11,7 +11,6 @@ import { Container, Form, FormGroup, Label, Input } from "reactstrap";
 import ListTransfer from "./ListTransfer";
 import FileInput from "./FileInput";
 import TagsContainer from "./TagsContainer";
-import { navigate } from "@reach/router/lib/history";
 
 class AdditionalDetails extends React.Component {
   constructor(props) {
