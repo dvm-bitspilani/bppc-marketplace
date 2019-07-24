@@ -5,7 +5,7 @@ import styles from "../../css-modules/header.module.css";
 import GoogleLogout from "../../components/Logout/GoogleLogout";
 import {
   NavItem,
-  NavLink,
+  NavLink
   // Dropdown,
   // DropdownItem,
   // DropdownToggle,
@@ -34,6 +34,16 @@ class DashboardLinks extends Component {
   };
 
   render() {
+    let logout;
+    if (localStorage.getItem("token")) {
+      logout = localStorage.getItem("isGoogle") === "true" ? (
+        <GoogleLogout handleGoogleLogout={this.handleGoogleLogout} />
+      ) : (
+        "Logout"
+      );
+    } else {
+      logout = "";
+    }
     return (
       <div className={styles.linkContainer}>
         <NavItem>
@@ -50,24 +60,9 @@ class DashboardLinks extends Component {
         <NavItem>
           <NavLink href="/logout" className={styles.link}>
             {" "}
-            {this.props.isGoogle ? (
-              <GoogleLogout handleGoogleLogout={this.handleGoogleLogout} />
-            ) : (
-              "Logout"
-            )}
+            {logout}
           </NavLink>
         </NavItem>
-        {/* <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-          <DropdownToggle nav caret className={styles.dropdown}>
-            Hi, user
-          </DropdownToggle>
-          <DropdownMenu>
-            <DropdownItem>Status</DropdownItem>
-            <DropdownItem> Notifications</DropdownItem>
-            <DropdownItem divider />
-            <DropdownItem header>settings</DropdownItem>
-          </DropdownMenu>
-        </Dropdown> */}
       </div>
     );
   }
@@ -75,7 +70,8 @@ class DashboardLinks extends Component {
 
 const mapStateToProps = state => {
   return {
-    isGoogle: state.auth.email !== "" ? true : false
+    isGoogle: state.auth.email !== "" ? true : false,
+    email: state.auth.email
   };
 };
 

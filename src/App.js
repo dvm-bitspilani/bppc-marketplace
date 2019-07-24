@@ -13,7 +13,7 @@ import NextSell from "./components/Sell/NextSell";
 import DetailsCollectionForm from "./views/detailCollection";
 import DashboardLinks from "./components/DashboardLinks/DashboardLinks";
 import Logout from "./components/Logout/Logout";
-import { NavItem, NavLink, Alert } from "reactstrap";
+import { NavItem, NavLink } from "reactstrap";
 import styles from "./css-modules/header.module.css";
 
 function HomepageLinks() {

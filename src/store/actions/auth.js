@@ -25,6 +25,7 @@ export const authFail = error => {
 
 export const logout = () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("isGoogle");
   return {
     type: actionTypes.AUTH_LOGOUT
   };
@@ -42,6 +43,7 @@ export const auth = (username, password, id_token) => {
         .then(response => {
           console.log(response);
           localStorage.setItem("token", response.data.JWT);
+          localStorage.setItem("isGoogle", true);
           dispatch(authSuccess(response.data));
         })
         .catch(err => {
@@ -61,6 +63,7 @@ export const auth = (username, password, id_token) => {
       .then(response => {
         console.log(response);
         localStorage.setItem("token", response.data.JWT);
+        localStorage.setItem("isGoogle", false);
         dispatch(authSuccess(response.data));
       })
       .catch(err => {

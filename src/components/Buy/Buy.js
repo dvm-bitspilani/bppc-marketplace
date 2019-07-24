@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 // import { Table } from "reactstrap";
 import Modal from "./Modal/Modal";
 import SellerSummary from "./SellerSummary/SellerSummary";
@@ -9,7 +8,7 @@ import { navigate } from "@reach/router";
 
 class Buy extends Component {
   componentDidMount() {
-    if (this.props.token === null) {
+    if (localStorage.getItem("token") === null) {
       window.alert("Unauthenticated user. Please login first!");
       setTimeout(() => navigate("/login"), 100);
     }
@@ -53,7 +52,7 @@ class Buy extends Component {
 
   render() {
     let body;
-    if (this.props.token) {
+    if (localStorage.getItem("token")) {
       body = (
         <div className="Buy">
           <br />
@@ -110,10 +109,4 @@ class Buy extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    token: state.auth.token
-  };
-};
-
-export default connect(mapStateToProps)(Buy);
+export default Buy;

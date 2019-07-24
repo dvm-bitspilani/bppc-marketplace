@@ -43,12 +43,12 @@ class Login extends Component {
       if (this.props.email !== "" && this.props.new_bitsian === true) {
         // logged in with google and first time login
         // redirect to detail collction page
-        setTimeout(() => navigate("/detailsCollection"), 100);;
+        setTimeout(() => navigate("/detailsCollection"), 100);
       }
 
       // normal login
       // redirect to dashboard
-      setTimeout(() => navigate("/dashboard"), 100);;
+      setTimeout(() => navigate("/dashboard"), 100);
     }
   }
 
