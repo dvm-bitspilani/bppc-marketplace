@@ -2,6 +2,7 @@ import React from "react";
 import Dropzone from "./dropzone/Dropzone";
 import { Container, Form } from "reactstrap";
 import { connect } from "react-redux";
+import * as actions from "../../store/actions/index";
 
 class FileInput extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class FileInput extends React.Component {
       const imagesupload = Object.assign([], this.state.imagesupload);
       imagesupload.push(x);
       this.setState({ imagesupload });
+      this.props.onImagetransfer(this.state.imagesupload);
     }
   }
   render() {
@@ -56,4 +58,13 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(FileInput);
+const mapDispatchToProps = dispatch => {
+  return {
+    onImagetransfer: inputfile => dispatch(actions.updateimagestate(inputfile))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FileInput);

@@ -33,6 +33,8 @@ const initialState = {
       title: "Book 2"
     }
   ],
+  transferList1: [],
+  transferList2: [],
   transferredList1: [],
   imagesupload: [],
   tags: []
@@ -43,6 +45,13 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SELL_START:
       return {
         ...state
+      };
+    case actionTypes.TRANSFER_LIST:
+      return {
+        ...state,
+        books: action.transferSuccess.books,
+        transferredList1: action.transferSuccess.transferredList1,
+        imagesupload: action.imageTransfer.filestate
       };
 
     default:
