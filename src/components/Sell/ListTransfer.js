@@ -107,6 +107,7 @@ class ListTransfer extends React.Component {
       books: updatedBooks,
       transferList1: []
     });
+    this.props.onTransfer(this.state.books, this.state.transferredList1);
   };
 
   transferBack = e => {

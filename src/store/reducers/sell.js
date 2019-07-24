@@ -49,8 +49,9 @@ const reducer = (state = initialState, action) => {
     case actionTypes.TRANSFER_LIST:
       return {
         ...state,
-        books: action.transfersuccess.books,
-        transferredList1: action.transfersuccess.transferredList1
+        books: action.transferSuccess.books,
+        transferredList1: action.transferSuccess.transferredList1,
+        imagesupload: action.imageTransfer.filestate
       };
 
     default:
