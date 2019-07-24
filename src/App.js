@@ -45,8 +45,10 @@ class App extends Component {
             <HomepageLinks path="/login" />
             <HomepageLinks path="/signup" />
             <DashboardLinks path="/dashboard" />
-            {localStorage.getItem("token") !== null ? <DashboardLinks path="/buy" /> : null}
-            {localStorage.getItem("token")!== null ? <DashboardLinks path="/sell" /> : null}
+            <DashboardLinks path="/buy" />
+            <DashboardLinks path="/sell" />
+            {/* {localStorage.getItem("token") !== null ? <DashboardLinks path="/buy" /> : null} */}
+            {/* {localStorage.getItem("token")!== null ? <DashboardLinks path="/sell" /> : null} */}
           </Router>
         </DefaultHeader>
         <Router>
@@ -54,10 +56,10 @@ class App extends Component {
           <Login path="/login" />
           <SignUp path="/signup" />
           <Dashboard path="/dashboard" />
-          {localStorage.getItem("token") !== null ? <Buy path="/buy" /> : null}
-          {localStorage.getItem("token")!== null ? <Sell path="/sell" /> : null}
-          {/* <Buy path="/buy" />
-          <Sell path="/sell" /> */}
+          {/* {localStorage.getItem("token") !== null ? <Buy path="/buy" /> : null} */}
+          {/* {localStorage.getItem("token")!== null ? <Sell path="/sell" /> : null} */}
+          <Buy path="/buy" />
+          <Sell path="/sell" />
           <Logout path="/logout" />
           <NextSell path="/NextSell" />
           <DetailsCollectionForm path="/detailsCollection" />
