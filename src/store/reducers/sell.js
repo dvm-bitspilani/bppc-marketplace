@@ -33,6 +33,8 @@ const initialState = {
       title: "Book 2"
     }
   ],
+  transferList1: [],
+  transferList2: [],
   transferredList1: [],
   imagesupload: [],
   tags: []
@@ -40,6 +42,10 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.SELL_START:
+      return {
+        ...state
+      };
     case actionTypes.SELL_START:
       return {
         ...state

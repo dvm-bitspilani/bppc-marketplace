@@ -8,3 +8,4 @@ export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAIL = "SIGNUP_FAIL";
 
 export const SELL_START = "SELL_START";
+export const TRANSFER_LIST = "TRANSFER_LIST";
