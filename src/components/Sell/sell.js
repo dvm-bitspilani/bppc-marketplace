@@ -11,6 +11,7 @@ import { Container, Form, FormGroup, Label, Input } from "reactstrap";
 import ListTransfer from "./ListTransfer";
 import FileInput from "./FileInput";
 import TagsContainer from "./TagsContainer";
+// import { ReactComponent } from "*.svg";
 
 class AdditionalDetails extends React.Component {
   constructor(props) {
@@ -134,77 +135,88 @@ function getStepContent(step) {
   }
 }
 
-export default function VerticalLinearStepper() {
-  const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const steps = getSteps();
+ function VerticalLinearStepper(){
+   
+    const classes = useStyles();
+    const [activeStep, setActiveStep] = React.useState(0);
+    const steps = getSteps();
 
-  function handleNext() {
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
-  }
+    function handleNext() {
+      setActiveStep(prevActiveStep => prevActiveStep + 1);
+    }
 
-  function handleBack() {
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
-  }
-
-  // function handleReset() {
-  //   setActiveStep(0);
-  // }
-
-  return (
-    <Container>
-      <div className={classes.root}>
-        <Stepper activeStep={activeStep} orientation="vertical">
-          {steps.map((label, index) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-              <StepContent>
-                <Typography component={"span"}>
-                  {getStepContent(index)}
-                </Typography>
-                <div className={classes.actionsContainer}>
-                  <div>
-                    <Button
-                      disabled={activeStep === 0}
-                      onClick={handleBack}
-                      className={classes.button}
-                    >
-                      Back
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleNext}
-                      className={classes.button}
-                    > 
-                      {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                    </Button>
+    function handleBack() {
+      setActiveStep(prevActiveStep => prevActiveStep - 1);
+    }
+    return (
+      <Container>
+        <div className={classes.root}>
+          <Stepper activeStep={activeStep} orientation="vertical">
+            {steps.map((label, index) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+                <StepContent>
+                  <Typography component={"span"}>
+                    {getStepContent(index)}
+                  </Typography>
+                  <div className={classes.actionsContainer}>
+                    <div>
+                      <Button
+                        disabled={activeStep === 0}
+                        onClick={handleBack}
+                        className={classes.button}
+                      >
+                        Back
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleNext}
+                        className={classes.button}
+                      > 
+                        {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </StepContent>
-            </Step>
-          ))}
-        </Stepper>
-        {activeStep === steps.length && (
-          <Paper square elevation={0} className={classes.resetContainer}>
-            <Typography>
-              All steps are completed. You can follow up your selling status on
-              dashboard and also, you are allowed to edit these details when you
-              visit this page again
-            </Typography>
-            {/* <Button onClick={handleReset} className={classes.button}>
-              Reset
-            </Button> */}
-              <Button
-                      disabled={activeStep === 0}
-                      onClick={handleBack}
-                      className={classes.button}
-                    >
-                      Go to last step
-              </Button>
-          </Paper>
-        )}
-      </div>
-    </Container>
-  );
+                </StepContent>
+              </Step>
+            ))}
+          </Stepper>
+          {activeStep === steps.length && (
+            <Paper square elevation={0} className={classes.resetContainer}>
+              <Typography>
+                All steps are completed. You can follow up your selling status on
+                dashboard and also, you are allowed to edit these details when you
+                visit this page again
+              </Typography>
+              {/* <Button onClick={handleReset} className={classes.button}>
+                Reset
+              </Button> */}
+                <Button
+                        disabled={activeStep === 0}
+                        onClick={handleBack}
+                        className={classes.button}
+                      >
+                        Go to last step
+                </Button>
+            </Paper>
+          )}
+        </div>
+      </Container>
+    );  
+   
 }
+
+class Sell extends React.Component{
+  constructor(props){
+    super(props);
+  }
+
+  render(){
+    return(
+      <VerticalLinearStepper/>
+    )
+  }
+}
+
+export default Sell;
