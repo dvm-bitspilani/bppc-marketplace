@@ -40,15 +40,15 @@ class Login extends Component {
   componentDidUpdate() {
     if (this.props.token !== null) {
       // login was successful
-      if (this.props.email !== "" && this.props.new_bitsian === true) {
+      if (this.props.email !== "" && this.props.new_bitsian == true) {
         // logged in with google and first time login
         // redirect to detail collction page
         setTimeout(() => navigate("/detailsCollection"), 100);
+      }else{ 
+        // normal login
+        // redirect to dashboard
+        setTimeout(() => navigate("/dashboard"), 100); 
       }
-
-      // normal login
-      // redirect to dashboard
-      setTimeout(() => navigate("/dashboard"), 100);
     }
   }
 
