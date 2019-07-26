@@ -18,27 +18,34 @@ import {
 } from "reactstrap";
 
 import * as actions from "../../src/store/actions/index";
-const axios = require('axios');
+const axios = require("axios");
 
 // import { redirectTo } from "@reach/router";
 
 const initialState = {
-  username: "",
-  email: "",
-  password: "",
-  repeatpassword: "",
-  usernameError: "",
-  emailError: "",
-  passwordError: "",
-  repeatpasswordError: "",
+  fullname: "",
+  gender: "",
+  phone_no: "",
+  year_of_study: "",
+  hostel: "",
+  room_no: "",
+  degree_type: "",
+  bits_email: "",
   redirectToDashboard: true
 };
 
 class Register extends Component {
-  state = initialState;
   constructor(props) {
     super(props);
     this.state = {
+      fullname: "",
+      gender: "",
+      phone_no: "",
+      year_of_study: "",
+      hostel: "",
+      room_no: "",
+      degree_type: "",
+      bits_email: "",
       yearOfStudy: 2019,
       dualDegree: false,
       singleDegree: true,
@@ -129,7 +136,10 @@ class Register extends Component {
       // console.log(authData);
     }
     // console.log(this.state);
-    if(this.state.isPasswordCorrect || this.state.isPasswordCorrect==="none"){
+    if (
+      this.state.isPasswordCorrect ||
+      this.state.isPasswordCorrect === "none"
+    ) {
       axios
         .post("https://market.bits-dvm.org/api/auth/signup/", authData, {
           headers: {
@@ -142,7 +152,7 @@ class Register extends Component {
         .catch(error => {
           alert(error.response.data.display_message);
         });
-     }else{
+    } else {
       alert("password and repeat password do not match");
     }
   };
@@ -165,6 +175,16 @@ class Register extends Component {
       }
     });
   };
+
+  selectedHostel = e => {
+    this.setState({
+      hostel: e.target.value,
+      function() {
+        console.log(this.state.hostel);
+      }
+    });
+  };
+
   showBothBranch = e => {
     if (e.target.value === "Single Degree") {
       this.setState({
@@ -187,15 +207,21 @@ class Register extends Component {
     }
   };
   gender = e => {
-    if (e.target.value === "Male") {
-      this.setState({
-        gender: "Male"
-      });
-    } else {
-      this.setState({
-        gender: "Female"
-      });
+    switch (e.target.value) {
+      case "Male":
+        this.setState({
+          gender: "M"
+        });
+      case "Female":
+        this.setState({
+          gender: "F"
+        });
+      default:
+        this.setState({
+          gender: "M"
+        });
     }
+    console.log(this.state);
   };
 
   render() {
@@ -226,7 +252,7 @@ class Register extends Component {
                       </InputGroupAddon>
                       <Input
                         type="text"
-                        name="username"
+                        name="fullname"
                         placeholder="Full Name"
                         autoComplete="username"
                         onChange={this.handleChange}
@@ -245,6 +271,7 @@ class Register extends Component {
                           value="Male"
                           id="exampleCustomRadio"
                           label="Male"
+                          onChange={this.gender}
                         />
                         <CustomInput
                           inline
@@ -253,6 +280,7 @@ class Register extends Component {
                           value="Female"
                           id="exampleCustomRadio2"
                           label="Female"
+                          onChange={this.gender}
                         />
                       </div>
                     </FormGroup>
@@ -265,53 +293,12 @@ class Register extends Component {
                       </InputGroupAddon>
                       <Input
                         type="number"
-                        name="Phone-Number"
+                        name="phone_no"
                         id="exampleNumber"
                         placeholder="Phone number"
-                      />
-                    </InputGroup>
-
-                    {/* <InputGroup className="mb-3">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText><ion-icon name="mail"></ion-icon></InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        type="text"
-                        name="email"
-                        placeholder="Email"
-                        autoComplete="email"
                         onChange={this.handleChange}
                       />
                     </InputGroup>
-                    <InputGroup className="mb-3">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <ion-icon name="finger-print" size="small"></ion-icon>
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        autoComplete="new-password"
-                        onChange={this.handleChange}
-                      />
-                    </InputGroup>
-                    <InputGroup className="mb-4">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <ion-icon name="done-all"></ion-icon>
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        type="password"
-                        name="repeatpassword"
-                        placeholder="Repeat password"
-                        autoComplete="new-password"
-                        onChange={this.handleChange}
-                      />
-                    </InputGroup> */}
-
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
@@ -348,6 +335,7 @@ class Register extends Component {
                           id="exampleCustomSelect"
                           name="customSelect"
                           disabled={enabled}
+                          onChange={this.selectedHostel}
                         >
                           <option value="">Select your Hostel.</option>
                           <option>Ram Bhawan</option>
@@ -374,6 +362,7 @@ class Register extends Component {
                           id="exampleCustomSelect"
                           name="customSelect"
                           disabled={enabled}
+                          onChange={this.selectedHostel}
                         >
                           <option value="">Select your Hostel.</option>
                           <option>Meera Block 1</option>
@@ -398,9 +387,10 @@ class Register extends Component {
                       </InputGroupAddon>
                       <Input
                         type="number"
-                        name="Phone Number"
+                        name="room_no"
                         id="exampleNumber"
                         placeholder="Enter Room No"
+                        onChange={this.handleChange}
                       />
                     </InputGroup>
                     <InputGroup className="mb-4">
@@ -433,7 +423,7 @@ class Register extends Component {
                           name="customSelect"
                           onChange={this.handleChange}
                         >
-                                  <option>Enter your Single Degree Branch.</option>
+                          <option>Enter your Single Degree Branch.</option>
                           <option value="A1">A1 - B.E. Chemical</option>
                           <option value="A2">A2 - B.E. Civil</option>
                           <option value="A3">
@@ -483,7 +473,7 @@ class Register extends Component {
                       </InputGroupAddon>
                       <Input
                         type="text"
-                        name="bitsId"
+                        name="bits_email"
                         placeholder="BITS ID"
                         autoComplete="BitsId"
                       />
