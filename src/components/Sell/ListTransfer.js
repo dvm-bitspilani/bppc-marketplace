@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 
 const axios = require("axios");
-
 class ListTransfer extends React.Component {
 
   /**************States******** */
@@ -19,7 +18,7 @@ class ListTransfer extends React.Component {
       books: [],
       transferList1: [],
       transferList2: [],
-      transferredList1: this.props.transferredList1,
+      transferredList1: [],
       isbuttonClicked: false
     };
     this.onSelect = this.onSelect.bind(this);
@@ -29,6 +28,7 @@ class ListTransfer extends React.Component {
     this.selectCategory = this.selectCategory.bind(this);
     this.selectCategoryBack = this.selectCategoryBack.bind(this);
     this.updateArrays = this.updateArrays.bind(this);
+    this.nameToTitle = this.nameToTitle.bind(this);
     // console.log(this.props.store.getState());
   }
 
@@ -36,18 +36,26 @@ class ListTransfer extends React.Component {
   componentDidMount() {
     console.log(localStorage.getItem("token"));
     axios
-    .get("http://market.bits-dvm.org/api/sell/",{ headers: {"Authorization" :localStorage.getItem("token")}},{
+    .get("http://market.bits-dvm.org/api/sell/",{
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization" :"JWT "+ localStorage.getItem("token")
       }
     })
     .then(response => {
-      console.log(JSON.stringify(response.data));
+      console.log(response.data);
+      let books = this.props.onStart(response.data.books,response.data.selected_books).arr1;
+      let transferredList1 = this.props.onStart(response.books,response.data.selected_books).arr2;
+      books = this.nameToTitle(books);
+      transferredList1 = this.nameToTitle(transferredList1);
+      
+      console.log(books,"hi" ,transferredList1);
+      this.updateArrays(books, transferredList1);
     })
     .catch(error => {
       console.log(error);
     });
-    let response = {
+     let response = {
       books: [
           {
               title: "Textbook",
@@ -69,20 +77,20 @@ class ListTransfer extends React.Component {
       [
           {
             title: "Textbook",
-            id: 8,
+            id: 1008,
             category: "Adult"
           },
           {
             title: "Textbook",
-            id: 9,
+            id: 1009,
             category: "Kids"
           }
       ]
     }
     // console.log(JSON.parse(JSON.stringify(this.props.onStart(response.books,response.selected_books).arr1)));
-   let books =this.props.onStart(response.books,response.selected_books).arr1;
-   let transferredList1 = this.props.onStart(response.books,response.selected_books).arr2;
-   this.updateArrays(books, transferredList1);
+  //  let books =this.props.onStart(response.books,response.selected_books).arr1;
+  //  let transferredList1 = this.props.onStart(response.books,response.selected_books).arr2;
+  //  this.updateArrays(books, transferredList1);
   }
 
   /* For updating states*/
@@ -91,6 +99,16 @@ class ListTransfer extends React.Component {
       books: books,
       transferredList1:transferredList1
     }); 
+  }
+  nameToTitle(books){
+    let array =[];
+    books.map(({name,id,category})=>{
+      array.push({title: name,
+                  id:id,
+                  category:category
+      })  
+    })
+    return array;
   }
 
   /*Called when checkbox is selected in List 1, not when they are selected through category*/
@@ -151,10 +169,12 @@ class ListTransfer extends React.Component {
     });
     this.setState({
       transferredList1: this.state.transferredList1.concat(transferredBooks),
-      books: updatedBooks,
-      transferList1: []
-    });
-    // this.props.onTransfer(this.state.books, this.state.transferredList1);
+        books: updatedBooks,
+        transferList1: []
+      },() => {
+      // this.props.onTransfer(this.state.books, this.state.transferredList1);
+      this.props.onTransfer(this.state.books, this.state.transferredList1);
+      });
   };
 
   /*Called when deselect Books button is pressed */
@@ -174,6 +194,8 @@ class ListTransfer extends React.Component {
       books: this.state.books.concat(transferredBooks),
       transferredList1: updatedBooks,
       transferList2: []
+    },() => {
+      this.props.onTransfer(this.state.books, this.state.transferredList1);
     });
   };
 
@@ -345,7 +367,7 @@ class ListTransfer extends React.Component {
         <List
           books={this.state.transferredList1}
           onSelect={this.onSelectBack}
-          selectcategory={this.selectCategoryBack}
+          selectcategory={this.selectCategoryBack}  
         />
       </div>
     );
@@ -370,6 +392,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapStateToProps,mapDispatchToProps
+ null,mapDispatchToProps
 )(ListTransfer);
 // export default ListTransfer;

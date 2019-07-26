@@ -1,37 +1,23 @@
 import * as actionTypes from "../actions/actionTypes";
+const axios = require("axios");
 
 const initialState = {
   books: [
-    {
-      id: 1,
-      category: "Thermodynamics",
-      title: "Book "
-    },
-    {
-      id: 2,
-      category: "Thermodynamics",
-      title: "Book "
-    },
-    {
-      id: 3,
-      category: "MeOW",
-      title: "Book 1"
-    },
-    {
-      id: 4,
-      category: "MeOW",
-      title: "Book 2"
-    },
-    {
-      id: 5,
-      category: "Biology",
-      title: "Book 1"
-    },
-    {
-      id: 6,
-      category: "Biology",
-      title: "Book 2"
-    }
+    // {
+    //     id: "5",
+    //     category: "Thermodynamics",
+    //     title: "Textbook",
+    // },
+    // {
+    //     title: "Reference Book",
+    //     id: "7",
+    //     category: "Thermodynamics"
+    // },
+    // {
+    //     title: "Handbook",
+    //     id: "15",
+    //     category: "Gen Bio"
+    // }
   ],
   transferList1: [],
   transferList2: [],
@@ -41,22 +27,23 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case actionTypes.SELL_START:
-      return {
-        ...state
-      };
-    case actionTypes.TRANSFER_LIST:
-      return {
-        ...state,
-        books: action.transferSuccess.books,
-        transferredList1: action.transferSuccess.transferredList1,
-        imagesupload: action.imageTransfer.filestate
-      };
-
-    default:
-      return state;
+  if (action.type === actionTypes.SELL_START) {
+    return{
+      ...state,
+      books: action.arr1,
+      transferredList1: action.arr2  
+    }
   }
+  if (action.type === actionTypes.TRANSFER_LIST) {
+  
+    return{
+      ...state,
+      books: action.arr1,
+      transferredList1: action.arr2  
+    }
+  }
+  return state;
+
 };
 
 export default reducer;

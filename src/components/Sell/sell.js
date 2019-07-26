@@ -13,6 +13,8 @@ import FileInput from "./FileInput";
 import TagsContainer from "./TagsContainer";
 // import { ReactComponent } from "*.svg";
 import { navigate } from "@reach/router";
+import * as  actions from '../../store/actions/sell';
+import {connect} from 'react-redux';
 
 class AdditionalDetails extends React.Component {
   constructor(props) {
@@ -218,6 +220,23 @@ class Sell extends React.Component{
       window.alert("Unauthenticated user. Please login first!");
       setTimeout(() => navigate("/login"), 100);
     }
+    
+    const mapStateToProps = state => {
+      return {
+        books: state.sell.books,
+        transferList1: state.sell.transferList1,
+        transferList2: state.sell.transferList2,
+        transferredList1: state.sell.transferredList1,
+        token: state.auth.token
+      };
+    };
+    
+    const mapDispatchToProps = dispatch => {
+      return {
+        onTransfer: (arr, arr1) => dispatch(actions.updatestate(arr, arr1)),
+        onStart: (arr ,arr1) => dispatch(actions.sellstart(arr,arr1))
+      };
+    };
   }
 
   render(){
@@ -231,5 +250,7 @@ class Sell extends React.Component{
     return sell;
   }
 }
+
+
 
 export default Sell;

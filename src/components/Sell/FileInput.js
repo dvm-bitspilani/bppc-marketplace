@@ -4,6 +4,8 @@ import { Container, Form } from "reactstrap";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 
+const axios = require('axios');
+
 class FileInput extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +14,23 @@ class FileInput extends React.Component {
       imagesupload: this.props.imagesupload
     };
   }
-
+  
+  componentDidMount() {
+    axios
+    .get("http://market.bits-dvm.org/api/sell/",{
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization" :"bearer "+ localStorage.getItem("token"),
+      }
+    })
+    .then(response => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+  
   uploadChange(files) {
     console.log(files);
     for (var i = 0; i < files.length; i++) {

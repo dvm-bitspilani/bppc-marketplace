@@ -20,8 +20,11 @@ export const updatestate = (arr, arr1) => {
     books: arr,
     transferredList1: arr1
   };
-  return dispatch => {
-    dispatch(transferSuccess(updatedData));
+  return {
+    // dispatch(transferSuccess(updatedData));
+    type: actionTypes.TRANSFER_LIST,
+    books: arr,
+    transferredList1: arr1
   };
 };
 
@@ -33,3 +36,10 @@ export const updateimagestate = inputfile => {
     dispatch(imageTransfer(updateimagestate));
   };
 };
+export const sellstart = (arr1 , arr2 )=>{
+  return{
+    type: actionTypes.SELL_START,
+    arr1: arr1,
+    arr2: arr2
+  }
+}
