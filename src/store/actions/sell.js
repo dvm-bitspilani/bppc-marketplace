@@ -36,10 +36,10 @@ export const updateimagestate = inputfile => {
     dispatch(imageTransfer(updateimagestate));
   };
 };
-export const sellstart = (arr1 , arr2 )=>{
-  return{
+export const sellstart = (arr1, arr2) => {
+  return {
     type: actionTypes.SELL_START,
     arr1: arr1,
     arr2: arr2
-  }
-}
+  };
+};
