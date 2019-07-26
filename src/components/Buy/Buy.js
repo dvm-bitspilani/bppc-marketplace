@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-// import { Table } from "reactstrap";
+import { connect } from 'react-redux'
+
 import Modal from "./Modal/Modal";
 import SellerSummary from "./SellerSummary/SellerSummary";
 import "./Buy.css";
 import { navigate } from "@reach/router";
-// import Redirect from '../Redirect';
+import * as actions from '../../store/actions/index';
 
 class Buy extends Component {
   componentDidMount() {
@@ -102,11 +103,18 @@ class Buy extends Component {
         </div>
       );
     } else {
-      body = <div>{" "}</div>
+      body = <div> </div>;
     }
 
     return body;
   }
 }
 
-export default Buy;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchSellers: () => dispatch(actions.fetchSellers())
+  }
+}
+
+
+export default connect(null, mapDispatchToProps)(Buy);
