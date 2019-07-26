@@ -35,58 +35,12 @@ class ListTransfer extends React.Component {
   /*********Get Request will be here*************/
   componentDidMount() {
     console.log(localStorage.getItem("token"));
-    axios
-    .get("http://market.bits-dvm.org/api/sell/",{
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization" :"JWT "+ localStorage.getItem("token")
-      }
-    })
-    .then(response => {
-      console.log(response.data);
-      let books = this.props.onStart(response.data.books,response.data.selected_books).arr1;
-      let transferredList1 = this.props.onStart(response.books,response.data.selected_books).arr2;
-      books = this.nameToTitle(books);
-      transferredList1 = this.nameToTitle(transferredList1);
-      
-      console.log(books,"hi" ,transferredList1);
-      this.updateArrays(books, transferredList1);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-     let response = {
-      books: [
-          {
-              title: "Textbook",
-              id: 5,
-              category: "Thermodynamics"
-          },
-          {
-              title: "Textbook",
-              id: 7,
-              category: "Thermodynamics"
-          },
-          {
-              title: "Handbook",
-              id: 15,
-              category: "GenBio"
-          }
-      ],
-      selected_books:
-      [
-          {
-            title: "Textbook",
-            id: 1008,
-            category: "Adult"
-          },
-          {
-            title: "Textbook",
-            id: 1009,
-            category: "Kids"
-          }
-      ]
-    }
+    console.log(this.props.onStart(localStorage.getItem("token")));
+    console.log(this.props.books,this.props.transferredList1);
+    // this.setState({
+    //   books: this.sell.books,
+    //   transferredList1: this.props.transferredList1
+    // });
     // console.log(JSON.parse(JSON.stringify(this.props.onStart(response.books,response.selected_books).arr1)));
   //  let books =this.props.onStart(response.books,response.selected_books).arr1;
   //  let transferredList1 = this.props.onStart(response.books,response.selected_books).arr2;
@@ -387,11 +341,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onTransfer: (arr, arr1) => dispatch(actions.updatestate(arr, arr1)),
-    onStart: (arr ,arr1) => dispatch(actions.sellstart(arr,arr1))
+    onStart: (token) => dispatch(actions.sellstart(token))
   };
 };
 
 export default connect(
- null,mapDispatchToProps
+ mapStateToProps,mapDispatchToProps
 )(ListTransfer);
 // export default ListTransfer;

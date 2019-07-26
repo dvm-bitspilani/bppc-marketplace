@@ -27,15 +27,52 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
+  let count = 1;
   if (action.type === actionTypes.SELL_START) {
-    return{
-      ...state,
-      books: action.arr1,
-      transferredList1: action.arr2  
+    let object;
+    let books =[];
+    let transferredList1 = [];
+    if(count == 1){
+
+      let response = axios
+      .get("http://market.bits-dvm.org/api/sell/",{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization" :"JWT "+ action.token
+        }
+      })
+      .then(response => {
+       return{
+         books: response.data.books,
+         selected_books: response.data.selected_books
+       }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+      count =2;
+      // console.log(response.books,transferredList1)
+      console.log();
+      object = { 
+        ...state,
+        books: books,
+        transferredList1: transferredList1  
+      }
+      console.log(object,count);
     }
+
+
+    else{
+      object = {
+        ...state
+      }
+      console.log(object,count);
+    }
+    return object;
   }
   if (action.type === actionTypes.TRANSFER_LIST) {
-  
+
     return{
       ...state,
       books: action.arr1,
