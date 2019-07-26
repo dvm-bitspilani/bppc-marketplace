@@ -4,11 +4,19 @@ import List from "./List";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 
+const axios = require("axios");
+
 class ListTransfer extends React.Component {
+
+  /**************States******** */
+  //books maintain states for List1
+  //transferList1 maintain list for which books are to be transferred from List1 to List2
+  // transferList2 maintain same thing but from List2 to List1
+  // transferredList1 most weird name for maintaining books in List2
   constructor(props) {
     super(props);
     this.state = {
-      books: this.props.books,
+      books: [],
       transferList1: [],
       transferList2: [],
       transferredList1: this.props.transferredList1,
@@ -20,41 +28,83 @@ class ListTransfer extends React.Component {
     this.onSelectBack = this.onSelectBack.bind(this);
     this.selectCategory = this.selectCategory.bind(this);
     this.selectCategoryBack = this.selectCategoryBack.bind(this);
+    this.updateArrays = this.updateArrays.bind(this);
+    // console.log(this.props.store.getState());
   }
 
+  /*********Get Request will be here*************/
   componentDidMount() {
-    console.log(this.props);
+    console.log(localStorage.getItem("token"));
+    axios
+    .get("http://market.bits-dvm.org/api/sell/",{ headers: {"Authorization" :localStorage.getItem("token")}},{
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    let response = {
+      books: [
+          {
+              title: "Textbook",
+              id: 5,
+              category: "Thermodynamics"
+          },
+          {
+              title: "Textbook",
+              id: 7,
+              category: "Thermodynamics"
+          },
+          {
+              title: "Handbook",
+              id: 15,
+              category: "GenBio"
+          }
+      ],
+      selected_books:
+      [
+          {
+            title: "Textbook",
+            id: 8,
+            category: "Adult"
+          },
+          {
+            title: "Textbook",
+            id: 9,
+            category: "Kids"
+          }
+      ]
+    }
+    // console.log(JSON.parse(JSON.stringify(this.props.onStart(response.books,response.selected_books).arr1)));
+   let books =this.props.onStart(response.books,response.selected_books).arr1;
+   let transferredList1 = this.props.onStart(response.books,response.selected_books).arr2;
+   this.updateArrays(books, transferredList1);
   }
 
+  /* For updating states*/
+  updateArrays(books , transferredList1){
+    this.setState({
+      books: books,
+      transferredList1:transferredList1
+    }); 
+  }
+
+  /*Called when checkbox is selected in List 1, not when they are selected through category*/
   onSelect = (e, selectedId, selectedCategory, selectedTitle) => {
     if (e.target.checked) {
-      // console.log("updatedTransferList "+updatedTransferList);
-      // let transferList1 = this.state.transferList1;
-      // let isAdd = true;
-      // transferList1.map(({id,category,title})=>{
-      //   if(id == (selectedId+1000)){
-      //     isAdd = false;
-      //     return;
-      //   }
-      // });
-      // if(isAdd){
+      /*For avoiding bugs in react for maintaining state id is increased by 1000 before transferring */
       this.state.transferList1.push({
         id: selectedId + 1000,
         category: selectedCategory,
         title: selectedTitle
       });
-      // }
-      // console.log("updatedBooks"+updatedBooks);
-
-      // this.setState({
-      //   transferList1: updatedTransferList
-      //  });
+        console.log(this.state.transferList1);
     } else {
-      // this.setState({
-      //   transferList1: this.state.transferList1.filter(function({id,category,title}){
-      //                   return (id -1000)!= selectedId;
-      //                   })
-      //     })
+
       let transferList1 = this.state.transferList1.filter(function({
         id,
         category,
@@ -62,15 +112,11 @@ class ListTransfer extends React.Component {
       }) {
         return id - 1000 !== selectedId;
       });
-
       this.setState({ transferList1: transferList1 });
-      // this.state.transferList1.push({
-      //     id: selectedId,
-      //     category:selectedCategory,
-      //     title:selectedTitle
-      //   });
     }
   };
+
+  /*Called when checkbox is selected in List 2, not when they are selected through category*/
   onSelectBack = (e, selectedId, selectedCategory, selectedTitle) => {
     if (e.target.checked) {
       this.state.transferList2.push({
@@ -90,6 +136,7 @@ class ListTransfer extends React.Component {
     }
   };
 
+  /*Called when select Books button is pressed */
   transfer = e => {
     const transferredBooks = this.state.transferList1;
     let updatedBooks = this.state.books;
@@ -107,9 +154,10 @@ class ListTransfer extends React.Component {
       books: updatedBooks,
       transferList1: []
     });
-    this.props.onTransfer(this.state.books, this.state.transferredList1);
+    // this.props.onTransfer(this.state.books, this.state.transferredList1);
   };
 
+  /*Called when deselect Books button is pressed */
   transferBack = e => {
     const transferredBooks = this.state.transferList2;
     let updatedBooks = this.state.transferredList1;
@@ -129,6 +177,7 @@ class ListTransfer extends React.Component {
     });
   };
 
+  /*when you click on category for category selection in List1 */
   selectCategory = (e, cat) => {
     let list1Books = this.state.books;
     let checkboxes = document.getElementsByClassName(cat);
@@ -193,6 +242,7 @@ class ListTransfer extends React.Component {
     }
   };
 
+  /*when you click on category for category selection in List2 */
   selectCategoryBack = (e, cat) => {
     let list1Books = this.state.transferredList1;
     let checkboxes = document.getElementsByClassName(cat);
@@ -314,11 +364,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onTransfer: (arr, arr1) => dispatch(actions.updatestate(arr, arr1))
+    onTransfer: (arr, arr1) => dispatch(actions.updatestate(arr, arr1)),
+    onStart: (arr ,arr1) => dispatch(actions.sellstart(arr,arr1))
   };
 };
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps,mapDispatchToProps
 )(ListTransfer);
+// export default ListTransfer;
