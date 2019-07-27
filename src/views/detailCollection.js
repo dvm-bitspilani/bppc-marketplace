@@ -23,14 +23,13 @@ const axios = require("axios");
 // import { redirectTo } from "@reach/router";
 
 const initialState = {
-  fullname: "",
   gender: "",
-  phone_no: "",
-  year_of_study: "",
+  phone: "",
+  bits_id: "",
   hostel: "",
   room_no: "",
-  degree_type: "",
-  bits_email: "",
+  is_dual_degree: "",
+  single_branch: "",
   redirectToDashboard: true
 };
 
@@ -38,14 +37,14 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fullname: "",
       gender: "",
-      phone_no: "",
-      year_of_study: "",
+      phone: "",
+      bits_id: "",
       hostel: "",
       room_no: "",
-      degree_type: "",
-      bits_email: "",
+      is_dual_degree: "",
+      single_branch: "",
+      isgendermale: true,
       yearOfStudy: 2019,
       dualDegree: false,
       singleDegree: true,
@@ -99,63 +98,34 @@ class Register extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    // const isValid = this.validate();
     let authData;
-    // if (isValid) {
-    let isDualDegree = this.state.dualDegree;
     console.log(this.state);
-    if (!isDualDegree) {
-      authData = {
-        name: this.state.fullName,
-        gender: this.state.gender,
-        username: this.state.username,
-        password: this.state.repeatpassword,
-        email: this.state.email,
-        phone: this.state.phoneNumber,
-        bits_id: this.state.bits_id,
-        hostel: this.state.hostel,
-        room_no: this.state.roomNo,
-        is_dual_degree: "",
-        single_branch: this.state.branch
-      };
-    } else {
-      authData = {
-        name: this.state.fullName,
-        gender: this.state.gender,
-        username: this.state.username,
-        password: this.state.repeatpassword,
-        email: this.state.email,
-        phone: this.state.phoneNumber,
-        bits_id: this.state.bits_id,
-        hostel: this.state.hostel,
-        room_no: this.state.roomNo,
-        is_dual_degree: true,
-        dual_branch: this.state.branch
-      };
-      // }
-      // console.log(authData);
-    }
-    // console.log(this.state);
-    if (
-      this.state.isPasswordCorrect ||
-      this.state.isPasswordCorrect === "none"
-    ) {
-      axios
-        .post("https://market.bits-dvm.org/api/auth/signup/", authData, {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-        .then(response => {
-          alert(response.data.display_message);
-        })
-        .catch(error => {
-          alert(error.response.data.display_message);
-        });
-    } else {
-      alert("password and repeat password do not match");
-    }
+    authData = {
+      gender: this.state.gender,
+      phone: this.state.phone,
+      bits_id: this.state.bits_id,
+      hostel: this.state.hostel,
+      room_no: this.state.room_no,
+      is_dual_degree: this.state.is_dual_degree,
+      single_branch: this.state.single_branch
+    };
+
+    console.log(authData);
+
+    axios
+      .post("http://market.bits-dvm.org/api/DetailsCollection/", authData, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
+
   yearOfStudy = e => {
     // console.log(e.target.value);
     this.setState({ yearOfStudy: parseInt(e.target.value) }, function() {
@@ -188,40 +158,32 @@ class Register extends Component {
   showBothBranch = e => {
     if (e.target.value === "Single Degree") {
       this.setState({
-        singleDegree: true,
-        dualDegree: false
+        single_branch: true,
+        is_dual_degree: ""
       });
     } else if (e.target.value === "Dual Degree") {
       if (this.state.yearOfStudy === 2019) {
         this.setState({
-          singleDegree: false,
-          dualDegree: true
-        });
-      } else {
-        this.setState({
-          singleDegree: true,
-          dualDegree: true
+          single_branch: "",
+          is_dual_degree: true
         });
       }
-    } else {
     }
   };
   gender = e => {
-    switch (e.target.value) {
-      case "Male":
-        this.setState({
-          gender: "M"
-        });
-      case "Female":
-        this.setState({
-          gender: "F"
-        });
-      default:
-        this.setState({
-          gender: "M"
-        });
+    const val = e.target.value;
+    if (val === "Male") {
+      this.setState({
+        gender: "M",
+        isgendermale: true
+      });
+      console.log(this.state.gender);
+    } else if (val === "Female") {
+      this.setState({
+        gender: "F",
+        isgendermale: false
+      });
     }
-    console.log(this.state);
   };
 
   render() {
@@ -244,7 +206,7 @@ class Register extends Component {
                     <p className="text-muted">
                       Please fill all mentioned fields
                     </p>
-                    <InputGroup className="mb-3">
+                    {/* <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
                           <ion-icon name="person" />
@@ -257,7 +219,7 @@ class Register extends Component {
                         autoComplete="username"
                         onChange={this.handleChange}
                       />
-                    </InputGroup>
+                    </InputGroup> */}
 
                     <FormGroup>
                       <div
@@ -271,7 +233,6 @@ class Register extends Component {
                           value="Male"
                           id="exampleCustomRadio"
                           label="Male"
-                          onChange={this.gender}
                         />
                         <CustomInput
                           inline
@@ -280,7 +241,6 @@ class Register extends Component {
                           value="Female"
                           id="exampleCustomRadio2"
                           label="Female"
-                          onChange={this.gender}
                         />
                       </div>
                     </FormGroup>
@@ -293,13 +253,13 @@ class Register extends Component {
                       </InputGroupAddon>
                       <Input
                         type="number"
-                        name="phone_no"
+                        name="phone"
                         id="exampleNumber"
                         placeholder="Phone number"
                         onChange={this.handleChange}
                       />
                     </InputGroup>
-                    <InputGroup className="mb-4">
+                    {/* <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
                           <ion-icon name="calendar" />
@@ -320,7 +280,7 @@ class Register extends Component {
                         <option>2014</option>
                         <option>2013</option>
                       </CustomInput>
-                    </InputGroup>
+                    </InputGroup> */}
 
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
@@ -329,7 +289,7 @@ class Register extends Component {
                         </InputGroupText>
                       </InputGroupAddon>
 
-                      {this.state.gender === "Male" ? (
+                      {this.state.isgendermale === true ? (
                         <CustomInput
                           type="select"
                           id="exampleCustomSelect"
@@ -473,9 +433,10 @@ class Register extends Component {
                       </InputGroupAddon>
                       <Input
                         type="text"
-                        name="bits_email"
+                        name="bits_id"
                         placeholder="BITS ID"
                         autoComplete="BitsId"
+                        onChange={this.handleChange}
                       />
                     </InputGroup>
 
