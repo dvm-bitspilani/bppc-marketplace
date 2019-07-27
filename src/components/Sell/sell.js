@@ -17,35 +17,7 @@ import * as  actions from '../../store/actions/sell';
 import {connect} from 'react-redux';
 import Description from './Description';
 import {AdditionalDetails} from './AdditionalDetails';
-
-
-class Price extends React.Component{
-  constructor(props){
-    super(props);
-    this.state ={
-      price: null
-    }
-    this.handleChange=this.handleChange.bind(this);
-  }
-
-  handleChange = (e) =>{
-    this.setState({
-      price: e.target.value
-    })
-  }
-  render(){
-    return(
-    <Form>
-        <FormGroup>
-          <Label for="exampleText">Price in Rs:</Label>
-          <Input onChange={this.handleChange} type="number" name="text" id="description" />
-        </FormGroup>
-     </Form>
-    )
-  }
-}
-
-
+import Price from "./Price";
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%"
@@ -86,7 +58,7 @@ function getStepContent(step) {
   }
 }
 
- function VerticalLinearStepper(){
+ function VerticalLinearStepper(props){
    
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
@@ -98,6 +70,11 @@ function getStepContent(step) {
 
     function handleBack() {
       setActiveStep(prevActiveStep => prevActiveStep - 1);
+    }
+    function twoCalls(){
+      handleNext();
+      // console.log(prototype)
+      // props.sellEnd(localStorage.getItem("token"));
     }
     return (
       <Container>
@@ -119,14 +96,32 @@ function getStepContent(step) {
                       >
                         Back
                       </Button>
-                      <Button
+                     
+                        {(activeStep === steps.length - 1)?(
+                          
+                        <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={twoCalls}
+                        className={classes.button}
+                        >
+                          Finish
+                        </Button> 
+                          
+                        ):(
+
+                        <Button
                         variant="contained"
                         color="primary"
                         onClick={handleNext}
                         className={classes.button}
-                      > 
-                        {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                      </Button>
+                        >
+                          Next
+                        </Button>
+                        )
+
+                        }
+                      
                     </div>
                   </div>
                 </StepContent>
@@ -158,6 +153,118 @@ function getStepContent(step) {
    
 }
 
+// class VerticalLinearStepper extends React.Component{
+
+//   constructor(props){
+//     super(props);
+//     this.handleBack = this.handleBack.bind(this);
+//     this.handleNext = this.handleNext.bind(this);
+//     this.twoCalls = this.twoCalls.bind(this);
+//   }
+//   handleNext = (e,setActiveStep) => {
+//     const [activeStep, setActiveStep] = React.useState(0);
+//     setActiveStep(prevActiveStep => prevActiveStep + 1);
+//   }
+  
+//   handleBack = (e,setActiveStep) => {
+//     setActiveStep(prevActiveStep => prevActiveStep - 1);
+//   }
+//   twoCalls= (e,setActiveStep) => {
+//     this.handleNext();
+//     this.props.sellEnd(localStorage.getItem("token"));
+//   }
+//   render() {
+//     const classes = useStyles(); 
+//     const steps = getSteps();
+  
+//     return(
+//     <Container>
+//       <div className={classes.root}>
+//         <Stepper activeStep={activeStep} orientation="vertical">
+//           {steps.map((label, index) => (
+//             <Step key={label}>
+//               <StepLabel>{label}</StepLabel>
+//               <StepContent>
+//                 <Typography component={"span"}>
+//                   {getStepContent(index)}
+//                 </Typography>
+//                 <div className={classes.actionsContainer}>
+//                   <div>
+//                     <Button
+//                       disabled={activeStep === 0}
+//                       onClick={(e) => this.handleBack(e,setActiveStep)}
+//                       className={classes.button}
+//                     >
+//                       Back
+//                     </Button>
+                   
+//                       {(activeStep === steps.length - 1)?(
+                        
+//                       <Button
+//                       variant="contained"
+//                       color="primary"
+//                       onClick={(e) => this.twoCalls(e,setActiveStep)}
+//                       className={classes.button}
+//                       >
+//                         Finish
+//                       </Button> 
+                        
+//                       ):(
+  
+//                       <Button
+//                       variant="contained"
+//                       color="primary"
+//                       onClick={(e) => this.handleNext(e,setActiveStep)}
+//                       className={classes.button}
+//                       >
+//                         Next
+//                       </Button>
+//                       )
+  
+//                       }
+                    
+//                   </div>
+//                 </div>
+//               </StepContent>
+//             </Step>
+//           ))}
+//         </Stepper>
+//         {activeStep === steps.length && (
+//           <Paper square elevation={0} className={classes.resetContainer}>
+//             <Typography>
+//               All steps are completed. You can follow up your selling status on
+//               dashboard and also, you are allowed to edit these details when you
+//               visit this page again
+//             </Typography>
+//             {/* <Button onClick={handleReset} className={classes.button}>
+//               Reset
+//             </Button> */}
+//               <Button
+//                       disabled={activeStep === 0}
+//                       onClick={(e) => this.handleBack(e,setActiveStep)}
+//                       className={classes.button}
+//                     >
+//                       Go to last step
+//               </Button>
+//           </Paper>
+//         )}
+//       </div>
+//     </Container>
+//     )
+//   };  
+//   }
+
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//    sellEnd: (token) => dispatch(actions.sellEnd(token))
+//   };
+// };
+
+// connect(
+//   null, mapDispatchToProps
+// )(VerticalLinearStepper);
+
 class Sell extends React.Component{
   constructor(props){
     super(props);
@@ -188,3 +295,4 @@ class Sell extends React.Component{
 }
 
 export default Sell;
+

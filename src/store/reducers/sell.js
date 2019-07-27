@@ -9,11 +9,10 @@ const initialState = {
   transferList2: [],
   transferredList1: [],
   imagesupload: [],
-  tags: [],
-  details:"",
-  description:"",
-  price: null,
-  tags: [],
+  tags: ["abc","def"],
+  details:"Everything",
+  description:"Good Condition",
+  price: 4500,
   book_ids: []
 };
 
@@ -23,9 +22,11 @@ const reducer = (state = initialState, action) => {
       {  
       return Object.assign({}, state, {
         ...state,
-        books:action.arr1,
-        transferredList1: action.arr2
-    });}
+        books:action.response.books,
+        transferredList1: action.response.selected_books,
+        details: action.response.details,
+        tags: action.response.tags
+      });}
       break;
     case actionTypes.TRANSFER_LIST:
       {
@@ -37,14 +38,58 @@ const reducer = (state = initialState, action) => {
       }
       break;
       case actionTypes.DESCRIPTION:
-        {
+        { let object = { ...state,
+          tags: action.tags,
+          details:action.details,
+          description: action.description}
+          console.log(object);
           return{
             ...state,
             tags: action.tags,
             details:action.details,
             description: action.description
           }
-        }    
+        } 
+        break;
+      case actionTypes.PRICE:
+        {
+          let price = {
+            ...state,
+            price: action.price
+          }
+          return price
+        }
+      case actionTypes.SELL_END:
+        { 
+          // let booksids=[];
+          // let books = state.transferredList1;
+          // books.map(({title,id,category})=>{
+          //   bookids.push((parseInt(id)-1000));
+          // })
+
+          let authData = {
+            details: state.details,
+            description:state.description,
+            price: state.price,
+            tags: state.tags,
+            book_ids:["1","2","3"]       
+        }
+        axios
+        .post("http://market.bits-dvm.org/api/sell/", authData, {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization" :"JWT "+ action.token            
+          }
+        })
+        .then(response => {
+          alert(response.data);
+        })
+        .catch(error => {
+          alert(error.response.data);
+        });
+
+        return state;
+        }
     default:
       return state;
   }

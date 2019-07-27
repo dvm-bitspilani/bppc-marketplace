@@ -10,9 +10,9 @@ class Description extends React.Component {
     constructor(props){
       super(props);
       this.state={
-        description:"",
-        tags: [],
-        additionalDetails: ""
+        description:this.props.description,
+        tags: this.props.tags,
+        additionalDetails: this.props.details
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleTags = this.handleTags.bind(this);
@@ -27,16 +27,22 @@ class Description extends React.Component {
     }
   
     handleTags = (e,tags) =>{
-      console.log("ea");
-      console.log(tags);
       if(tags != undefined){
         this.setState({
           tags:tags
         })
       }
     }
+    componentWillMount = () =>{
+      // console.log(this.props.details,"details =",this.props.tags," description =" ,this.props.description)
+      this.setState({
+        description:this.props.description,
+        tags: this.props.tags,
+        additionalDetails: this.props.details
+      })
+    }
     componentWillUnmount =() =>{
-        this.props.description(this.state.tags,this.state.description,this.state.additionalDetails);
+        this.props.descriptions(this.state.tags,this.state.additionalDetails,this.state.description); 
     }
     removeTag = value => {
       let tags = this.state.tags;
@@ -58,21 +64,23 @@ class Description extends React.Component {
         <Form>
           <FormGroup>
             <Label for="exampleText">Description:</Label>
-            <Input onChange={this.handleChange} type="textarea" name="text" id="description" />
+            <Input onChange={this.handleChange} value={this.state.description} type="textarea" name="text" id="description" />
           </FormGroup>
           <FormGroup>
+2
+
             <Label for="exampleText">
               Enter the additional material that you have such as slides etc.(Max
               5):
             </Label>
-            <TagsContainer add={this.handleTags} remove={this.removeTag}/>
+            <TagsContainer add={this.handleTags} remove={this.removeTag} tags={this.state.tags}/>
           </FormGroup>
           <FormGroup>
             <Label for="exampleText">
               Any other details you would like to share with buyer(Max 200
               characters)
             </Label>
-            <AdditionalDetails handleAddDetails={this.handleAddDetails}/>
+            <AdditionalDetails handleAddDetails={this.handleAddDetails} value={this.state.additionalDetails}/>
           </FormGroup>
         </Form>
       );
@@ -89,7 +97,7 @@ class Description extends React.Component {
   
   const mapDispatchToProps = dispatch => {
     return {
-      description :(tags,details,description) => dispatch(actions.updateDescription(tags,details,description))
+      descriptions :(tags,details,description) => dispatch(actions.updateDescription(tags,details,description)),
     };
   };
   

@@ -44,8 +44,8 @@ class ListTransfer extends React.Component {
         })
         .then(response => {
           // console.log(response.data.selected_books);
-           books = this.props.onStart(response.data.books,response.data.selected_books).arr1;
-           transferredList1 = this.props.onStart(response.data.books,response.data.selected_books).arr2;
+           books = this.props.onStart(response.data).arr1;
+           transferredList1 = this.props.onStart(response.data).arr2;
            console.log(books);
            console.log(transferredList1);
            this.setState({
@@ -376,7 +376,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onTransfer: (arr, arr1) => dispatch(actions.updatestate(arr, arr1)),
     getData: (token) => dispatch(actions.getData(token)),
-    onStart: (arr1,arr2) => dispatch(actions.sellstart(arr1,arr2))
+    onStart: (response) => dispatch(actions.sellstart(response))
   };
 };
 

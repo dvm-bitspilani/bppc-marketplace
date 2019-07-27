@@ -32,11 +32,12 @@ export const updateimagestate = inputfile => {
     dispatch(imageTransfer(updateimagestate));
   };
 };
-export const sellstart = (arr1,arr2)=>{
+export const sellstart = (response) =>{
   return{
     type: actionTypes.SELL_START,
-    arr1,
-    arr2
+    arr1: response.books,
+    arr2: response.selected_books,
+    response : response
   }
 }
 
@@ -74,5 +75,17 @@ export const updateDescription = (tags,details,description) =>{
       tags,
       details,
       description
+  }
+}
+export const priceUpdate = (price) => {
+  return{
+    type: actionTypes.PRICE,
+    price: price
+  }
+}
+export const sellEnd = (token) => {
+  return{
+    type: actionTypes.SELL_END,
+    token: token
   }
 }

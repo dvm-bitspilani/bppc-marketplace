@@ -1,6 +1,7 @@
 import React from 'react';
 import { Input } from "reactstrap";
-
+import { connect } from "react-redux";
+import * as actions from "../../store/actions/index";
 
 class AdditionalDetails extends React.Component {
     constructor(props) {
@@ -46,10 +47,19 @@ class AdditionalDetails extends React.Component {
             id="otherDetails"
             onChange={this.twoCalls}
             style={this.state.additionalDetails}
+            value={this.props.value}
             // onChange={this.handleChange}
           />
       );
     }
   }
 
-  export default AdditionalDetails;
+  const mapStateToProps = state => {
+    return {
+        description:state.sell.description
+    };
+  };
+  
+  export default connect(
+   mapStateToProps
+  )(AdditionalDetails);

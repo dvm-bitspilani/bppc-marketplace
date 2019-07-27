@@ -18,6 +18,11 @@ class TagsContainer extends React.Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+  componentWillMount(){
+    this.setState({
+      tags: this.props.tags
+    });
+  }
   input = e => {
     this.setState({
       pressed: false,
