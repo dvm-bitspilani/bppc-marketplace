@@ -247,29 +247,17 @@ class Sell extends React.Component{
     super(props);
   }
 
-  componentDidMount() {
-    if (localStorage.getItem("token") === null) {
-      window.alert("Unauthenticated user. Please login first!");
-      setTimeout(() => navigate("/login"), 100);
-    }
-    
-    const mapStateToProps = state => {
-      return {
-        books: state.sell.books,
-        transferList1: state.sell.transferList1,
-        transferList2: state.sell.transferList2,
-        transferredList1: state.sell.transferredList1,
-        token: state.auth.token
-      };
-    };
-    
-    const mapDispatchToProps = dispatch => {
-      return {
-        onTransfer: (arr, arr1) => dispatch(actions.updatestate(arr, arr1)),
-        onStart: (arr ,arr1) => dispatch(actions.sellstart(arr,arr1))
-      };
-    };
-  }
+  // componentDidMount() {
+  //   if (localStorage.getItem("token") === null) {
+  //     window.alert("Unauthenticated user. Please login first!");
+  //     setTimeout(() => navigate("/login"), 100);
+  //   }
+  //   console.log(this.state.count)
+  //   console.log(this.props.getData(localStorage.getItem("token")));    
+  // }
+  // componentWillMount(){
+  //   this.props.getData(localStorage.getItem("token"));
+  // }
 
   render(){
     let sell;
@@ -282,7 +270,5 @@ class Sell extends React.Component{
     return sell;
   }
 }
-
-
 
 export default Sell;

@@ -3,7 +3,6 @@ import Button from "@material-ui/core/Button";
 import List from "./List";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
-
 const axios = require("axios");
 class ListTransfer extends React.Component {
   /**************States******** */
@@ -14,7 +13,7 @@ class ListTransfer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: this.props.books,
+      books: [],
       transferList1: [],
       transferList2: [],
       transferredList1: [],
@@ -33,12 +32,38 @@ class ListTransfer extends React.Component {
 
   /*********Get Request will be here*************/
   componentDidMount() {
-    console.log(this.state.count)
-    console.log(this.props.getData(localStorage.getItem("token")));
-    console.log(this.props.books)
-    this.setState({
-      books: this.props.books
-    });
+    console.log(this.state.transferredList1[0] === undefined)
+    if(this.state.transferredList1[0] === undefined){
+        let books,transferredList1;  
+        axios
+        .get("http://market.bits-dvm.org/api/sell/",{
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization" :"JWT "+ localStorage.getItem("token")
+          }
+        })
+        .then(response => {
+          // console.log(response.data.selected_books);
+           books = this.props.onStart(response.data.books,response.data.selected_books).arr1;
+           transferredList1 = this.props.onStart(response.data.books,response.data.selected_books).arr2;
+           console.log(books);
+           console.log(transferredList1);
+           this.setState({
+            books: this.props.books,
+            transferredList1: this.props.transferredList1
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      }      
+      else{
+      this.setState({
+        books: this.props.books,
+        transferredList1: this.props.transferredList1
+      });
+    }
+    // console.log(this.props.books);
     // this.setState({
     //   books: this.sell.books,
     //   transferredList1: this.props.transferredList1
@@ -47,6 +72,13 @@ class ListTransfer extends React.Component {
     //  let books =this.props.onStart(response.books,response.selected_books).arr1;
     //  let transferredList1 = this.props.onStart(response.books,response.selected_books).arr2;
     //  this.updateArrays(books, transferredList1);
+  }
+  
+  componentWillMount(){
+    this.setState({
+      books: this.props.books,
+      transferredList1: this.props.transferredList1
+    });
   }
 
   /* For updating states*/
@@ -73,7 +105,6 @@ class ListTransfer extends React.Component {
         category: selectedCategory,
         title: selectedTitle
       });
-      console.log(this.state.transferList1);
     } else {
       let transferList1 = this.state.transferList1.filter(function({
         id,
@@ -114,7 +145,7 @@ class ListTransfer extends React.Component {
 
     transferredBooks.map(function(list) {
       updatedBooks = updatedBooks.filter(function(obj) {
-        console.log(list.id);
+        // console.log(list.id);
         return obj.id !== list.id - 1000;
       });
       return true;
@@ -140,7 +171,7 @@ class ListTransfer extends React.Component {
 
     transferredBooks.map(function(list) {
       updatedBooks = updatedBooks.filter(function(obj) {
-        console.log(list.id);
+        // console.log(list.id);
         return obj.id !== list.id + 1000;
       });
       return true;
@@ -166,7 +197,7 @@ class ListTransfer extends React.Component {
       for (let i = 0; i < checkboxes.length; i++) {
         if (
           checkboxes[i].id.toString() === id.toString() &&
-          checkboxes[i].className.split(" ")[0] === category
+          checkboxes[i].className.includes(category)
         ) {
           inList1.push(checkboxes[i]);
         }
@@ -213,7 +244,7 @@ class ListTransfer extends React.Component {
       });
 
       this.setState({ transferList1: b }, function() {
-        console.log(this.state.transferList1);
+        // console.log(this.state.transferList1);
       });
 
       for (let i = 0; i < inList1.length; i++) {
@@ -232,7 +263,7 @@ class ListTransfer extends React.Component {
       for (let i = 0; i < checkboxes.length; i++) {
         if (
           checkboxes[i].id.toString() === id.toString() &&
-          checkboxes[i].className.split(" ")[0] === category
+          checkboxes[i].className.includes(category)
         ) {
           inList2.push(checkboxes[i]);
         }
@@ -279,7 +310,7 @@ class ListTransfer extends React.Component {
       });
 
       this.setState({ transferList2: b }, function() {
-        console.log(this.state.transferList2);
+        // console.log(this.state.transferList2);
       });
 
       for (let i = 0; i < inList2.length; i++) {
@@ -344,7 +375,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onTransfer: (arr, arr1) => dispatch(actions.updatestate(arr, arr1)),
-    getData: (token) => dispatch(actions.getData(token))
+    getData: (token) => dispatch(actions.getData(token)),
+    onStart: (arr1,arr2) => dispatch(actions.sellstart(arr1,arr2))
   };
 };
 

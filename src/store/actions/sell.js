@@ -16,10 +16,6 @@ export const imageTransfer = file => {
 };
 
 export const updatestate = (arr, arr1) => {
-  let updatedData = {
-    books: arr,
-    transferredList1: arr1
-  };
   return {
     // dispatch(transferSuccess(updatedData));
     type: actionTypes.TRANSFER_LIST,
@@ -53,7 +49,7 @@ export const getData = (token) => {
         }
       })
       .then(response => {
-        console.log(response.data.selected_books);
+        // console.log(response.data.selected_books);
         dispatch(sellstart(response.data.books,response.data.selected_books));
       })
       .catch(error => {
@@ -62,3 +58,4 @@ export const getData = (token) => {
   }
 
 }
+
