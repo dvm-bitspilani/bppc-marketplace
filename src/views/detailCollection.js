@@ -159,12 +159,12 @@ class Register extends Component {
     if (e.target.value === "Single Degree") {
       this.setState({
         single_branch: true,
-        is_dual_degree: false
+        is_dual_degree: ""
       });
     } else if (e.target.value === "Dual Degree") {
       if (this.state.yearOfStudy === 2019) {
         this.setState({
-          single_branch: false,
+          single_branch: "",
           is_dual_degree: true
         });
       }
