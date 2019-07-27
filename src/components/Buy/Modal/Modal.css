@@ -10,9 +10,9 @@
   border-radius: 10px;
   padding: 16px;
   left: calc(50% - 340px);
-  top: 20%;
+  top: 10%;
   box-sizing: border-box;
-  transition: all 0.3s ease-out;
+  transition: all 0.1s ease-out;
 }
 
 .close-modal {

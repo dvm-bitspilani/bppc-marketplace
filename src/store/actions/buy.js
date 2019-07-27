@@ -25,7 +25,9 @@ export const fetchSellers = () => {
   return dispatch => {
     dispatch(getSellerStart());
     axios
-      .get("/api/SellerList/")
+      .get("/api/SellerList/", {
+        headers: {"Authorization": "JWT " + localStorage.getItem("token")}
+      })
       .then(response => {
         console.log(response);
         dispatch(getSellerSuccess(response.data.sellers))

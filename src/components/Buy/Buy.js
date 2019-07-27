@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 
 import Modal from "./Modal/Modal";
 import SellerSummary from "./SellerSummary/SellerSummary";
 import "./Buy.css";
 import { navigate } from "@reach/router";
-import * as actions from '../../store/actions/index';
+import * as actions from "../../store/actions/index";
+// import Spinner from "../../components/Spinner/Spinner";
 
 class Buy extends Component {
   componentDidMount() {
@@ -13,6 +14,8 @@ class Buy extends Component {
       window.alert("Unauthenticated user. Please login first!");
       setTimeout(() => navigate("/login"), 100);
     }
+
+    this.props.fetchSellers();
   }
 
   constructor(props) {
@@ -20,18 +23,18 @@ class Buy extends Component {
 
     this.state = {
       showModal: false,
-      tableData: [
-        {
-          name: "Shreyans Jain",
-          price: 3500,
-          numBooks: 7
-        },
-        {
-          name: "Shreyans",
-          price: 4000,
-          numBooks: 6
-        }
-      ],
+      // tableData: [
+      //   {
+      //     name: "Shreyans Jain",
+      //     price: 3500,
+      //     numBooks: 7
+      //   },
+      //   {
+      //     name: "Shreyans",
+      //     price: 4000,
+      //     numBooks: 6
+      //   }
+      // ],
       seller: {}
     };
   }
@@ -54,6 +57,9 @@ class Buy extends Component {
   render() {
     let body;
     if (localStorage.getItem("token")) {
+      // if (this.props.loading) {
+      //   body = <Spinner />
+      // }
       body = (
         <div className="Buy">
           <br />
@@ -72,14 +78,14 @@ class Buy extends Component {
             </thead>
             <tbody>
               {/* -------------- rendering table rows ---------------- */}
-              {this.state.tableData.map((seller, index) => {
+              {this.props.sellers.map((seller, index) => {
                 return (
-                  <tr key={index} className="data">
+                  <tr key={seller.id} className="data">
                     <td className="index">{index + 1}</td>
                     <td>{seller.name}</td>
                     <td />
                     <td>{seller.price}</td>
-                    <td>{seller.numBooks.toString() + "/10"}</td>
+                    <td>{seller.no_of_books}</td>
                     <td>
                       <button
                         className="details"
@@ -110,11 +116,20 @@ class Buy extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = state => {
+  return {
+    sellers: state.buy.sellers,
+    error: state.buy.error
+  };
+};
+
+const mapDispatchToProps = dispatch => {
   return {
     fetchSellers: () => dispatch(actions.fetchSellers())
-  }
-}
+  };
+};
 
-
-export default connect(null, mapDispatchToProps)(Buy);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Buy);

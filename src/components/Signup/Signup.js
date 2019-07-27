@@ -181,7 +181,7 @@ class Register extends Component {
         .catch(error => {
           alert(error.response.data.display_message);
         });
-    }else{
+     }else{
       alert("password and repeat password do not match");
     }
 
