@@ -14,7 +14,7 @@ class ListTransfer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: [],
+      books: this.props.books,
       transferList1: [],
       transferList2: [],
       transferredList1: [],
@@ -33,9 +33,12 @@ class ListTransfer extends React.Component {
 
   /*********Get Request will be here*************/
   componentDidMount() {
-    console.log(localStorage.getItem("token"));
-    console.log(this.props.onStart(localStorage.getItem("token")));
-    console.log(this.props.books,this.props.transferredList1);
+    console.log(this.state.count)
+    console.log(this.props.getData(localStorage.getItem("token")));
+    console.log(this.props.books)
+    this.setState({
+      books: this.props.books
+    });
     // this.setState({
     //   books: this.sell.books,
     //   transferredList1: this.props.transferredList1
@@ -334,15 +337,14 @@ const mapStateToProps = state => {
     books: state.sell.books,
     transferList1: state.sell.transferList1,
     transferList2: state.sell.transferList2,
-    transferredList1: state.sell.transferredList1,
-    token: state.auth.token
+    transferredList1: state.sell.transferredList1 
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onTransfer: (arr, arr1) => dispatch(actions.updatestate(arr, arr1)),
-    onStart: (token) => dispatch(actions.sellstart(token))
+    getData: (token) => dispatch(actions.getData(token))
   };
 };
 

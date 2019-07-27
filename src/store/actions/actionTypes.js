@@ -9,3 +9,6 @@ export const SIGNUP_FAIL = "SIGNUP_FAIL";
 
 export const SELL_START = "SELL_START";
 export const TRANSFER_LIST = "TRANSFER_LIST";
+export const DESCRIPTION = "DESCRIPTION";
+export const PRICE = "PRICE";
+export const SELL_END="SELL_END";

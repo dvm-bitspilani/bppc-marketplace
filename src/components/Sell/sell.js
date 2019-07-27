@@ -16,6 +16,7 @@ import { navigate } from "@reach/router";
 import * as  actions from '../../store/actions/sell';
 import {connect} from 'react-redux';
 
+
 class AdditionalDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -59,6 +60,8 @@ class AdditionalDetails extends React.Component {
     );
   }
 }
+
+
 class Price extends React.Component{
   render(){
     return(
@@ -72,19 +75,48 @@ class Price extends React.Component{
   }
 }
 class Description extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state={
+      description:"",
+      tags: "",
+      additionalDetails: ""
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleTags = this.handleTags.bind(this);
+  }
+
+  handleChange = (e) =>{
+    this.setState({
+      description: e.target.value
+    })
+  }
+
+  handleTags = (e,tags) =>{
+    console.log("ea");
+    console.log(tags);
+    if(tags != undefined){
+      this.setState({
+        tags:"as"
+      })
+    }
+  }
+
+
   render() {
     return (
       <Form>
         <FormGroup>
           <Label for="exampleText">Description:</Label>
-          <Input type="textarea" name="text" id="description" />
+          <Input onChange={this.handleChange} type="textarea" name="text" id="description" />
         </FormGroup>
         <FormGroup>
           <Label for="exampleText">
             Enter the additional material that you have such as slides etc.(Max
             5):
           </Label>
-          <TagsContainer />
+          <TagsContainer add={this.handleTags}/>
         </FormGroup>
         <FormGroup>
           <Label for="exampleText">

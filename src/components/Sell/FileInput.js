@@ -16,19 +16,19 @@ class FileInput extends React.Component {
   }
   
   componentDidMount() {
-    axios
-    .get("http://market.bits-dvm.org/api/sell/",{
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization" :"bearer "+ localStorage.getItem("token"),
-      }
-    })
-    .then(response => {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch(error => {
-      console.log(error);
-    });
+    // axios
+    // .get("http://market.bits-dvm.org/api/sell/",{
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Authorization" :"bearer "+ localStorage.getItem("token"),
+    //   }
+    // })
+    // .then(response => {
+    //   console.log(JSON.stringify(response.data));
+    // })
+    // .catch(error => {
+    //   console.log(error);
+    // });
   }
   
   uploadChange(files) {

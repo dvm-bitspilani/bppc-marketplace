@@ -16,6 +16,7 @@ class TagsContainer extends React.Component {
     this.input = this.input.bind(this);
     this.add = this.add.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   input = e => {
     this.setState({
@@ -54,6 +55,10 @@ class TagsContainer extends React.Component {
       this.add();
     }
   };
+
+  handleChange = (e,tags = this.state.tags) =>{
+    this.props.add(tags);
+  }
   render() {
     let tags = this.state.tags;
     let tagContainer = {
@@ -72,7 +77,7 @@ class TagsContainer extends React.Component {
     };
     let currentTag = this.state.currentTag;
     return (
-      <div>
+      <div onChange={this.handleChange}>
         <div style={tagContainer}>
           {tags.map((el, index) => {
             return <Tags value={el} key={index} onPress={this.removeTag} />;

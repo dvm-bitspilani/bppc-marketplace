@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import { returnStatement } from "@babel/types";
-
+const axios = require("axios");
 export const transferSuccess = newData => {
   return {
     type: actionTypes.TRANSFER_LIST,
@@ -36,9 +36,29 @@ export const updateimagestate = inputfile => {
     dispatch(imageTransfer(updateimagestate));
   };
 };
-export const sellstart = (token)=>{
+export const sellstart = (arr1,arr2)=>{
   return{
     type: actionTypes.SELL_START,
-    token: token
+    arr1,
+    arr2
   }
+}
+export const getData = (token) => {
+  return dispatch => {
+    axios
+      .get("http://market.bits-dvm.org/api/sell/",{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization" :"JWT "+ token
+        }
+      })
+      .then(response => {
+        console.log(response.data.selected_books);
+        dispatch(sellstart(response.data.books,response.data.selected_books));
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
 }
