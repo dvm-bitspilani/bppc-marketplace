@@ -39,6 +39,16 @@ export const sellstart = (arr1,arr2)=>{
     arr2
   }
 }
+
+export const description = (tags,details,description) =>{
+  return{
+    type: actionTypes.DESCRIPTION,
+    tags,
+    details,
+    description
+  }
+}
+
 export const getData = (token) => {
   return dispatch => {
     axios
@@ -58,4 +68,11 @@ export const getData = (token) => {
   }
 
 }
-
+export const updateDescription = (tags,details,description) =>{
+  return {
+      type: actionTypes.DESCRIPTION,
+      tags,
+      details,
+      description
+  }
+}

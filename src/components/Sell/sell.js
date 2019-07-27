@@ -15,120 +15,36 @@ import TagsContainer from "./TagsContainer";
 import { navigate } from "@reach/router";
 import * as  actions from '../../store/actions/sell';
 import {connect} from 'react-redux';
-
-
-class AdditionalDetails extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      additionalDetails: {
-        // border: "black solid 10px"
-      }
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.charactersLimitation = this.charactersLimitation.bind(this);
-  }
-  handleChange = e => {
-    this.props.handleChange(e.target.value, this.props.styles);
-  };
-  charactersLimitation = e => {
-    if (e.target.value.length > 200) {
-      this.setState({
-        additionalDetails: {
-          // boxShadow: "0px 1px 5px 0px red, 0px 2px 2px 0px red, 0px 3px 1px -2px red"
-          boxShadow: "0 0 0 0.2rem rgba(255,0,0,0.25)",
-          border: "1px solid red"
-        }
-      });
-    } else {
-      this.setState({
-        additionalDetails: {}
-      });
-    }
-  };
-  render() {
-    return (
-      <div>
-        <Input
-          type="textarea"
-          name="text"
-          id="otherDetails"
-          onChange={this.charactersLimitation}
-          style={this.state.additionalDetails}
-        />
-      </div>
-    );
-  }
-}
+import Description from './Description';
+import {AdditionalDetails} from './AdditionalDetails';
 
 
 class Price extends React.Component{
+  constructor(props){
+    super(props);
+    this.state ={
+      price: null
+    }
+    this.handleChange=this.handleChange.bind(this);
+  }
+
+  handleChange = (e) =>{
+    this.setState({
+      price: e.target.value
+    })
+  }
   render(){
     return(
     <Form>
         <FormGroup>
           <Label for="exampleText">Price in Rs:</Label>
-          <Input type="number" name="text" id="description" />
+          <Input onChange={this.handleChange} type="number" name="text" id="description" />
         </FormGroup>
      </Form>
     )
   }
 }
-class Description extends React.Component {
 
-  constructor(props){
-    super(props);
-    this.state={
-      description:"",
-      tags: "",
-      additionalDetails: ""
-    }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleTags = this.handleTags.bind(this);
-  }
-
-  handleChange = (e) =>{
-    this.setState({
-      description: e.target.value
-    })
-  }
-
-  handleTags = (e,tags) =>{
-    console.log("ea");
-    console.log(tags);
-    if(tags != undefined){
-      this.setState({
-        tags:"as"
-      })
-    }
-  }
-
-
-  render() {
-    return (
-      <Form>
-        <FormGroup>
-          <Label for="exampleText">Description:</Label>
-          <Input onChange={this.handleChange} type="textarea" name="text" id="description" />
-        </FormGroup>
-        <FormGroup>
-          <Label for="exampleText">
-            Enter the additional material that you have such as slides etc.(Max
-            5):
-          </Label>
-          <TagsContainer add={this.handleTags}/>
-        </FormGroup>
-        <FormGroup>
-          <Label for="exampleText">
-            Any other details you would like to share with buyer(Max 200
-            characters)
-          </Label>
-          <AdditionalDetails />
-        </FormGroup>
-      </Form>
-    );
-  }
-}
 
 const useStyles = makeStyles(theme => ({
   root: {

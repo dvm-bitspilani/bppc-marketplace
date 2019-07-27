@@ -3,13 +3,13 @@ import Button from "@material-ui/core/Button";
 import { Input } from "reactstrap";
 import { lightBlue } from "@material-ui/core/colors";
 import Tags from "./Tags";
-import { connect } from "react-redux";
+
 
 class TagsContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tags: this.props.tags,
+      tags: [],
       currentTag: "",
       pressed: false
     };
@@ -48,6 +48,7 @@ class TagsContainer extends React.Component {
     this.setState({
       tags: tags
     });
+    this.props.remove(value);
   };
   handleKeyPress = e => {
     if (e.key === "Enter") {
@@ -57,7 +58,7 @@ class TagsContainer extends React.Component {
   };
 
   handleChange = (e,tags = this.state.tags) =>{
-    this.props.add(tags);
+    this.props.add(e,tags);
   }
   render() {
     let tags = this.state.tags;
@@ -101,10 +102,11 @@ class TagsContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    tags: state.sell.tags
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     tags: state.sell.tags
+//   };
+// };
 
-export default connect(mapStateToProps)(TagsContainer);
+// export default connect(mapStateToProps)(TagsContainer);
+export default TagsContainer;
