@@ -12,3 +12,7 @@ export const TRANSFER_LIST = "TRANSFER_LIST";
 export const DESCRIPTION = "DESCRIPTION";
 export const PRICE = "PRICE";
 export const SELL_END="SELL_END";
+
+export const GET_SELLERS_START = "GET_SELLERS_START";
+export const GET_SELLERS_SUCCESS = "GET_SELLERS_SUCCESS";
+export const GET_SELLERS_FAIL = "GET_SELLERS_FAIL";

@@ -3,13 +3,15 @@ import thunk from "redux-thunk";
 import authReducer from "../store/reducers/auth";
 import signupReducer from "../store/reducers/signup";
 import sellReducer from "../store/reducers/sell";
+import buyReducer from "../store/reducers/buy";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   auth: authReducer,
   signup: signupReducer,
-  sell: sellReducer
+  sell: sellReducer,
+  buy: buyReducer
 });
 
 const configureStore = () => {

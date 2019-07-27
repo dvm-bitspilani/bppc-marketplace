@@ -4,4 +4,5 @@
 
 export { auth, logout } from "./auth";
 export { signup } from "./signup";
+export { fetchSellers } from './buy'
 export { updatestate, updateimagestate, sellstart,getData } from "./sell";
