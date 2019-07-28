@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import BookCarousel from "../Modal/Carousel";
 import "./SellerSummary.css";
-import * as actions from "../../store/actions/index";
+import * as actions from "../../../store/actions/index";
 import Spinner from "../../Spinner/Spinner";
 
 class SellerSummary extends React.Component {
