@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 // import { Router, Link } from "@reach/router";
+import { connect } from "react-redux";
+import { navigate } from "@reach/router";
 
 import {
   Button,
@@ -17,21 +19,23 @@ import {
   CustomInput
 } from "reactstrap";
 
-import * as actions from "../../src/store/actions/index";
+// import * as actions from "../../src/store/actions/index";
 const axios = require("axios");
 
 // import { redirectTo } from "@reach/router";
 
-const initialState = {
-  gender: "",
-  phone: "",
-  bits_id: "",
-  hostel: "",
-  room_no: "",
-  is_dual_degree: "",
-  single_branch: "",
-  redirectToDashboard: true
-};
+// const initialState = {
+//   gender: "",
+//   phone: "",
+//   bits_id: "",
+//   hostel: "",
+//   room_no: "",
+//   is_dual_degree: "",
+//   dual_branch: "",
+//   single_branch: "",
+//   is_single_branch: "",
+//   redirectToDashboard: true
+// };
 
 class Register extends Component {
   constructor(props) {
@@ -42,13 +46,15 @@ class Register extends Component {
       bits_id: "",
       hostel: "",
       room_no: "",
-      is_dual_degree: "",
+      is_dual_degree: false,
       single_branch: "",
+      dual_branch: "",
+      is_single_branch: "",
+      isuser_fresher: false,
       isgendermale: true,
       yearOfStudy: 2019,
       dualDegree: false,
-      singleDegree: true,
-      gender: "none"
+      singleDegree: true
     };
     this.yearOfStudy = this.yearOfStudy.bind(this);
     this.gender = this.gender.bind(this);
@@ -107,19 +113,22 @@ class Register extends Component {
       hostel: this.state.hostel,
       room_no: this.state.room_no,
       is_dual_degree: this.state.is_dual_degree,
+      dual_branch: this.state.dual_branch,
       single_branch: this.state.single_branch
     };
 
     console.log(authData);
 
     axios
-      .post("http://market.bits-dvm.org/api/DetailsCollection/", authData, {
+      .post("https://market.bits-dvm.org/api/DetailsCollection/", authData, {
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          Authorization: "JWT " + localStorage.getItem("token")
         }
       })
       .then(response => {
         console.log(response);
+        navigate("/dashboard");
       })
       .catch(error => {
         console.log(error);
@@ -147,6 +156,7 @@ class Register extends Component {
   };
 
   selectedHostel = e => {
+    console.log(e.target.value);
     this.setState({
       hostel: e.target.value,
       function() {
@@ -183,6 +193,13 @@ class Register extends Component {
         gender: "F",
         isgendermale: false
       });
+    }
+  };
+
+  finduser = e => {
+    const val = e.target.value;
+    if (val === "2019") {
+      this.setState({ isuser_fresher: true });
     }
   };
 
@@ -298,23 +315,23 @@ class Register extends Component {
                           onChange={this.selectedHostel}
                         >
                           <option value="">Select your Hostel.</option>
-                          <option>Ram Bhawan</option>
-                          <option>Budh Bhawan</option>
-                          <option>Srinivasa Ramanujan A</option>
-                          <option>Srinivasa Ramanujan B</option>
-                          <option>Srinivasa Ramanujan C</option>
-                          <option>Srinivasa Ramanujan D</option>
-                          <option>Krishna Bhawan</option>
-                          <option>Gandhi Bhawan</option>
-                          <option>Shankar Bhawan</option>
-                          <option>Vyas Bhawan</option>
-                          <option>Vishwakarma Bhawan</option>
-                          <option>Bhagirath Bhawan</option>
-                          <option>Rana Pratap Bhawan</option>
-                          <option>Ashok Bhawan</option>
-                          <option>Malviya Bhawan A</option>
-                          <option>Malviya Bhawan B</option>
-                          <option>Malviya Bhawan C</option>
+                          <option value="RM">Ram Bhawan</option>
+                          <option value="BUDH">Budh Bhawan</option>
+                          <option value="SR-A">Srinivasa Ramanujan A</option>
+                          <option value="SR-B">Srinivasa Ramanujan B</option>
+                          <option value="SR-C">Srinivasa Ramanujan C</option>
+                          <option value="SR-D">Srinivasa Ramanujan D</option>
+                          <option value="KR">Krishna Bhawan</option>
+                          <option value="GN">Gandhi Bhawan</option>
+                          <option value="SK">Shankar Bhawan</option>
+                          <option value="VY">Vyas Bhawan</option>
+                          <option value="VK">Vishwakarma Bhawan</option>
+                          <option value="BG">Bhagirath Bhawan</option>
+                          <option value="RP">Rana Pratap Bhawan</option>
+                          <option value="AK">Ashok Bhawan</option>
+                          <option value="MV-A">Malviya Bhawan A</option>
+                          <option value="MV-B">Malviya Bhawan B</option>
+                          <option value="MV-C">Malviya Bhawan C</option>
                         </CustomInput>
                       ) : (
                         <CustomInput
@@ -325,16 +342,16 @@ class Register extends Component {
                           onChange={this.selectedHostel}
                         >
                           <option value="">Select your Hostel.</option>
-                          <option>Meera Block 1</option>
-                          <option>Meera Block 2</option>
-                          <option>Meera Block 3</option>
-                          <option>Meera Block 4</option>
-                          <option>Meera Block 5</option>
-                          <option>Meera Block 6</option>
-                          <option>Meera Block 7</option>
-                          <option>Meera Block 8</option>
-                          <option>Meera Block 9</option>
-                          <option>Meera Block 10</option>
+                          <option value="MR-1">Meera Block 1</option>
+                          <option value="MR-2">Meera Block 2</option>
+                          <option value="MR-3">Meera Block 3</option>
+                          <option value="MR-4">Meera Block 4</option>
+                          <option value="MR-5">Meera Block 5</option>
+                          <option value="MR-6">Meera Block 6</option>
+                          <option value="MR-7">Meera Block 7</option>
+                          <option value="MR-8">Meera Block 8</option>
+                          <option value="MR-9">Meera Block 9</option>
+                          <option value="MR-10">Meera Block 10</option>
                         </CustomInput>
                       )}
                     </InputGroup>
@@ -370,7 +387,30 @@ class Register extends Component {
                         <option>Dual Degree</option>
                       </CustomInput>
                     </InputGroup>
-                    {this.state.singleDegree ? (
+                    <InputGroup className="mb-4">
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <ion-icon name="book" />
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <CustomInput
+                        type="select"
+                        id="exampleCustomSelect"
+                        name="customSelect"
+                        onChange={this.finduser}
+                      >
+                        <option value="">Choose your year of Study</option>
+                        {/* <option>2019</option> */}
+                        <option>2018</option>
+                        <option>2017</option>
+                        <option>2016</option>
+                        <option>2015</option>
+                        <option>2014</option>
+                        <option>2013</option>
+                      </CustomInput>
+                    </InputGroup>
+                    {this.state.singleDegree &&
+                    this.state.isuser_fresher === false ? (
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -380,7 +420,7 @@ class Register extends Component {
                         <CustomInput
                           type="select"
                           id="exampleCustomSelect"
-                          name="customSelect"
+                          name="single_branch"
                           onChange={this.handleChange}
                         >
                           <option>Enter your Single Degree Branch.</option>
@@ -400,7 +440,8 @@ class Register extends Component {
                       </InputGroup>
                     ) : null}
 
-                    {this.state.dualDegree ? (
+                    {this.state.is_dual_degree &&
+                    this.state.isuser_fresher === false ? (
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -410,10 +451,46 @@ class Register extends Component {
                         <CustomInput
                           type="select"
                           id="exampleCustomSelect"
-                          name="customSelect"
+                          name="dual_branch"
                           onChange={this.handleChange}
                         >
                           <option>Enter your Dual Branch.</option>
+                          <option value="B1">
+                            B1 - M.Sc. Biological Sciences
+                          </option>
+                          <option value="B2">B2 - M.Sc. Chemistry</option>
+                          <option value="B3">B3 - M.Sc. Economics</option>
+                          <option value="B4">B4 - M.Sc. Mathematics</option>
+                          <option value="B5">B5 - M.Sc. Physics</option>
+                        </CustomInput>
+                      </InputGroup>
+                    ) : null}
+                    {this.state.isuser_fresher === true ? (
+                      <InputGroup className="mb-4">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <ion-icon name="git-branch" />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <CustomInput
+                          type="select"
+                          id="exampleCustomSelect"
+                          name="dual_branch"
+                          onChange={this.handleChange}
+                        >
+                          <option>Enter your Single Degree Branch.</option>
+                          <option value="A1">A1 - B.E. Chemical</option>
+                          <option value="A2">A2 - B.E. Civil</option>
+                          <option value="A3">
+                            A3 - B.E. Electrical and Electronics
+                          </option>
+                          <option value="A4">A4 - B.E. Mechanical</option>
+                          <option value="A5">A5 - B.Pharma</option>
+                          <option value="A7">A7 - B.E. Computer Science</option>
+                          <option value="A8">
+                            A8 - B.E. Electronics and Instrumentation
+                          </option>
+                          <option value="AB">AB - B.E. Manufacturing</option>
                           <option value="B1">
                             B1 - M.Sc. Biological Sciences
                           </option>
@@ -468,4 +545,10 @@ class Register extends Component {
   }
 }
 
-export default Register;
+const mapStateToProps = state => {
+  return {
+    token: state.auth.token
+  };
+};
+
+export default connect(mapStateToProps)(Register);

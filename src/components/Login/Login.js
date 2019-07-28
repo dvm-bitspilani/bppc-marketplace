@@ -26,15 +26,17 @@ const initialState = {
 };
 class Login extends Component {
   state = {
-    ...initialState
+    ...initialState,
+    alreadyloggedin: false
     // isAuthenticated: false
   };
 
   componentDidMount() {
     console.log(this.props.navigate);
     if (this.props.token !== null && this.props.error === null) {
-      setTimeout(() => navigate("/dashboard"), 100);
+      navigate("/dashboard");
     }
+    console.log(this.props.new_bitsian);
   }
 
   componentDidUpdate() {
@@ -43,11 +45,10 @@ class Login extends Component {
       if (this.props.email !== "" && this.props.new_bitsian === true) {
         // logged in with google and first time login
         // redirect to detail collction page
-        setTimeout(() => navigate("/detailsCollection"), 100);
+        navigate("/detailsCollection");
       }
       // normal login
       // redirect to dashboard
-      setTimeout(() => navigate("/dashboard"), 100);
     }
   }
 
@@ -73,7 +74,11 @@ class Login extends Component {
       if (this.props.token !== null && this.props.error !== null) {
         console.log(this.props.token);
         console.log("redirect now");
-        navigate("/dashboard");
+        if (this.props.new_bitsian === true) {
+          navigate("/detailsCollection");
+        } else if (this.props.new_bitsian !== true) {
+          navigate("/dashboard");
+        }
       }
     } else {
       console.log("google auth failed");
