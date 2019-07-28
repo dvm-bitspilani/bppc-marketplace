@@ -43,7 +43,7 @@ class TagsContainer extends React.Component {
       currentTag: "",
       pressed: true
     });
-    console.log(this.state.tags);
+    // console.log(this.state.tags);
   };
   removeTag = value => {
     let tags = this.state.tags;

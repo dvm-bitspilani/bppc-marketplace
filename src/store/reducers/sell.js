@@ -19,13 +19,16 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch(action.type){
     case actionTypes.SELL_START:
-      {  
+      { 
+        console.log(action.response);
       return Object.assign({}, state, {
         ...state,
         books:action.response.books,
         transferredList1: action.response.selected_books,
+        tags: action.response.tags,
         details: action.response.details,
-        tags: action.response.tags
+        description: action.response.description,
+        price: action.response.price
       });}
       break;
     case actionTypes.TRANSFER_LIST:
@@ -47,7 +50,7 @@ const reducer = (state = initialState, action) => {
             ...state,
             tags: action.tags,
             details:action.details,
-            description: action.description
+            description: action.description,
           }
         } 
         break;
@@ -82,10 +85,10 @@ const reducer = (state = initialState, action) => {
           }
         })
         .then(response => {
-          alert(response.data);
+          alert(response);
         })
         .catch(error => {
-          alert(error.response.data);
+          alert(error.response);
         });
 
         return state;

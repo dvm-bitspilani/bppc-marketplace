@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import { Container, Form, FormGroup, Label, Input } from "reactstrap";
 import ListTransfer from "./ListTransfer";
 import FileInput from "./FileInput";
+import FinishButton from "./FinishButton";
 import TagsContainer from "./TagsContainer";
 // import { ReactComponent } from "*.svg";
 import { navigate } from "@reach/router";
@@ -44,21 +45,21 @@ function getSteps() {
 }
 
 function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <ListTransfer />;
-    case 1:
-      return <FileInput />;
-    case 2:
-      return <Description />;
-    case 3:
-      return <Price/>
-    default:
-      return "Unknown step";
-  }
-}
+    switch (step) {
+      case 0:
+        return <ListTransfer />;
+      case 1:
+        return <FileInput />;
+      case 2:
+        return <Description />;
+      case 3:
+        return <Price/>
+      default:
+        return "Unknown step";
+    }
+  }   
 
- function VerticalLinearStepper(props){
+ function VerticalLinearStepper(){
    
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
@@ -99,14 +100,12 @@ function getStepContent(step) {
                      
                         {(activeStep === steps.length - 1)?(
                           
-                        <Button
+                        <FinishButton
                         variant="contained"
                         color="primary"
-                        onClick={twoCalls}
+                        onClick={handleNext}
                         className={classes.button}
-                        >
-                          Finish
-                        </Button> 
+                        /> 
                           
                         ):(
 
@@ -157,26 +156,52 @@ function getStepContent(step) {
 
 //   constructor(props){
 //     super(props);
+//     this.state = {
+//       activeStep:0
+//     }
 //     this.handleBack = this.handleBack.bind(this);
 //     this.handleNext = this.handleNext.bind(this);
 //     this.twoCalls = this.twoCalls.bind(this);
 //   }
-//   handleNext = (e,setActiveStep) => {
-//     const [activeStep, setActiveStep] = React.useState(0);
-//     setActiveStep(prevActiveStep => prevActiveStep + 1);
+//   handleNext = (e) => {
+//     let activeStep = this.state.activeStep;
+//     let steps = getSteps();
+//     if((steps.length-1) == (activeStep)){
+//       activeStep = 0;
+//     }
+//     else{
+//       activeStep = activeStep +1;
+//     } 
+//     this.setState({
+//       activeStep: activeStep
+//     });
 //   }
   
-//   handleBack = (e,setActiveStep) => {
-//     setActiveStep(prevActiveStep => prevActiveStep - 1);
+//   handleBack = (e) => {
+//     // const [activeStep, setActiveStep] = React.useState(0);
+//     // setActiveStep(prevActiveStep => prevActiveStep - 1);
+
+//     let activeStep = this.state.activeStep;
+//     let steps = getSteps();
+//     if(activeStep == 0){
+//       activeStep = steps.length -1;
+//     }
+//     else{
+//       activeStep = activeStep -1;
+//     } 
+//     this.setState({
+//       activeStep: activeStep
+//     });
+
 //   }
-//   twoCalls= (e,setActiveStep) => {
-//     this.handleNext();
+//   twoCalls= (e) => {
+//     this.handleNext(e);
 //     this.props.sellEnd(localStorage.getItem("token"));
 //   }
 //   render() {
 //     const classes = useStyles(); 
 //     const steps = getSteps();
-  
+//     let activeStep = this.state.activeStep;
 //     return(
 //     <Container>
 //       <div className={classes.root}>
@@ -192,7 +217,7 @@ function getStepContent(step) {
 //                   <div>
 //                     <Button
 //                       disabled={activeStep === 0}
-//                       onClick={(e) => this.handleBack(e,setActiveStep)}
+//                       onClick={(e) => this.handleBack(e)}
 //                       className={classes.button}
 //                     >
 //                       Back
@@ -203,7 +228,7 @@ function getStepContent(step) {
 //                       <Button
 //                       variant="contained"
 //                       color="primary"
-//                       onClick={(e) => this.twoCalls(e,setActiveStep)}
+//                       onClick={(e) => this.twoCalls(e)}
 //                       className={classes.button}
 //                       >
 //                         Finish
@@ -214,7 +239,7 @@ function getStepContent(step) {
 //                       <Button
 //                       variant="contained"
 //                       color="primary"
-//                       onClick={(e) => this.handleNext(e,setActiveStep)}
+//                       onClick={(e) => this.handleNext(e)}
 //                       className={classes.button}
 //                       >
 //                         Next
@@ -241,7 +266,7 @@ function getStepContent(step) {
 //             </Button> */}
 //               <Button
 //                       disabled={activeStep === 0}
-//                       onClick={(e) => this.handleBack(e,setActiveStep)}
+//                       onClick={(e) => this.handleBack(e)}
 //                       className={classes.button}
 //                     >
 //                       Go to last step
@@ -255,15 +280,6 @@ function getStepContent(step) {
 //   }
 
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//    sellEnd: (token) => dispatch(actions.sellEnd(token))
-//   };
-// };
-
-// connect(
-//   null, mapDispatchToProps
-// )(VerticalLinearStepper);
 
 class Sell extends React.Component{
   constructor(props){
