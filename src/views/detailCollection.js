@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 // import { Router, Link } from "@reach/router";
 import { connect } from "react-redux";
+import { navigate } from "@reach/router";
 
 import {
   Button,
@@ -127,6 +128,7 @@ class Register extends Component {
       })
       .then(response => {
         console.log(response);
+        navigate("/dashboard");
       })
       .catch(error => {
         console.log(error);

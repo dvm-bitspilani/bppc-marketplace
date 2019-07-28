@@ -74,7 +74,7 @@ class Login extends Component {
         console.log("redirect now");
         if (this.props.new_bitsian === true) {
           navigate("/detailsCollection");
-        } else {
+        } else if (this.props.new_bitsian === false) {
           navigate("/dashboard");
         }
       }
