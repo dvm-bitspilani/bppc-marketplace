@@ -154,6 +154,7 @@ class Register extends Component {
   };
 
   selectedHostel = e => {
+    console.log(e.target.value);
     this.setState({
       hostel: e.target.value,
       function() {
@@ -312,23 +313,23 @@ class Register extends Component {
                           onChange={this.selectedHostel}
                         >
                           <option value="">Select your Hostel.</option>
-                          <option>Ram Bhawan</option>
-                          <option>Budh Bhawan</option>
-                          <option>Srinivasa Ramanujan A</option>
-                          <option>Srinivasa Ramanujan B</option>
-                          <option>Srinivasa Ramanujan C</option>
-                          <option>Srinivasa Ramanujan D</option>
-                          <option>Krishna Bhawan</option>
-                          <option>Gandhi Bhawan</option>
-                          <option>Shankar Bhawan</option>
-                          <option>Vyas Bhawan</option>
-                          <option>Vishwakarma Bhawan</option>
-                          <option>Bhagirath Bhawan</option>
-                          <option>Rana Pratap Bhawan</option>
-                          <option>Ashok Bhawan</option>
-                          <option>Malviya Bhawan A</option>
-                          <option>Malviya Bhawan B</option>
-                          <option>Malviya Bhawan C</option>
+                          <option value="RM">Ram Bhawan</option>
+                          <option value="BUDH">Budh Bhawan</option>
+                          <option value="SR-A">Srinivasa Ramanujan A</option>
+                          <option value="SR-B">Srinivasa Ramanujan B</option>
+                          <option value="SR-C">Srinivasa Ramanujan C</option>
+                          <option value="SR-D">Srinivasa Ramanujan D</option>
+                          <option value="KR">Krishna Bhawan</option>
+                          <option value="GN">Gandhi Bhawan</option>
+                          <option value="SK">Shankar Bhawan</option>
+                          <option value="VY">Vyas Bhawan</option>
+                          <option value="VK">Vishwakarma Bhawan</option>
+                          <option value="BG">Bhagirath Bhawan</option>
+                          <option value="RP">Rana Pratap Bhawan</option>
+                          <option value="AK">Ashok Bhawan</option>
+                          <option value="MV-A">Malviya Bhawan A</option>
+                          <option value="MV-B">Malviya Bhawan B</option>
+                          <option value="MV-C">Malviya Bhawan C</option>
                         </CustomInput>
                       ) : (
                         <CustomInput
@@ -339,16 +340,16 @@ class Register extends Component {
                           onChange={this.selectedHostel}
                         >
                           <option value="">Select your Hostel.</option>
-                          <option>Meera Block 1</option>
-                          <option>Meera Block 2</option>
-                          <option>Meera Block 3</option>
-                          <option>Meera Block 4</option>
-                          <option>Meera Block 5</option>
-                          <option>Meera Block 6</option>
-                          <option>Meera Block 7</option>
-                          <option>Meera Block 8</option>
-                          <option>Meera Block 9</option>
-                          <option>Meera Block 10</option>
+                          <option value="MR-1">Meera Block 1</option>
+                          <option value="MR-2">Meera Block 2</option>
+                          <option value="MR-3">Meera Block 3</option>
+                          <option value="MR-4">Meera Block 4</option>
+                          <option value="MR-5">Meera Block 5</option>
+                          <option value="MR-6">Meera Block 6</option>
+                          <option value="MR-7">Meera Block 7</option>
+                          <option value="MR-8">Meera Block 8</option>
+                          <option value="MR-9">Meera Block 9</option>
+                          <option value="MR-10">Meera Block 10</option>
                         </CustomInput>
                       )}
                     </InputGroup>
@@ -397,7 +398,7 @@ class Register extends Component {
                         onChange={this.finduser}
                       >
                         <option value="">Choose your year of Study</option>
-                        <option>2019</option>
+                        {/* <option>2019</option> */}
                         <option>2018</option>
                         <option>2017</option>
                         <option>2016</option>
