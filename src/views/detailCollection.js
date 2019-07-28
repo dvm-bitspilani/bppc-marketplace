@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 // import { Router, Link } from "@reach/router";
+import { connect } from "react-redux";
 
 import {
   Button,
@@ -29,7 +30,9 @@ const initialState = {
   hostel: "",
   room_no: "",
   is_dual_degree: "",
+  dual_branch: "",
   single_branch: "",
+  is_single_branch:"",
   redirectToDashboard: true
 };
 
@@ -42,8 +45,10 @@ class Register extends Component {
       bits_id: "",
       hostel: "",
       room_no: "",
-      is_dual_degree: "",
+      is_dual_degree: false,
       single_branch: "",
+      dual_branch:"",
+      is_single_branch:"",
       isgendermale: true,
       yearOfStudy: 2019,
       dualDegree: false,
@@ -107,15 +112,17 @@ class Register extends Component {
       hostel: this.state.hostel,
       room_no: this.state.room_no,
       is_dual_degree: this.state.is_dual_degree,
+      dual_branch: this.state.dual_branch,
       single_branch: this.state.single_branch
     };
 
     console.log(authData);
 
     axios
-      .post("http://market.bits-dvm.org/api/DetailsCollection/", authData, {
+      .post("https://market.bits-dvm.org/api/DetailsCollection/", authData, {
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": "JWT " + localStorage.getItem("token")
         }
       })
       .then(response => {
@@ -380,7 +387,7 @@ class Register extends Component {
                         <CustomInput
                           type="select"
                           id="exampleCustomSelect"
-                          name="customSelect"
+                          name="single_branch"
                           onChange={this.handleChange}
                         >
                           <option>Enter your Single Degree Branch.</option>
@@ -400,7 +407,7 @@ class Register extends Component {
                       </InputGroup>
                     ) : null}
 
-                    {this.state.dualDegree ? (
+                    {this.state.is_dual_degree ? (
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -410,7 +417,7 @@ class Register extends Component {
                         <CustomInput
                           type="select"
                           id="exampleCustomSelect"
-                          name="customSelect"
+                          name="dual_branch"
                           onChange={this.handleChange}
                         >
                           <option>Enter your Dual Branch.</option>
@@ -468,4 +475,10 @@ class Register extends Component {
   }
 }
 
-export default Register;
+const mapStateToProps = state => {
+  return {
+    token: state.auth.token
+  };
+};
+
+export default connect(mapStateToProps)(Register);
