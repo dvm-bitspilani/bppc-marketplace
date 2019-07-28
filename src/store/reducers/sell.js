@@ -69,7 +69,7 @@ const reducer = (state = initialState, action) => {
           books.map(({title,id,category})=>{
             booksids.push((parseInt(id)-1000));
           })
-
+          console.log(booksids);
           let authData = {
             details: state.details,
             description:state.description,
@@ -78,7 +78,7 @@ const reducer = (state = initialState, action) => {
             book_ids:booksids       
         }
         axios
-        .post("http://market.bits-dvm.org/api/sell/", authData, {
+        .post("https://market.bits-dvm.org/api/sell/", authData, {
           headers: {
             "Content-Type": "application/json",
             "Authorization" :"JWT "+ action.token            

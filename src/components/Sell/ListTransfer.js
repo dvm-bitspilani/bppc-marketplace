@@ -36,7 +36,7 @@ class ListTransfer extends React.Component {
     if(this.state.transferredList1[0] === undefined){
         let books,transferredList1;  
         axios
-        .get("http://market.bits-dvm.org/api/sell/",{
+        .get("https://market.bits-dvm.org/api/sell/",{
           headers: {
             "Content-Type": "application/json",
             "Authorization" :"JWT "+ localStorage.getItem("token")
