@@ -18,23 +18,23 @@ import {
   CustomInput
 } from "reactstrap";
 
-import * as actions from "../../src/store/actions/index";
+// import * as actions from "../../src/store/actions/index";
 const axios = require("axios");
 
 // import { redirectTo } from "@reach/router";
 
-const initialState = {
-  gender: "",
-  phone: "",
-  bits_id: "",
-  hostel: "",
-  room_no: "",
-  is_dual_degree: "",
-  dual_branch: "",
-  single_branch: "",
-  is_single_branch: "",
-  redirectToDashboard: true
-};
+// const initialState = {
+//   gender: "",
+//   phone: "",
+//   bits_id: "",
+//   hostel: "",
+//   room_no: "",
+//   is_dual_degree: "",
+//   dual_branch: "",
+//   single_branch: "",
+//   is_single_branch: "",
+//   redirectToDashboard: true
+// };
 
 class Register extends Component {
   constructor(props) {
@@ -53,8 +53,7 @@ class Register extends Component {
       isgendermale: true,
       yearOfStudy: 2019,
       dualDegree: false,
-      singleDegree: true,
-      gender: "none"
+      singleDegree: true
     };
     this.yearOfStudy = this.yearOfStudy.bind(this);
     this.gender = this.gender.bind(this);
@@ -408,7 +407,7 @@ class Register extends Component {
                       </CustomInput>
                     </InputGroup>
                     {this.state.singleDegree &&
-                    this.state.isuser_fresher == false ? (
+                    this.state.isuser_fresher === false ? (
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -439,7 +438,7 @@ class Register extends Component {
                     ) : null}
 
                     {this.state.is_dual_degree &&
-                    this.state.isuser_fresher == false ? (
+                    this.state.isuser_fresher === false ? (
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -463,7 +462,7 @@ class Register extends Component {
                         </CustomInput>
                       </InputGroup>
                     ) : null}
-                    {this.state.isuser_fresher == true ? (
+                    {this.state.isuser_fresher === true ? (
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
