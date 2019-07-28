@@ -100,12 +100,17 @@ class Buy extends Component {
               {/* --------------------------------------------------- */}
             </tbody>
           </table>
-          <Modal show={this.state.showModal}>
-            <div className="close-modal" onClick={() => this.hideModal()}>
-              Close
-            </div>
-            <SellerSummary seller={this.state.seller} id={this.state.seller.id}/>
-          </Modal>
+          {this.props.sellers.length > 0 ? (
+            <Modal show={this.state.showModal}>
+              <div className="close-modal" onClick={() => this.hideModal()}>
+                Close
+              </div>
+              <SellerSummary
+                seller={this.state.seller}
+                id={this.state.seller.id}
+              />
+            </Modal>
+          ) : null}
         </div>
       );
     } else {

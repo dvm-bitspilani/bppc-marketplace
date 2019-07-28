@@ -85,7 +85,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchDetails: id => dispatch(actions.fetchDetials(id))
+    onFetchDetails: id => dispatch(actions.fetchDetails(id))
   };
 };
 

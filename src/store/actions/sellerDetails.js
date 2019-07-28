@@ -21,7 +21,7 @@ export const fetchDetailsError = err => {
   };
 };
 
-export const fetchDetials = sellerId => {
+export const fetchDetails = sellerId => {
   return dispatch => {
     dispatch(fetchDetailsSucess());
     axios
