@@ -4,14 +4,28 @@ import "./Dropzone.css";
 class Dropzone extends Component {
   constructor(props) {
     super(props);
-    this.state = { hightlight: false, fileimg: this.props.imagearr };
-    this.fileInputRef = React.createRef();
+    this.state = { 
+      hightlight: false, 
+      dataGot: [
+        {name: "lake", 
+        id:56, 
+        url: "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg"
+        },
+        {name:"trees", 
+        id:57, 
+        url: "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg"}
+      ],
+      newImages:[],
+      listOfNames:[],
+      imagesRemoved: []
+    };
 
+    this.fileInputRef = React.createRef();
     this.openFileDialog = this.openFileDialog.bind(this);
     this.onFilesAdded = this.onFilesAdded.bind(this);
-    this.onDragOver = this.onDragOver.bind(this);
-    this.onDragLeave = this.onDragLeave.bind(this);
-    this.onDrop = this.onDrop.bind(this);
+    // this.onDragOver = this.onDragOver.bind(this);
+    // this.onDragLeave = this.onDragLeave.bind(this);
+    // this.onDrop = this.onDrop.bind(this);
   }
 
   openFileDialog() {
@@ -21,52 +35,67 @@ class Dropzone extends Component {
 
   onFilesAdded(evt) {
     if (this.props.disabled) return;
-    const files = evt.target.files;
-    if (this.props.onFilesAdded) {
-      const array = this.fileListToArray(files);
-      this.props.onFilesAdded(array);
-    }
+    let files = evt.target.files;
+    console.log(files);
+      let array = this.fileListToArray(files);
+      console.log(array);
+      let listOfNames = this.state.listOfNames;
+      listOfNames = listOfNames.concat(array);
+      console.log(listOfNames);
+      this.setState({
+        listOfNames: listOfNames
+      });
+    
   }
-
-  onDragOver(evt) {
-    evt.preventDefault();
-
-    if (this.props.disabled) return;
-
-    this.setState({ hightlight: true });
+  componentWillMount(){
+    let dataGot = this.state.dataGot;
+    let listOfNames=[];
+    dataGot.map(({name,id,url})=>{
+      listOfNames.push(name);
+    });
+    this.setState({
+      listOfNames: listOfNames
+    });
   }
+  // onDragOver(evt) {
+  //   evt.preventDefault();
 
-  onDragLeave() {
-    this.setState({ hightlight: false });
-  }
+  //   if (this.props.disabled) return;
 
-  onDrop(event) {
-    event.preventDefault();
+  //   this.setState({ hightlight: true });
+  // }
 
-    if (this.props.disabled) return;
+  // onDragLeave() {
+  //   this.setState({ hightlight: false });
+  // }
 
-    const files = event.dataTransfer.files;
-    if (this.props.onFilesAdded) {
-      const array = this.fileListToArray(files);
-      this.props.onFilesAdded(array);
-    }
-    this.setState({ hightlight: false });
-  }
+  // onDrop(event) {
+  //   event.preventDefault();
+
+  //   if (this.props.disabled) return;
+
+  //   const files = event.dataTransfer.files;
+  //   if (this.props.onFilesAdded) {
+  //     const array = this.fileListToArray(files);
+  //     this.props.onFilesAdded(array);
+  //   }
+  //   this.setState({ hightlight: false });
+  // }
 
   fileListToArray(list) {
     const array = [];
     for (var i = 0; i < list.length; i++) {
-      array.push(list.item(i));
+      array.push(list.item(i).name);
     }
     return array;
   }
 
   render() {
     var image = [];
-    for (var i = 0; i < this.props.imagearr.length; i++) {
-      var x = this.props.imagearr[i];
-      image.push(x.name);
-      console.log(x.name);
+    for (var i = 0; i < this.state.listOfNames.length; i++) {
+      var x = this.state.listOfNames[i];
+      image.push(x);
+      console.log(x);
     }
 
     return (
@@ -84,14 +113,15 @@ class Dropzone extends Component {
           type="file"
           multiple
           onChange={this.onFilesAdded}
+          accept="image/*"
         />
-        {this.props.imagearr.length > 0 &&
+        {image.length > 0 &&
           image.map((item, index) => (
             <span className="indent" key={index}>
               {item}
             </span>
           ))}
-        {this.props.imagearr.length === 0 && (
+        {image.length === 0 && (
           <img
             alt="upload"
             className="Icon"

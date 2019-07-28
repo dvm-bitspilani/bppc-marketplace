@@ -11,7 +11,7 @@ class FileInput extends React.Component {
     super(props);
     this.uploadChange = this.uploadChange.bind(this);
     this.state = {
-      imagesupload: this.props.imagesupload
+      imagesupload: []
     };
   }
   
@@ -29,11 +29,12 @@ class FileInput extends React.Component {
     // .catch(error => {
     //   console.log(error);
     // });
+    
   }
   
   uploadChange(files) {
     console.log(files);
-    for (var i = 0; i < files.length; i++) {
+    for (var i = 0; i < files.length; i++){
       var x = files[i];
       const imagesupload = Object.assign([], this.state.imagesupload);
       imagesupload.push(x);
@@ -78,7 +79,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onImagetransfer: inputfile => dispatch(actions.updateimagestate(inputfile))
+    onImagetransfer: images => dispatch(actions.updateimagestate(images))
   };
 };
 

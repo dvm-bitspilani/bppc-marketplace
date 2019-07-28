@@ -8,10 +8,10 @@ export const transferSuccess = newData => {
   };
 };
 
-export const imageTransfer = file => {
+export const imageTransfer = images => {
   return {
-    type: actionTypes.TRANSFER_LIST,
-    filestate: file
+    type: actionTypes.IMAGE_UPLOAD,
+    images: images 
   };
 };
 
@@ -24,12 +24,9 @@ export const updatestate = (arr, arr1) => {
   };
 };
 
-export const updateimagestate = inputfile => {
-  let updateimagestate = {
-    file: inputfile
-  };
+export const updateimagestate = images => {
   return dispatch => {
-    dispatch(imageTransfer(updateimagestate));
+    dispatch(imageTransfer(images));
   };
 };
 export const sellstart = (response) =>{

@@ -8,7 +8,7 @@ const initialState = {
   transferList1: [],
   transferList2: [],
   transferredList1: [],
-  imagesupload: [],
+  imagesUpload: [],
   tags: ["abc","def"],
   details:"Everything",
   description:"Good Condition",
@@ -20,16 +20,16 @@ const reducer = (state = initialState, action) => {
   switch(action.type){
     case actionTypes.SELL_START:
       {   
-         let object = {
-          ...state,
-          books:action.arr1,
-          transferredList1: action.arr2,
-          tags: action.response.tags,
-          details: action.response.details,
-          description: action.response.description,
-          price: action.response.price
-        }
-        console.log(object);
+        //  let object = {
+        //   ...state,
+        //   books:action.arr1,
+        //   transferredList1: action.arr2,
+        //   tags: action.response.tags,
+        //   details: action.response.details,
+        //   description: action.response.description,
+        //   price: action.response.price
+        // }
+        // console.log(object);
         return Object.assign({}, state, {
           ...state,
           books: action.arr1,
@@ -51,11 +51,12 @@ const reducer = (state = initialState, action) => {
       }
       break;
       case actionTypes.DESCRIPTION:
-        { let object = { ...state,
-          tags: action.tags,
-          details:action.details,
-          description: action.description}
-          console.log(object);
+        {
+          //  let object = { ...state,
+        //   tags: action.tags,
+        //   details:action.details,
+        //   description: action.description}
+        //   console.log(object);
           return{
             ...state,
             tags: action.tags,
@@ -71,6 +72,14 @@ const reducer = (state = initialState, action) => {
             price: action.price
           }
           return price
+        }
+
+      case actionTypes.IMAGE_UPLOAD:
+        {
+          return{
+            ...state,
+            imagesUpload: action.images
+          }
         }
       case actionTypes.SELL_END:
         { 
