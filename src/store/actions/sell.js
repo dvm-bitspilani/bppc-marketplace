@@ -33,6 +33,7 @@ export const updateimagestate = inputfile => {
   };
 };
 export const sellstart = (response) =>{
+
     let increasedIds=[];
     let selected_books = response.selected_books;
     selected_books.map(({title,id,category})=>{
@@ -106,9 +107,17 @@ export const priceUpdate = (price) => {
     price: price
   }
 }
-export const sellEnd = (token) => {
+export const AfterAllStateUpdate = (token) => {
   return{
     type: actionTypes.SELL_END,
     token: token
+  }
+}
+export const sellEnd = (token) => {
+  return dispatch => {
+    setTimeout(function() {
+      dispatch(AfterAllStateUpdate(token))
+     }, 
+    300);
   }
 }

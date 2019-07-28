@@ -29,7 +29,7 @@ class FinishButton extends React.Component{
     }  
     handleClick = () => {
       this.props.onClick();
-      this.props.sellEnd(localStorage.getItem("token"));
+        this.props.sellEnd(localStorage.getItem("token"));
     }
 
     render(){
