@@ -43,7 +43,7 @@ class ListTransfer extends React.Component {
           }
         })
         .then(response => {
-          console.log(response.data);
+          console.log(response.data);   
            books = this.props.onStart(response.data).arr1;
            transferredList1 = this.props.onStart(response.data).arr2;
            this.setState({

@@ -19,17 +19,27 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch(action.type){
     case actionTypes.SELL_START:
-      { 
-        console.log(action.response);
-      return Object.assign({}, state, {
-        ...state,
-        books:action.response.books,
-        transferredList1: action.response.selected_books,
-        tags: action.response.tags,
-        details: action.response.details,
-        description: action.response.description,
-        price: action.response.price
-      });}
+      {   
+         let object = {
+          ...state,
+          books:action.arr1,
+          transferredList1: action.arr2,
+          tags: action.response.tags,
+          details: action.response.details,
+          description: action.response.description,
+          price: action.response.price
+        }
+        console.log(object);
+        return Object.assign({}, state, {
+          ...state,
+          books: action.arr1,
+          transferredList1: action.arr2,
+          tags: action.response.tags,
+          details: action.response.details,
+          description: action.response.description,
+          price: action.response.price
+        });
+      }
       break;
     case actionTypes.TRANSFER_LIST:
       {
@@ -70,13 +80,15 @@ const reducer = (state = initialState, action) => {
             booksids.push((parseInt(id)-1000));
           })
           console.log(booksids);
+          console.log(state.price);
           let authData = {
             details: state.details,
             description:state.description,
             price: state.price,
             tags: state.tags,
             book_ids:booksids       
-        }
+          }
+          console.log(authData);
         axios
         .post("https://market.bits-dvm.org/api/sell/", authData, {
           headers: {

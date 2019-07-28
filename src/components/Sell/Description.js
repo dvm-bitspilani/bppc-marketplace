@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 
 class Description extends React.Component {
-
     constructor(props){
       super(props);
       this.state={
@@ -67,8 +66,6 @@ class Description extends React.Component {
             <Input onChange={this.handleChange} value={this.state.description} type="textarea" name="text" id="description" />
           </FormGroup>
           <FormGroup>
-2
-
             <Label for="exampleText">
               Enter the additional material that you have such as slides etc.(Max
               5):

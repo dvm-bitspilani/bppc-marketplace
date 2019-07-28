@@ -33,12 +33,36 @@ export const updateimagestate = inputfile => {
   };
 };
 export const sellstart = (response) =>{
-  return{
-    type: actionTypes.SELL_START,
-    arr1: response.books,
-    arr2: response.selected_books,
-    response : response
-  }
+    let increasedIds=[];
+    let selected_books = response.selected_books;
+    selected_books.map(({title,id,category})=>{
+      increasedIds.push({
+        title: title,
+        id : parseInt(id)+1000,
+        category: category
+      })
+    });
+    console.log(increasedIds);
+    let booklist = response.books;
+    let removedSelectedBooks=[];
+    removedSelectedBooks = booklist.filter(function({title,id,category}){
+      let isRemove = false;
+      let selectedId = id;
+      for(let i=0 ; i < selected_books.length ; i++){
+        if(selectedId == selected_books[i].id){
+          isRemove = true
+          return;
+        }
+      }
+      return !isRemove;
+    }); 
+
+    return{
+      type: actionTypes.SELL_START,
+      arr1: removedSelectedBooks,
+      arr2: increasedIds,
+      response : response
+    }
 }
 
 export const description = (tags,details,description) =>{
@@ -67,7 +91,6 @@ export const getData = (token) => {
         console.log(error);
       });
   }
-
 }
 export const updateDescription = (tags,details,description) =>{
   return {
