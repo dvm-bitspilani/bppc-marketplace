@@ -7,17 +7,17 @@ import StepContent from "@material-ui/core/StepContent";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import { Container, Form, FormGroup, Label, Input } from "reactstrap";
+import { Container } from "reactstrap";
 import ListTransfer from "./ListTransfer";
 import FileInput from "./FileInput";
 import FinishButton from "./FinishButton";
-import TagsContainer from "./TagsContainer";
+// import TagsContainer from "./TagsContainer";
 // import { ReactComponent } from "*.svg";
-import { navigate } from "@reach/router";
-import * as  actions from '../../store/actions/sell';
-import {connect} from 'react-redux';
-import Description from './Description';
-import {AdditionalDetails} from './AdditionalDetails';
+// import { navigate } from "@reach/router";
+// import * as  actions from '../../store/actions/sell';
+// import {connect} from 'react-redux';
+import Description from "./Description";
+// import {AdditionalDetails} from './AdditionalDetails';
 import Price from "./Price";
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,111 +45,103 @@ function getSteps() {
 }
 
 function getStepContent(step) {
-    switch (step) {
-      case 0:
-        return <ListTransfer />;
-      case 1:
-        return <FileInput />;
-      case 2:
-        return <Description />;
-      case 3:
-        return <Price/>
-      default:
-        return "Unknown step";
-    }
-  }   
+  switch (step) {
+    case 0:
+      return <ListTransfer />;
+    case 1:
+      return <FileInput />;
+    case 2:
+      return <Description />;
+    case 3:
+      return <Price />;
+    default:
+      return "Unknown step";
+  }
+}
 
- function VerticalLinearStepper(){
-   
-    const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(0);
-    const steps = getSteps();
+function VerticalLinearStepper() {
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const steps = getSteps();
 
-    function handleNext() {
-      setActiveStep(prevActiveStep => prevActiveStep + 1);
-    }
+  function handleNext() {
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
+  }
 
-    function handleBack() {
-      setActiveStep(prevActiveStep => prevActiveStep - 1);
-    }
-    function twoCalls(){
-      handleNext();
-      // console.log(prototype)
-      // props.sellEnd(localStorage.getItem("token"));
-    }
-    return (
-      <Container>
-        <div className={classes.root}>
-          <Stepper activeStep={activeStep} orientation="vertical">
-            {steps.map((label, index) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-                <StepContent>
-                  <Typography component={"span"}>
-                    {getStepContent(index)}
-                  </Typography>
-                  <div className={classes.actionsContainer}>
-                    <div>
+  function handleBack() {
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
+  }
+  // function twoCalls() {
+  //   handleNext();
+  //   // console.log(prototype)
+  //   // props.sellEnd(localStorage.getItem("token"));
+  // }
+  return (
+    <Container>
+      <div className={classes.root}>
+        <Stepper activeStep={activeStep} orientation="vertical">
+          {steps.map((label, index) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+              <StepContent>
+                <Typography component={"span"}>
+                  {getStepContent(index)}
+                </Typography>
+                <div className={classes.actionsContainer}>
+                  <div>
+                    <Button
+                      disabled={activeStep === 0}
+                      onClick={handleBack}
+                      className={classes.button}
+                    >
+                      Back
+                    </Button>
+
+                    {activeStep === steps.length - 1 ? (
+                      <FinishButton
+                        variant="contained"
+                        color="primary"
+                        onClick={handleNext}
+                        className={classes.button}
+                      />
+                    ) : (
                       <Button
-                        disabled={activeStep === 0}
-                        onClick={handleBack}
+                        variant="contained"
+                        color="primary"
+                        onClick={handleNext}
                         className={classes.button}
                       >
-                        Back
+                        Next
                       </Button>
-                     
-                        {(activeStep === steps.length - 1)?(
-                          
-                        <FinishButton
-                        variant="contained"
-                        color="primary"
-                        onClick={handleNext}
-                        className={classes.button}
-                        /> 
-                          
-                        ):(
-
-                        <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={handleNext}
-                        className={classes.button}
-                        >
-                          Next
-                        </Button>
-                        )
-
-                        }
-                      
-                    </div>
+                    )}
                   </div>
-                </StepContent>
-              </Step>
-            ))}
-          </Stepper>
-          {activeStep === steps.length && (
-            <Paper square elevation={0} className={classes.resetContainer}>
-              <Typography>
-                All steps are completed. You can follow up your selling status on
-                dashboard and also, you are allowed to edit these details when you
-                visit this page again
-              </Typography>
-              {/* <Button onClick={handleReset} className={classes.button}>
+                </div>
+              </StepContent>
+            </Step>
+          ))}
+        </Stepper>
+        {activeStep === steps.length && (
+          <Paper square elevation={0} className={classes.resetContainer}>
+            <Typography>
+              All steps are completed. You can follow up your selling status on
+              dashboard and also, you are allowed to edit these details when you
+              visit this page again
+            </Typography>
+            {/* <Button onClick={handleReset} className={classes.button}>
                 Reset
               </Button> */}
-                <Button
-                        disabled={activeStep === 0}
-                        onClick={handleBack}
-                        className={classes.button}
-                      >
-                        Go to last step
-                </Button>
-            </Paper>
-          )}
-        </div>
-      </Container>
-    );  
-   
+            <Button
+              disabled={activeStep === 0}
+              onClick={handleBack}
+              className={classes.button}
+            >
+              Go to last step
+            </Button>
+          </Paper>
+        )}
+      </div>
+    </Container>
+  );
 }
 
 // class VerticalLinearStepper extends React.Component{
@@ -171,12 +163,12 @@ function getStepContent(step) {
 //     }
 //     else{
 //       activeStep = activeStep +1;
-//     } 
+//     }
 //     this.setState({
 //       activeStep: activeStep
 //     });
 //   }
-  
+
 //   handleBack = (e) => {
 //     // const [activeStep, setActiveStep] = React.useState(0);
 //     // setActiveStep(prevActiveStep => prevActiveStep - 1);
@@ -188,7 +180,7 @@ function getStepContent(step) {
 //     }
 //     else{
 //       activeStep = activeStep -1;
-//     } 
+//     }
 //     this.setState({
 //       activeStep: activeStep
 //     });
@@ -199,7 +191,7 @@ function getStepContent(step) {
 //     this.props.sellEnd(localStorage.getItem("token"));
 //   }
 //   render() {
-//     const classes = useStyles(); 
+//     const classes = useStyles();
 //     const steps = getSteps();
 //     let activeStep = this.state.activeStep;
 //     return(
@@ -222,9 +214,9 @@ function getStepContent(step) {
 //                     >
 //                       Back
 //                     </Button>
-                   
+
 //                       {(activeStep === steps.length - 1)?(
-                        
+
 //                       <Button
 //                       variant="contained"
 //                       color="primary"
@@ -232,10 +224,10 @@ function getStepContent(step) {
 //                       className={classes.button}
 //                       >
 //                         Finish
-//                       </Button> 
-                        
+//                       </Button>
+
 //                       ):(
-  
+
 //                       <Button
 //                       variant="contained"
 //                       color="primary"
@@ -245,9 +237,9 @@ function getStepContent(step) {
 //                         Next
 //                       </Button>
 //                       )
-  
+
 //                       }
-                    
+
 //                   </div>
 //                 </div>
 //               </StepContent>
@@ -276,15 +268,13 @@ function getStepContent(step) {
 //       </div>
 //     </Container>
 //     )
-//   };  
+//   };
 //   }
 
-
-
-class Sell extends React.Component{
-  constructor(props){
-    super(props);
-  }
+class Sell extends React.Component {
+  // constructor(props) {
+  //   super(props);
+  // }
 
   // componentDidMount() {
   //   if (localStorage.getItem("token") === null) {
@@ -292,23 +282,21 @@ class Sell extends React.Component{
   //     setTimeout(() => navigate("/login"), 100);
   //   }
   //   console.log(this.state.count)
-  //   console.log(this.props.getData(localStorage.getItem("token")));    
+  //   console.log(this.props.getData(localStorage.getItem("token")));
   // }
   // componentWillMount(){
   //   this.props.getData(localStorage.getItem("token"));
   // }
 
-  render(){
+  render() {
     let sell;
-    if(localStorage.getItem("token")){
-     sell = (<VerticalLinearStepper/>)
-    }else
-    {
-      sell = <div>{" "}</div>;
+    if (localStorage.getItem("token")) {
+      sell = <VerticalLinearStepper />;
+    } else {
+      sell = <div> </div>;
     }
     return sell;
   }
 }
 
 export default Sell;
-

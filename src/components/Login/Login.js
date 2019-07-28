@@ -26,7 +26,8 @@ const initialState = {
 };
 class Login extends Component {
   state = {
-    ...initialState
+    ...initialState,
+    alreadyloggedin: false
     // isAuthenticated: false
   };
 
@@ -35,6 +36,7 @@ class Login extends Component {
     if (this.props.token !== null && this.props.error === null) {
       setTimeout(() => navigate("/dashboard"), 100);
     }
+    console.log(this.props.new_bitsian);
   }
 
   componentDidUpdate() {
@@ -74,7 +76,8 @@ class Login extends Component {
         console.log("redirect now");
         if (this.props.new_bitsian === true) {
           navigate("/detailsCollection");
-        } else if (this.props.new_bitsian === false) {
+          this.setState({ alreadyloggedin: true });
+        } else if (this.state.alreadyloggedin === true) {
           navigate("/dashboard");
         }
       }
