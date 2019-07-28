@@ -72,7 +72,11 @@ class Login extends Component {
       if (this.props.token !== null && this.props.error !== null) {
         console.log(this.props.token);
         console.log("redirect now");
-        navigate("/dashboard");
+        if (this.props.new_bitsian === true) {
+          navigate("/detailsCollection");
+        } else {
+          navigate("/dashboard");
+        }
       }
     } else {
       console.log("google auth failed");
