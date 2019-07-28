@@ -28,9 +28,11 @@ export const fetchDetials = sellerId => {
       .get("/api/SellerDetails/" + sellerId)
       .then(response => {
         console.log(response);
+        dispatch(fetchDetailsSucess(response.data));
       })
       .catch(err => {
         console.log(err);
+        dispatch(fetchDetailsError(err));
       });
   };
 };
