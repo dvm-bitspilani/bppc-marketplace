@@ -10,6 +10,10 @@ class SellerSummary extends React.Component {
     tags: ["new condition", "thermo table"]
   };
 
+  componentDidMount() {
+
+  }
+
   render() {
     const tagList = this.state.tags.map((tag, index) => {
       return <span key={index} className="tag">{tag}</span>;
