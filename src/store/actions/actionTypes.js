@@ -14,6 +14,7 @@ export const PRICE = "PRICE";
 export const SELL_END_WAIT = "SELL_END_WAIT";
 export const SELL_END="SELL_END";
 export const IMAGE_UPLOAD = "IMAGE_UPLOAD";
+// export const PHALTU = "PHALTU"
 
 export const GET_SELLERS_START = "GET_SELLERS_START";
 export const GET_SELLERS_SUCCESS = "GET_SELLERS_SUCCESS";

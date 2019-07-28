@@ -8,25 +8,23 @@ export const transferSuccess = newData => {
   };
 };
 
-export const imageTransfer = images => {
+export const uploadImage = object => {
   return {
     type: actionTypes.IMAGE_UPLOAD,
-    images: images 
+    data: object 
   };
 };
-
+// export const updateimagestate = () =>{
+//   return{
+//     type: actionTypes.PHALTU
+//   }
+// }
 export const updatestate = (arr, arr1) => {
   return {
     // dispatch(transferSuccess(updatedData));
     type: actionTypes.TRANSFER_LIST,
     books: arr,
     transferredList1: arr1
-  };
-};
-
-export const updateimagestate = images => {
-  return dispatch => {
-    dispatch(imageTransfer(images));
   };
 };
 export const sellstart = (response) =>{

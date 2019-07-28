@@ -13,7 +13,32 @@ const initialState = {
   details:"Everything",
   description:"Good Condition",
   price: 4500,
-  book_ids: []
+  book_ids: [],
+  dataGot:[
+    {
+      id:56,
+      name: "lake", 
+      url: "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg"
+    },
+    {
+    id:57,         
+    name:"trees", 
+    url: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"}
+  ],
+  newImages:[],
+  imagesRemoved: [],
+  newAndOld:[
+    {
+      id:56,
+      name: "lake", 
+      url: "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg"
+    },
+    {
+    id:57,         
+    name:"trees", 
+    url: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"}
+  ],
+  imagesRemoved:[]
 };
 
 const reducer = (state = initialState, action) => {
@@ -78,7 +103,10 @@ const reducer = (state = initialState, action) => {
         {
           return{
             ...state,
-            imagesUpload: action.images
+            dataGot: action.data.dataGot,
+            newImages:action.data.newImages,
+            imagesRemoved: action.data.imagesRemoved,
+            newAndOld:action.data.newAndOld
           }
         }
       case actionTypes.SELL_END:

@@ -46,6 +46,8 @@ class Login extends Component {
         // logged in with google and first time login
         // redirect to detail collction page
         navigate("/detailsCollection");
+      }else{
+        navigate("/dashboard");
       }
       // normal login
       // redirect to dashboard

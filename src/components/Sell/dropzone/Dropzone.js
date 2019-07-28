@@ -1,28 +1,56 @@
 import React, { Component } from "react";
 import "./Dropzone.css";
+import * as actions from "../../../store/actions/index";
+import { connect } from "react-redux";
+
+class Image extends Component{
+  constructor(props){
+    super(props);
+    this.state={
+      url:this.props.url,
+      name: this.props.name,
+      id: this.props.id
+    }
+    this.handleClick = this.handleClick.bind(this); 
+  }
+  handleClick = e => {
+    // this.handleClick()
+    this.props.onRemove(e,this.state.id);
+  }
+  render(){
+    let url = "url(" + this.state.url + ")";
+    let divStyle={
+      width:"100px",
+      height:"100px",
+      backgroundImage: url,
+      backgroundSize: "cover"
+    }
+    return(
+      <div style={divStyle}>
+       <span onClick={this.handleClick} style={{background: "black", color: "white"}}>Remove</span>
+       {/* <div>{this.state.name}</div> */}
+       {/* <img src={this.state.image}/> */}
+      </div>
+    )
+  }
+}
 
 class Dropzone extends Component {
   constructor(props) {
     super(props);
     this.state = { 
       hightlight: false, 
-      dataGot: [
-        {name: "lake", 
-        id:56, 
-        url: "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg"
-        },
-        {name:"trees", 
-        id:57, 
-        url: "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg"}
-      ],
-      newImages:[],
-      listOfNames:[],
-      imagesRemoved: []
+      dataGot: this.props.dataGot,
+      newImages:this.props.newImages,
+      imagesRemoved: this.props.imagesRemoved,
+      newAndOld:this.props.newAndOld,
+      imagesRemoved:this.props.imagesRemoved
     };
 
     this.fileInputRef = React.createRef();
     this.openFileDialog = this.openFileDialog.bind(this);
     this.onFilesAdded = this.onFilesAdded.bind(this);
+    this.onRemove = this.onRemove.bind(this);
     // this.onDragOver = this.onDragOver.bind(this);
     // this.onDragLeave = this.onDragLeave.bind(this);
     // this.onDrop = this.onDrop.bind(this);
@@ -32,30 +60,82 @@ class Dropzone extends Component {
     if (this.props.disabled) return;
     this.fileInputRef.current.click();
   }
-
-  onFilesAdded(evt) {
-    if (this.props.disabled) return;
-    let files = evt.target.files;
-    console.log(files);
-      let array = this.fileListToArray(files);
-      console.log(array);
-      let listOfNames = this.state.listOfNames;
-      listOfNames = listOfNames.concat(array);
-      console.log(listOfNames);
-      this.setState({
-        listOfNames: listOfNames
-      });
-    
-  }
-  componentWillMount(){
+  
+  onRemove = (e,removeId) => {
     let dataGot = this.state.dataGot;
-    let listOfNames=[];
-    dataGot.map(({name,id,url})=>{
-      listOfNames.push(name);
+    let newImages = this.state.newImages;
+    let newAndOld = this.state.newAndOld;
+
+    dataGot = dataGot.filter(({id,name,url}) => {
+      //  imagesRemoved.push(id);
+       return removeId != id;
+    });
+    newImages = newImages.filter(({id,imageFile}) => {
+      return removeId != id
+    });
+    console.log(newImages);
+    newAndOld = newAndOld.filter(({id,name,url}) => {
+      return removeId != id
     });
     this.setState({
-      listOfNames: listOfNames
-    });
+      dataGot: dataGot,
+      newImages: newImages,
+      newAndOld: newAndOld
+    },function(){console.log(this.state);});
+
+  }
+  onFilesAdded(evt) {
+    if (this.props.disabled) return;
+
+    let files = evt.target.files;
+    let newImages = this.state.newImages;
+    // newImages = 
+    for (var i = 0; i < files.length; i++) {
+      newImages.push(
+        {  id: window.URL.createObjectURL(files.item(i)), 
+           imageFile:files.item(i)
+        });
+    }
+    console.log(newImages);
+    
+    let newAndOld = this.state.newAndOld;
+    
+    for (var i = 0; i < files.length; i++) {
+      newAndOld.push(
+        {
+         id: window.URL.createObjectURL(files.item(i)),
+         name: files.item(i).name,
+         url: window.URL.createObjectURL(files.item(i))
+        }
+      )
+      // newImages.push(files.item);
+    }
+    this.setState({
+      newAndOld: newAndOld,
+      newImages: newImages
+    })
+    console.log(this.state);
+  }
+  componentWillMount(){
+    this.setState({
+      dataGot: this.props.dataGot
+    })
+    let dataGot = this.state.dataGot;
+    let newAndOld = this.state.newAndOld;
+    newAndOld = this.state.newAndOld;
+    this.setState({
+      newAndOld: newAndOld
+    })
+  }
+  componentWillUnmount(){
+    let object = {
+      dataGot: this.state.dataGot,
+      newImages:this.state.newImages,
+      imagesRemoved: this.state.imagesRemoved,
+      newAndOld:this.state.newAndOld,
+      imagesRemoved:this.state.imagesRemoved
+    }
+    this.props.uploadImage(object);
   }
   // onDragOver(evt) {
   //   evt.preventDefault();
@@ -92,13 +172,9 @@ class Dropzone extends Component {
 
   render() {
     var image = [];
-    for (var i = 0; i < this.state.listOfNames.length; i++) {
-      var x = this.state.listOfNames[i];
-      image.push(x);
-      console.log(x);
-    }
-
+    let dataGot = this.state.newAndOld;
     return (
+      <div>
       <div
         className={`Dropzone ${this.state.hightlight ? "Highlight" : ""}`}
         onDragOver={this.onDragOver}
@@ -129,8 +205,31 @@ class Dropzone extends Component {
           />
         )}
       </div>
+          {dataGot.length > 0 &&
+          dataGot.map((item, index) => (
+            <Image className="indent" key={item.id} onRemove={this.onRemove} name={item.name} url={item.url} id={item.id}/>
+          ))}
+      </div>
     );
   }
 }
 
-export default Dropzone;
+const mapStateToProps = state => {
+  return {
+    dataGot:state.sell.dataGot,
+    newImages:state.sell.newImages,
+    imagesRemoved: state.sell.imagesRemoved,
+    newAndOld:state.sell.newAndOld,
+    imagesRemoved:state.sell.imagesRemoved
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    uploadImage: (object) => dispatch(actions.uploadImage(object))
+  };
+};
+
+export default connect(
+ mapStateToProps,mapDispatchToProps
+)(Dropzone);

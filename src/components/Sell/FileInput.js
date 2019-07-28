@@ -1,15 +1,15 @@
 import React from "react";
 import Dropzone from "./dropzone/Dropzone";
 import { Container, Form } from "reactstrap";
-import { connect } from "react-redux";
-import * as actions from "../../store/actions/index";
+// import { connect } from "react-redux";
+// import * as actions from "../../store";
 
 const axios = require('axios');
 
 class FileInput extends React.Component {
   constructor(props) {
     super(props);
-    this.uploadChange = this.uploadChange.bind(this);
+    // this.uploadChange = this.uploadChange.bind(this);
     this.state = {
       imagesupload: []
     };
@@ -32,16 +32,16 @@ class FileInput extends React.Component {
     
   }
   
-  uploadChange(files) {
-    console.log(files);
-    for (var i = 0; i < files.length; i++){
-      var x = files[i];
-      const imagesupload = Object.assign([], this.state.imagesupload);
-      imagesupload.push(x);
-      this.setState({ imagesupload });
-      this.props.onImagetransfer(this.state.imagesupload);
-    }
-  }
+  // uploadChange(files) {
+  //   console.log(files);
+  //   for (var i = 0; i < files.length; i++){
+  //     var x = files[i];
+  //     const imagesupload = Object.assign([], this.state.imagesupload);
+  //     imagesupload.push(x);
+  //     this.setState({ imagesupload });
+  //     this.props.onImagetransfer(this.state.imagesupload);
+  //   }
+  // }
   render() {
     return (
       <div>
@@ -59,8 +59,8 @@ class FileInput extends React.Component {
             <div className="App">
               <div className="Card">
                 <Dropzone
-                  onFilesAdded={this.uploadChange}
-                  imagearr={this.state.imagesupload}
+                  // onFilesAdded={this.uploadChange}
+                  // imagearr={this.state.imagesupload}
                 />
               </div>
             </div>
@@ -71,19 +71,21 @@ class FileInput extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    imagesupload: state.sell.imagesupload
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     imagesupload: state.sell.imagesupload
+//   };
+// };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onImagetransfer: images => dispatch(actions.updateimagestate(images))
-  };
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     // onImagetransfer: images => dispatch(actions.updateimagestate(images))
+//   };
+// };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FileInput);
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(FileInput);
+
+export default FileInput;
