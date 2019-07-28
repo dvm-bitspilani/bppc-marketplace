@@ -34,7 +34,7 @@ class Login extends Component {
   componentDidMount() {
     console.log(this.props.navigate);
     if (this.props.token !== null && this.props.error === null) {
-      setTimeout(() => navigate("/dashboard"), 100);
+      navigate("/dashboard");
     }
     console.log(this.props.new_bitsian);
   }
@@ -45,7 +45,7 @@ class Login extends Component {
       if (this.props.email !== "" && this.props.new_bitsian === true) {
         // logged in with google and first time login
         // redirect to detail collction page
-        setTimeout(() => navigate("/detailsCollection"), 100);
+        navigate("/detailsCollection");
       }
       // normal login
       // redirect to dashboard
@@ -76,8 +76,7 @@ class Login extends Component {
         console.log("redirect now");
         if (this.props.new_bitsian === true) {
           navigate("/detailsCollection");
-          this.setState({ alreadyloggedin: true });
-        } else if (this.state.alreadyloggedin === true) {
+        } else if (this.props.new_bitsian !== true) {
           navigate("/dashboard");
         }
       }
