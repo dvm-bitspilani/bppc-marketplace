@@ -19,13 +19,16 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch(action.type){
     case actionTypes.SELL_START:
-      {  
+      { 
+        console.log(action.response);
       return Object.assign({}, state, {
         ...state,
         books:action.response.books,
         transferredList1: action.response.selected_books,
+        tags: action.response.tags,
         details: action.response.details,
-        tags: action.response.tags
+        description: action.response.description,
+        price: action.response.price
       });}
       break;
     case actionTypes.TRANSFER_LIST:
@@ -47,7 +50,7 @@ const reducer = (state = initialState, action) => {
             ...state,
             tags: action.tags,
             details:action.details,
-            description: action.description
+            description: action.description,
           }
         } 
         break;
@@ -61,31 +64,31 @@ const reducer = (state = initialState, action) => {
         }
       case actionTypes.SELL_END:
         { 
-          // let booksids=[];
-          // let books = state.transferredList1;
-          // books.map(({title,id,category})=>{
-          //   bookids.push((parseInt(id)-1000));
-          // })
-
+          let booksids=[];
+          let books = state.transferredList1;
+          books.map(({title,id,category})=>{
+            booksids.push((parseInt(id)-1000));
+          })
+          console.log(booksids);
           let authData = {
             details: state.details,
             description:state.description,
             price: state.price,
             tags: state.tags,
-            book_ids:["1","2","3"]       
+            book_ids:booksids       
         }
         axios
-        .post("http://market.bits-dvm.org/api/sell/", authData, {
+        .post("https://market.bits-dvm.org/api/sell/", authData, {
           headers: {
             "Content-Type": "application/json",
             "Authorization" :"JWT "+ action.token            
           }
         })
         .then(response => {
-          alert(response.data);
+          console.log(response);
         })
         .catch(error => {
-          alert(error.response.data);
+          console.log(error.response);
         });
 
         return state;

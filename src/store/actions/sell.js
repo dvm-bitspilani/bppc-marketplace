@@ -53,7 +53,7 @@ export const description = (tags,details,description) =>{
 export const getData = (token) => {
   return dispatch => {
     axios
-      .get("http://market.bits-dvm.org/api/sell/",{
+      .get("https://market.bits-dvm.org/api/sell/",{
         headers: {
           "Content-Type": "application/json",
           "Authorization" :"JWT "+ token
