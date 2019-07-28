@@ -32,7 +32,7 @@ const initialState = {
   is_dual_degree: "",
   dual_branch: "",
   single_branch: "",
-  is_single_branch:"",
+  is_single_branch: "",
   redirectToDashboard: true
 };
 
@@ -47,8 +47,9 @@ class Register extends Component {
       room_no: "",
       is_dual_degree: false,
       single_branch: "",
-      dual_branch:"",
-      is_single_branch:"",
+      dual_branch: "",
+      is_single_branch: "",
+      isuser_fresher: false,
       isgendermale: true,
       yearOfStudy: 2019,
       dualDegree: false,
@@ -122,7 +123,7 @@ class Register extends Component {
       .post("https://market.bits-dvm.org/api/DetailsCollection/", authData, {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "JWT " + localStorage.getItem("token")
+          Authorization: "JWT " + localStorage.getItem("token")
         }
       })
       .then(response => {
@@ -190,6 +191,13 @@ class Register extends Component {
         gender: "F",
         isgendermale: false
       });
+    }
+  };
+
+  finduser = e => {
+    const val = e.target.value;
+    if (val === "2019") {
+      this.setState({ isuser_fresher: true });
     }
   };
 
@@ -377,7 +385,30 @@ class Register extends Component {
                         <option>Dual Degree</option>
                       </CustomInput>
                     </InputGroup>
-                    {this.state.singleDegree ? (
+                    <InputGroup className="mb-4">
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <ion-icon name="book" />
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <CustomInput
+                        type="select"
+                        id="exampleCustomSelect"
+                        name="customSelect"
+                        onChange={this.finduser}
+                      >
+                        <option value="">Choose your year of Study</option>
+                        <option>2019</option>
+                        <option>2018</option>
+                        <option>2017</option>
+                        <option>2016</option>
+                        <option>2015</option>
+                        <option>2014</option>
+                        <option>2013</option>
+                      </CustomInput>
+                    </InputGroup>
+                    {this.state.singleDegree &&
+                    this.state.isuser_fresher == false ? (
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -407,7 +438,8 @@ class Register extends Component {
                       </InputGroup>
                     ) : null}
 
-                    {this.state.is_dual_degree ? (
+                    {this.state.is_dual_degree &&
+                    this.state.isuser_fresher == false ? (
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -421,6 +453,42 @@ class Register extends Component {
                           onChange={this.handleChange}
                         >
                           <option>Enter your Dual Branch.</option>
+                          <option value="B1">
+                            B1 - M.Sc. Biological Sciences
+                          </option>
+                          <option value="B2">B2 - M.Sc. Chemistry</option>
+                          <option value="B3">B3 - M.Sc. Economics</option>
+                          <option value="B4">B4 - M.Sc. Mathematics</option>
+                          <option value="B5">B5 - M.Sc. Physics</option>
+                        </CustomInput>
+                      </InputGroup>
+                    ) : null}
+                    {this.state.isuser_fresher == true ? (
+                      <InputGroup className="mb-4">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <ion-icon name="git-branch" />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <CustomInput
+                          type="select"
+                          id="exampleCustomSelect"
+                          name="dual_branch"
+                          onChange={this.handleChange}
+                        >
+                          <option>Enter your Single Degree Branch.</option>
+                          <option value="A1">A1 - B.E. Chemical</option>
+                          <option value="A2">A2 - B.E. Civil</option>
+                          <option value="A3">
+                            A3 - B.E. Electrical and Electronics
+                          </option>
+                          <option value="A4">A4 - B.E. Mechanical</option>
+                          <option value="A5">A5 - B.Pharma</option>
+                          <option value="A7">A7 - B.E. Computer Science</option>
+                          <option value="A8">
+                            A8 - B.E. Electronics and Instrumentation
+                          </option>
+                          <option value="AB">AB - B.E. Manufacturing</option>
                           <option value="B1">
                             B1 - M.Sc. Biological Sciences
                           </option>
