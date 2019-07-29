@@ -126,7 +126,7 @@ const reducer = (state = initialState, action) => {
           for(let i=0 ; i< newImages.length ; i++){
             newImagesFiles.push(newImages[i].imageFile);
           }
-          console.log(state.imagesRemoved)
+          // console.log(newImagesFiles)
           let authData = {
             details: state.details,
             description:state.description,

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Dropzone.css";
 import * as actions from "../../../store/actions/index";
 import { connect } from "react-redux";
+import { flattenDiagnosticMessageText } from "typescript";
 
 class Image extends Component{
   constructor(props){
@@ -27,7 +28,8 @@ class Image extends Component{
     }
     return(
       <div style={divStyle}>
-       <span onClick={this.handleClick} style={{background: "black", color: "white"}}>Remove</span>
+       <span onClick={this.handleClick} style={{background: "black", color: "white" ,
+       border: "white solid 1px", borderRadius:"1px" , width:"200px"}}>Remove</span>
        {/* <div>{this.state.name}</div> */}
        {/* <img src={this.state.image}/> */}
       </div>
@@ -103,8 +105,9 @@ class Dropzone extends Component {
         {  id: newURLS[i] , 
            imageFile:files.item(i)
         });
+      // console.log(files.item(i));
     }
-    console.log(newImages);
+    // console.log(newImages);
     
     let newAndOld = this.state.newAndOld;
     
@@ -122,7 +125,7 @@ class Dropzone extends Component {
       newAndOld: newAndOld,
       newImages: newImages
     })
-    console.log(this.state);
+    // console.log(this.state);
   }
   componentWillMount(){
     this.setState({
@@ -213,10 +216,20 @@ class Dropzone extends Component {
           />
         )}
       </div>
+      <div style={{
+        display: "flex",
+        flexDirection: "row",
+        alignContent:"center",
+        justifyContent:"space-around",
+        marginTop: "50px",
+        height: "200px",
+        overflow: "scroll" 
+      }}>
           {dataGot.length > 0 &&
           dataGot.map((item, index) => (
             <Image className="indent" key={item.id} onRemove={this.onRemove} name={item.name} url={item.url} id={item.id}/>
           ))}
+      </div>
       </div>
     );
   }
