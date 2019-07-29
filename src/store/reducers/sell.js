@@ -15,28 +15,28 @@ const initialState = {
   price: 4500,
   book_ids: [],
   dataGot:[
-    {
-      id:56,
-      name: "lake", 
-      url: "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg"
-    },
-    {
-    id:57,         
-    name:"trees", 
-    url: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"}
-  ],
+  //   {
+  //     id:56,
+  //     name: "lake", 
+  //     url: "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg"
+  //   },
+  //   {
+  //   id:57,         
+  //   name:"trees", 
+  //   url: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"}
+   ],
   newImages:[],
   imagesRemoved: [],
   newAndOld:[
-    {
-      id:56,
-      name: "lake", 
-      url: "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg"
-    },
-    {
-    id:57,         
-    name:"trees", 
-    url: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"}
+    // {
+    //   id:56,
+    //   name: "lake", 
+    //   url: "https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg"
+    // },
+    // {
+    // id:57,         
+    // name:"trees", 
+    // url: "https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"}
   ],
   imagesRemoved:[]
 };
@@ -55,6 +55,7 @@ const reducer = (state = initialState, action) => {
         //   price: action.response.price
         // }
         // console.log(object);
+        console.log(action.response.images);
         return Object.assign({}, state, {
           ...state,
           books: action.arr1,
@@ -62,7 +63,9 @@ const reducer = (state = initialState, action) => {
           tags: action.response.tags,
           details: action.response.details,
           description: action.response.description,
-          price: action.response.price
+          price: action.response.price,
+          dataGot: action.response.images,
+          newAndOld: action.response.images
         });
       }
       break;
@@ -116,14 +119,22 @@ const reducer = (state = initialState, action) => {
           books.map(({title,id,category})=>{
             booksids.push((parseInt(id)-1000));
           })
-          console.log(booksids);
-          console.log(state.price);
+          // console.log(booksids);
+          // console.log(state.price);
+          let newImages = state.newImages;
+          let newImagesFiles = [];
+          for(let i=0 ; i< newImages.length ; i++){
+            newImagesFiles.push(newImages[i].imageFile);
+          }
+          console.log(state.imagesRemoved)
           let authData = {
             details: state.details,
             description:state.description,
             price: state.price,
             tags: state.tags,
-            book_ids:booksids       
+            book_ids:booksids,
+            deleted_image_ids: state.imagesRemoved,
+            images: newImagesFiles
           }
           console.log(authData);
         axios

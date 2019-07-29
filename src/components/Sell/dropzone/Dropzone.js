@@ -65,13 +65,18 @@ class Dropzone extends Component {
     let dataGot = this.state.dataGot;
     let newImages = this.state.newImages;
     let newAndOld = this.state.newAndOld;
+    let imagesRemoved = this.state.imagesRemoved;
 
     dataGot = dataGot.filter(({id,name,url}) => {
-      //  imagesRemoved.push(id);
+       if(id == removeId){
+         imagesRemoved.push(id);
+        }
+       console.log(imagesRemoved);
        return removeId != id;
     });
     newImages = newImages.filter(({id,imageFile}) => {
-      return removeId != id
+      console.log(id,removeId, id == removeId);
+      return removeId != id;
     });
     console.log(newImages);
     newAndOld = newAndOld.filter(({id,name,url}) => {
@@ -89,10 +94,13 @@ class Dropzone extends Component {
 
     let files = evt.target.files;
     let newImages = this.state.newImages;
-    // newImages = 
+    let newURLS = [];
+    for (var i = 0; i < files.length; i++) {
+      newURLS.push(window.URL.createObjectURL(files.item(i))); 
+    }
     for (var i = 0; i < files.length; i++) {
       newImages.push(
-        {  id: window.URL.createObjectURL(files.item(i)), 
+        {  id: newURLS[i] , 
            imageFile:files.item(i)
         });
     }
@@ -103,9 +111,9 @@ class Dropzone extends Component {
     for (var i = 0; i < files.length; i++) {
       newAndOld.push(
         {
-         id: window.URL.createObjectURL(files.item(i)),
+         id: newURLS[i] ,
          name: files.item(i).name,
-         url: window.URL.createObjectURL(files.item(i))
+         url:newURLS[i]
         }
       )
       // newImages.push(files.item);
