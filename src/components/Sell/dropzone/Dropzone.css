@@ -1,8 +1,8 @@
 .Dropzone {
-  height: 400px;
-  width: 50%;
+  height: 10%;
+  width: 10%;
   background-color: #fff;
-  border: 2px dashed rgb(187, 186, 186);
+  /* border: 2px dashed rgb(187, 186, 186); */
   display: flex;
   align-items: center;
   justify-content: center;
