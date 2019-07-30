@@ -49,7 +49,7 @@ class Description extends React.Component {
   };
   removeTag = value => {
     let tags = this.state.tags;
-    tags = tags.filter(function(tag) {
+    tags = tags.filter(function (tag) {
       return tag !== value;
     });
     this.setState({
@@ -66,7 +66,7 @@ class Description extends React.Component {
     return (
       <Form>
         <FormGroup>
-          <Label for="exampleText">Description:</Label>
+          <Label for="exampleText">Enter the description and any details about the books you just added below.:</Label>
           <Input
             onChange={this.handleChange}
             value={this.state.description}
@@ -75,10 +75,11 @@ class Description extends React.Component {
             id="description"
           />
         </FormGroup>
+        <br></br>
         <FormGroup>
           <Label for="exampleText">
-            Enter the additional material that you have such as slides etc.(Max
-            5):
+            Enter (in one-word) the additional stuff that you have. After entering each word, Click "ADD".
+            Fill the tags wisely since they will be main factor affecting the buyer's response that you will recieve.
           </Label>
           <TagsContainer
             add={this.handleTags}
@@ -86,9 +87,10 @@ class Description extends React.Component {
             tags={this.state.tags}
           />
         </FormGroup>
+        <br></br>
         <FormGroup>
           <Label for="exampleText">
-            Any other details you would like to share with buyer(Max 200
+            Is there any book we missed? Or any other detail you want the buyer to know? Put it here. (Max 200
             characters)
           </Label>
           <AdditionalDetails
