@@ -11,9 +11,9 @@ class SellerSummary extends React.Component {
     tags: ["new condition", "thermo table"]
   };
 
-  componentDidMount() {
-    this.props.fetchDetials(this.props.id);
-  }
+  // componentDidMount() {
+  //   this.props.fetchDetials(this.props.id);
+  // }
 
   render() {
     const tagList = this.props.tags.map((tag, index) => {
