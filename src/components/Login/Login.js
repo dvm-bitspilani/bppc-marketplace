@@ -50,7 +50,6 @@ class Login extends Component {
       // normal login
       // redirect to dashboard
       setTimeout(() => navigate("/dashboard"), 100);
-
     }
   }
 

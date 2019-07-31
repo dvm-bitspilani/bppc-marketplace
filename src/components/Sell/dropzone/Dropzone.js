@@ -84,7 +84,7 @@ class Dropzone extends Component {
     let imagesRemoved = this.state.imagesRemoved;
 
     dataGot = dataGot.filter(({ id, name, url }) => {
-      if (id == removeId & !removeId.toString().includes("blob") ) {
+      if ((id == removeId) & !removeId.toString().includes("blob")) {
         imagesRemoved.push(id);
       }
       console.log(imagesRemoved);
@@ -121,7 +121,7 @@ class Dropzone extends Component {
       newURLS.push(window.URL.createObjectURL(files.item(i)));
     }
     for (var i = 0; i < files.length; i++) {
-      newImages.push({ id: newURLS[i], imageFile: files.item(i)});
+      newImages.push({ id: newURLS[i], imageFile: files.item(i) });
       // console.log(files.item(i));
     }
     // console.log(newImages);
@@ -137,7 +137,7 @@ class Dropzone extends Component {
     }
     console.log(dataGot);
     this.setState({
-      dataGot:dataGot,
+      dataGot: dataGot,
       newAndOld: newAndOld,
       newImages: newImages
     });
@@ -150,7 +150,7 @@ class Dropzone extends Component {
     });
     let dataGot = this.state.dataGot;
     let newAndOld = this.props.newAndOld;
-    
+
     this.setState({
       newAndOld: newAndOld
     });

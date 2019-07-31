@@ -1,0 +1,9 @@
+.booklist {
+  background-color: brown;
+  width: 45%;
+  height: 50vh;
+  border: 1px solid grey;
+  margin: auto;
+  border-radius: 5px;
+  overflow-x: hidden;
+}

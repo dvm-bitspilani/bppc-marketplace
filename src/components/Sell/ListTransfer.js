@@ -3,6 +3,8 @@ import Button from "@material-ui/core/Button";
 import List from "./List";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
+import "./dropzone/Dropzone.css";
+
 const axios = require("axios");
 class ListTransfer extends React.Component {
   /**************States******** */
@@ -32,21 +34,21 @@ class ListTransfer extends React.Component {
 
   /*********Get Request will be here*************/
   componentDidMount() {
-    console.log(this.state.transferredList1[0] === undefined)
-    if(this.state.transferredList1[0] === undefined){
-        let books,transferredList1;  
-        axios
-        .get("https://market.bits-dvm.org/api/sell/",{
+    console.log(this.state.transferredList1[0] === undefined);
+    if (this.state.transferredList1[0] === undefined) {
+      let books, transferredList1;
+      axios
+        .get("https://market.bits-dvm.org/api/sell/", {
           headers: {
             "Content-Type": "application/json",
-            "Authorization" :"JWT "+ localStorage.getItem("token")
+            Authorization: "JWT " + localStorage.getItem("token")
           }
         })
         .then(response => {
-          console.log(response.data);   
-           books = this.props.onStart(response.data).arr1;
-           transferredList1 = this.props.onStart(response.data).arr2;
-           this.setState({
+          console.log(response.data);
+          books = this.props.onStart(response.data).arr1;
+          transferredList1 = this.props.onStart(response.data).arr2;
+          this.setState({
             books: this.props.books,
             transferredList1: this.props.transferredList1
           });
@@ -54,8 +56,7 @@ class ListTransfer extends React.Component {
         .catch(error => {
           console.log(error);
         });
-      }      
-      else{
+    } else {
       this.setState({
         books: this.props.books,
         transferredList1: this.props.transferredList1
@@ -71,8 +72,8 @@ class ListTransfer extends React.Component {
     //  let transferredList1 = this.props.onStart(response.books,response.selected_books).arr2;
     //  this.updateArrays(books, transferredList1);
   }
-  
-  componentWillMount(){
+
+  componentWillMount() {
     this.setState({
       books: this.props.books,
       transferredList1: this.props.transferredList1
@@ -326,7 +327,8 @@ class ListTransfer extends React.Component {
       display: "flex",
       justifyContent: "center",
       flexDirection: "column",
-      alignItems: "center"
+      alignItems: "center",
+      marginTop: "2vh"
     };
     const buttons = {
       width: "85%",
@@ -337,7 +339,7 @@ class ListTransfer extends React.Component {
         "0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)"
     };
     return (
-      <div style={containerstyle}>
+      <div style={containerstyle} className="Main-container">
         <List
           books={this.state.books}
           onSelect={this.onSelect}
@@ -366,19 +368,20 @@ const mapStateToProps = state => {
     books: state.sell.books,
     transferList1: state.sell.transferList1,
     transferList2: state.sell.transferList2,
-    transferredList1: state.sell.transferredList1 
+    transferredList1: state.sell.transferredList1
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onTransfer: (arr, arr1) => dispatch(actions.updatestate(arr, arr1)),
-    getData: (token) => dispatch(actions.getData(token)),
-    onStart: (response) => dispatch(actions.sellstart(response))
+    getData: token => dispatch(actions.getData(token)),
+    onStart: response => dispatch(actions.sellstart(response))
   };
 };
 
 export default connect(
- mapStateToProps,mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(ListTransfer);
 // export default ListTransfer;

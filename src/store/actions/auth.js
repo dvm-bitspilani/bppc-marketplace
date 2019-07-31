@@ -83,5 +83,5 @@ export const checkAuthState = () => {
     } else {
       dispatch(authSuccess());
     }
-  }
-}
+  };
+};

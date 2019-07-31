@@ -1,5 +1,6 @@
 import React from "react";
 import { FormGroup, Label, Input } from "reactstrap";
+import "./dropzone/Dropzone.css";
 
 class List extends React.Component {
   constructor(props) {
@@ -24,7 +25,6 @@ class List extends React.Component {
 
   render() {
     const divStyle = {
-      width: "45%",
       height: "50vh",
       border: "1px solid grey",
       margin: "auto",
@@ -105,7 +105,8 @@ class List extends React.Component {
                       key={id}
                       value={title}
                       onChange={e => this.handleChange(e, id, category, title)}
-                      className={Cat} id={id}
+                      className={Cat}
+                      id={id}
                     />{" "}
                     {title}
                   </Label>
@@ -120,7 +121,7 @@ class List extends React.Component {
     });
 
     return (
-      <div className="bookslist" style={divStyle}>
+      <div className="Bookslist RandomVar" style={divStyle}>
         <div style={groupstyle}>{showList}</div>
       </div>
     );

@@ -23,3 +23,21 @@
 .FileInput {
   display: none;
 }
+
+.RandomVar {
+  width: 45%;
+  margin-bottom: 1vh;
+}
+
+@media (max-width: 500px) {
+  .Main-container {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+  }
+
+  .RandomVar {
+    width: 100%;
+    margin-bottom: 2vh;
+  }
+}
