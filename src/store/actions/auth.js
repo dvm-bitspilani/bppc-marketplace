@@ -84,23 +84,5 @@ export const checkAuthState = () => {
     } else {
       dispatch(authSuccess());
     }
-  }
-}
-export const authEnd = () => {
-  // if (state.token !== null){
-  //   // login was successful
-  //   console.log(state.email , state.new_bitsian);
-  //   if (state.email !== "" &&  state.new_bitsian === true){
-  //     // logged in with google and first time login
-  //     // redirect to detail collction page
-  //     setTimeout(() => navigate("/detailsCollection"), 100);
-  //   }
-  //   // normal login
-  //   // redirect to dashboard
-  //   setTimeout(() => navigate("/dashboard"), 100);
-  // }
-
-  return {
-    type: actionTypes.AUTH_END
-  }
-}
+  };
+};
