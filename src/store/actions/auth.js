@@ -86,3 +86,8 @@ export const checkAuthState = () => {
     }
   };
 };
+export const authEnd = () => {
+  return{
+    type: authEnd
+  }
+}
