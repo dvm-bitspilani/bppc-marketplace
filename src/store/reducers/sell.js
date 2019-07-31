@@ -9,7 +9,7 @@ const initialState = {
   transferList2: [],
   transferredList1: [],
   imagesUpload: [],
-  tags: ["",""],
+  tags: [],
   details:"",
   description:"",
   price: 4500,

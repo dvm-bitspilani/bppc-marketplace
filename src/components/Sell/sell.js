@@ -7,7 +7,7 @@ import StepContent from "@material-ui/core/StepContent";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import { Container } from "reactstrap";
+import { Container, Alert } from "reactstrap";
 import ListTransfer from "./ListTransfer";
 import FileInput from "./FileInput";
 import FinishButton from "./FinishButton";
@@ -122,11 +122,14 @@ function VerticalLinearStepper() {
         </Stepper>
         {activeStep === steps.length && (
           <Paper square elevation={0} className={classes.resetContainer}>
-            <Typography>
-              All steps are completed. You can follow up your selling status on
-              dashboard and also, you are allowed to edit these details when you
-              visit this page again
-            </Typography>
+            <Alert color="success" >
+             All steps are completed and you, now will be listed as seller to your junior in buy menu. 
+            </Alert>
+            <Alert color="success" >
+             You can edit details 
+             by going back to those steps and you will get your details which you have filled, just edit them and click on
+             finish. Also you will be allowed to edit your details in same when you come back or reload this page.
+            </Alert>
             {/* <Button onClick={handleReset} className={classes.button}>
                 Reset
               </Button> */}
