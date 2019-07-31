@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Modal from "./Modal/Modal";
-// import SellerSummary from "./SellerSummary/SellerSummary";
-import axios from '../../axios-instance';
+import SellerSummary from "./SellerSummary/SellerSummary";
+import axios from "../../axios-instance";
 import "./Buy.css";
 import { navigate } from "@reach/router";
 import * as actions from "../../store/actions/index";
@@ -36,13 +36,17 @@ class Buy extends Component {
     });
     axios
       .get("/api/SellerDetails/" + seller.id, {
-        headers: {"Authorization": "JWT " + localStorage.getItem("token")}
+        headers: { Authorization: "JWT " + localStorage.getItem("token") }
       })
       .then(response => {
         console.log(response);
+        this.setState({
+          details: response.data
+        });
       })
       .catch(err => {
         console.log(err);
+        window.alert(err.response.data.display_message);
       });
   };
 
@@ -105,10 +109,12 @@ class Buy extends Component {
               <div className="close-modal" onClick={() => this.hideModal()}>
                 Close
               </div>
-              {/* <SellerSummary
-                seller={this.state.seller}
-                details={}
-              /> */}
+              {this.state.details ? (
+                <SellerSummary
+                  seller={this.state.seller}
+                  details={this.state.details}
+                />
+              ) : null}
             </Modal>
           ) : null}
         </div>
