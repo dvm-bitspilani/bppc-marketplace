@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
+import { navigate } from "@reach/router";
 
 const initialState = {
   token: null,
@@ -6,7 +7,7 @@ const initialState = {
   name: null,
   email: null,
   error: null,
-  new_bitsian: false,
+  new_bitsian: null,
   loading: false,
 };
 
@@ -19,6 +20,7 @@ const reducer = (state = initialState, action) => {
         loading: true
       };
     case actionTypes.AUTH_SUCCESS:
+        console.log(action.authData.new_bitsian);
       return {
         ...state,
         token: action.authData.JWT,
@@ -35,6 +37,10 @@ const reducer = (state = initialState, action) => {
         error: action.error,
         loading: false
       }
+      case actionTypes.AUTH_END:
+        return{
+        ...state
+        }    
     default:
       return state
   }

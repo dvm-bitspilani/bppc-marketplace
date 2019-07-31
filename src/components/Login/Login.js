@@ -39,21 +39,6 @@ class Login extends Component {
     console.log(this.props.new_bitsian);
   }
 
-  componentDidUpdate() {
-    if (this.props.token !== null) {
-      // login was successful
-      if (this.props.email !== "" && this.props.new_bitsian === true) {
-        // logged in with google and first time login
-        // redirect to detail collction page
-        setTimeout(() => navigate("/detailsCollection"), 100);
-      }
-      // normal login
-      // redirect to dashboard
-      setTimeout(() => navigate("/dashboard"), 100);
-
-    }
-  }
-
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -76,9 +61,9 @@ class Login extends Component {
       if (this.props.token !== null && this.props.error !== null) {
         console.log(this.props.token);
         console.log("redirect now");
-        if (this.props.new_bitsian === true) {
+        if (this.props.new_bitsian === true){
           navigate("/detailsCollection");
-        } else if (this.props.new_bitsian !== true) {
+        } else{
           navigate("/dashboard");
         }
       }
@@ -89,6 +74,17 @@ class Login extends Component {
   };
 
   render() {
+    if(this.props.token !== null){
+      // this.props.authEnd();
+      if (this.props.email !== "" &&  this.props.new_bitsian === true){
+        // logged in with google and first time login
+        // redirect to detail collction page
+        navigate("/detailsCollection");
+      }else{
+        navigate("/dashboard");
+      }
+    }
+    
     return (
       <div className="app flex-row align-items-center">
         <Container>
@@ -188,7 +184,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onAuth: (username, password, id_token) =>
-      dispatch(actions.auth(username, password, id_token))
+      dispatch(actions.auth(username, password, id_token)),
+    authEnd: () =>
+      dispatch(actions.authEnd())
   };
 };
 

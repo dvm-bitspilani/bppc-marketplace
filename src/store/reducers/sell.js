@@ -132,22 +132,22 @@ const reducer = (state = initialState, action) => {
           formData.append('description',state.description);
           formData.append('price',state.price);
           formData.append('tags',state.tags);
-          formData.append('book_ids',booksids);
+          formData.append('book_ids',[]);
           formData.append('deleted_image_ids',state.imagesRemoved);
           for(let i=0; i < newImagesFiles.length; i++){
-            formData.append('images',newImagesFiles[i]);
+            formData.append('images-'+i,newImagesFiles[i]);
           }
           console.log(formData);
-          // let authData = {
-          //   details: state.details,
-          //   description:state.description,
-          //   price: state.price,
-          //   tags: state.tags,
-          //   book_ids:booksids,
-          //   deleted_image_ids: state.imagesRemoved,
-          //   images: newImagesFiles
-          // }
-          // console.log(authData);
+          let authData = {
+            details: state.details,
+            description:state.description,
+            price: state.price,
+            tags: state.tags,
+            book_ids:booksids,
+            deleted_image_ids: state.imagesRemoved,
+            images: newImagesFiles
+          }
+          console.log(authData);
         axios
         .post("https://market.bits-dvm.org/api/sell/", formData, {
           headers: {

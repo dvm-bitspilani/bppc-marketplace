@@ -2,7 +2,7 @@
 // export all actions here
 // ...
 
-export { auth, logout } from "./auth";
+export { auth, logout, authEnd} from "./auth";
 export { signup } from "./signup";
 export { fetchSellers } from "./buy";
 export { fetchDetails } from './sellerDetails';
