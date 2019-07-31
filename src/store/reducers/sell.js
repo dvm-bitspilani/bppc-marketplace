@@ -127,12 +127,12 @@ const reducer = (state = initialState, action) => {
             newImagesFiles.push(newImages[i].imageFile);
           }
           // console.log(newImagesFiles)
-          var formData = new FormaData();
+          var formData = new FormData();
           formData.append('details',state.details);
           formData.append('description',state.description);
           formData.append('price',state.price);
           formData.append('tags',state.tags);
-          formData.append('book_ids',bookids);
+          formData.append('book_ids',booksids);
           formData.append('deleted_image_ids',state.imagesRemoved);
           for(let i=0; i < newImagesFiles.length; i++){
             formData.append('images-'+i,newImagesFiles[i]);
