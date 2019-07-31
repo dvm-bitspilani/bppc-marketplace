@@ -127,20 +127,31 @@ const reducer = (state = initialState, action) => {
             newImagesFiles.push(newImages[i].imageFile);
           }
           // console.log(newImagesFiles)
-          let authData = {
-            details: state.details,
-            description:state.description,
-            price: state.price,
-            tags: state.tags,
-            book_ids:booksids,
-            deleted_image_ids: state.imagesRemoved,
-            images: newImagesFiles
+          var formData = new FormaData();
+          formData.append('details',state.details);
+          formData.append('description',state.description);
+          formData.append('price',state.price);
+          formData.append('tags',state.tags);
+          formData.append('book_ids',bookids);
+          formData.append('deleted_image_ids',state.imagesRemoved);
+          for(let i=0; i < newImagesFiles.length; i++){
+            formData.append('images-'+i,newImagesFiles[i]);
           }
-          console.log(authData);
+          console.log(formData);
+          // let authData = {
+          //   details: state.details,
+          //   description:state.description,
+          //   price: state.price,
+          //   tags: state.tags,
+          //   book_ids:booksids,
+          //   deleted_image_ids: state.imagesRemoved,
+          //   images: newImagesFiles
+          // }
+          // console.log(authData);
         axios
-        .post("https://market.bits-dvm.org/api/sell/", authData, {
+        .post("https://market.bits-dvm.org/api/sell/", formData, {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
             "Authorization" :"JWT "+ action.token            
           }
         })
