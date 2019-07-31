@@ -105,10 +105,10 @@ class Buy extends Component {
               <div className="close-modal" onClick={() => this.hideModal()}>
                 Close
               </div>
-              <SellerSummary
+              {/* <SellerSummary
                 seller={this.state.seller}
                 id={this.state.seller.id}
-              />
+              /> */}
             </Modal>
           ) : null}
         </div>
