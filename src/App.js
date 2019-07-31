@@ -17,7 +17,7 @@ import { NavItem, NavLink } from "reactstrap";
 import styles from "./css-modules/header.module.css";
 
 function HomepageLinks() {
-  return (
+  const body = (
     <div className={styles.linkContainer}>
       <NavItem>
         <NavLink href="/signup" className={styles.link}>
@@ -31,24 +31,30 @@ function HomepageLinks() {
         </NavLink>
       </NavItem>
     </div>
+  )
+
+  return (
+    <div>
+      {localStorage.getItem("token") === null ? body : null}
+    </div>
   );
 }
 
 class App extends Component {
   render() {
-    console.log(localStorage.getItem("token"));
+    // console.log(localStorage.getItem("token"));
     return (
       <div className={styles.container}>
         <DefaultHeader>
           <Router>
             <HomepageLinks path="/" />
+            {/* {localStorage.getItem("token") === null ? <HomepageLinks path="/login" /> : null} */}
+            {/* {localStorage.getItem("token") === null ? <HomepageLinks path="/signup" /> : null} */}
             <HomepageLinks path="/login" />
             <HomepageLinks path="/signup" />
             <DashboardLinks path="/dashboard" />
             <DashboardLinks path="/buy" />
             <DashboardLinks path="/sell" />
-            {/* {localStorage.getItem("token") !== null ? <DashboardLinks path="/buy" /> : null} */}
-            {/* {localStorage.getItem("token")!== null ? <DashboardLinks path="/sell" /> : null} */}
           </Router>
         </DefaultHeader>
         <Router>
@@ -56,8 +62,6 @@ class App extends Component {
           <Login path="/login" />
           <SignUp path="/signup" />
           <Dashboard path="/dashboard" />
-          {/* {localStorage.getItem("token") !== null ? <Buy path="/buy" /> : null} */}
-          {/* {localStorage.getItem("token")!== null ? <Sell path="/sell" /> : null} */}
           <Buy path="/buy" />
           <Sell path="/sell" />
           <Logout path="/logout" />

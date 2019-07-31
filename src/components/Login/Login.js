@@ -32,9 +32,9 @@ class Login extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.navigate);
-    if (this.props.token !== null && this.props.error === null) {
-      navigate("/dashboard");
+    // console.log(this.props.navigate);
+    if (localStorage.getItem("token") !== null) {
+      setTimeout(() => navigate("/dashboard"), 100);
     }
     console.log(this.props.new_bitsian);
   }
@@ -45,12 +45,12 @@ class Login extends Component {
       if (this.props.email !== "" && this.props.new_bitsian === true) {
         // logged in with google and first time login
         // redirect to detail collction page
-        navigate("/detailsCollection");
-      }else{
-        navigate("/dashboard");
+        setTimeout(() => navigate("/detailsCollection"), 100);
       }
       // normal login
       // redirect to dashboard
+      setTimeout(() => navigate("/dashboard"), 100);
+
     }
   }
 

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Modal from "./Modal/Modal";
-import SellerSummary from "./SellerSummary/SellerSummary";
+// import SellerSummary from "./SellerSummary/SellerSummary";
+import axios from '../../axios-instance';
 import "./Buy.css";
 import { navigate } from "@reach/router";
 import * as actions from "../../store/actions/index";
@@ -23,18 +24,6 @@ class Buy extends Component {
 
     this.state = {
       showModal: false,
-      // tableData: [
-      //   {
-      //     name: "Shreyans Jain",
-      //     price: 3500,
-      //     numBooks: 7
-      //   },
-      //   {
-      //     name: "Shreyans",
-      //     price: 4000,
-      //     numBooks: 6
-      //   }
-      // ],
       seller: {}
     };
   }
@@ -45,12 +34,23 @@ class Buy extends Component {
       showModal: true,
       seller: seller
     });
+    axios
+      .get("/api/SellerDetails/" + seller.id, {
+        headers: {"Authorization": "JWT " + localStorage.getItem("token")}
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   hideModal = () => {
     // console.log("modal hidden");
     this.setState({
-      showModal: false
+      showModal: false,
+      seller: {}
     });
   };
 
@@ -105,10 +105,10 @@ class Buy extends Component {
               <div className="close-modal" onClick={() => this.hideModal()}>
                 Close
               </div>
-              <SellerSummary
+              {/* <SellerSummary
                 seller={this.state.seller}
-                id={this.state.seller.id}
-              />
+                details={}
+              /> */}
             </Modal>
           ) : null}
         </div>
@@ -130,7 +130,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchSellers: () => dispatch(actions.fetchSellers())
+    fetchSellers: () => dispatch(actions.fetchSellers()),
+    onFetchDetails: id => dispatch(actions.fetchDetails(id))
   };
 };
 
