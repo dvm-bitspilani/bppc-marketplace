@@ -9,9 +9,9 @@ const initialState = {
   transferList2: [],
   transferredList1: [],
   imagesUpload: [],
-  tags: ["abc","def"],
-  details:"Everything",
-  description:"Good Condition",
+  tags: ["",""],
+  details:"",
+  description:"",
   price: 4500,
   book_ids: [],
   dataGot:[
@@ -135,7 +135,7 @@ const reducer = (state = initialState, action) => {
           formData.append('book_ids',booksids);
           formData.append('deleted_image_ids',state.imagesRemoved);
           for(let i=0; i < newImagesFiles.length; i++){
-            formData.append('images-'+i,newImagesFiles[i]);
+            formData.append('images',newImagesFiles[i]);
           }
           console.log(formData);
           // let authData = {
