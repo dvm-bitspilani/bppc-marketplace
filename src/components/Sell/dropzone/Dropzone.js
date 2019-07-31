@@ -84,7 +84,7 @@ class Dropzone extends Component {
     let imagesRemoved = this.state.imagesRemoved;
 
     dataGot = dataGot.filter(({ id, name, url }) => {
-      if (id == removeId) {
+      if (id == removeId & !removeId.toString().includes("blob") ) {
         imagesRemoved.push(id);
       }
       console.log(imagesRemoved);
@@ -102,7 +102,8 @@ class Dropzone extends Component {
       {
         dataGot: dataGot,
         newImages: newImages,
-        newAndOld: newAndOld
+        newAndOld: newAndOld,
+        imagesRemoved: imagesRemoved
       },
       function() {
         console.log(this.state);
@@ -111,7 +112,8 @@ class Dropzone extends Component {
   };
   onFilesAdded(evt) {
     if (this.props.disabled) return;
-
+    let dataGot = this.state.dataGot;
+    console.log(dataGot);
     let files = evt.target.files;
     let newImages = this.state.newImages;
     let newURLS = [];
@@ -119,11 +121,10 @@ class Dropzone extends Component {
       newURLS.push(window.URL.createObjectURL(files.item(i)));
     }
     for (var i = 0; i < files.length; i++) {
-      newImages.push({ id: newURLS[i], imageFile: files.item(i) });
+      newImages.push({ id: newURLS[i], imageFile: files.item(i)});
       // console.log(files.item(i));
     }
     // console.log(newImages);
-
     let newAndOld = this.state.newAndOld;
 
     for (var i = 0; i < files.length; i++) {
@@ -134,7 +135,9 @@ class Dropzone extends Component {
       });
       // newImages.push(files.item);
     }
+    console.log(dataGot);
     this.setState({
+      dataGot:dataGot,
       newAndOld: newAndOld,
       newImages: newImages
     });
@@ -142,14 +145,18 @@ class Dropzone extends Component {
   }
   componentWillMount() {
     this.setState({
-      dataGot: this.props.dataGot
+      dataGot: this.props.dataGot,
+      newAndOld: this.props.newAndOld
     });
     let dataGot = this.state.dataGot;
-    let newAndOld = this.state.newAndOld;
-    newAndOld = this.state.newAndOld;
+    let newAndOld = this.props.newAndOld;
+    
     this.setState({
       newAndOld: newAndOld
     });
+    // this.state.newAndOld.push({
+    //   ...dataGot
+    // })
   }
   componentWillUnmount() {
     let object = {
