@@ -84,6 +84,7 @@ export const getData = (token) => {
         dispatch(sellstart(response.data.books,response.data.selected_books));
       })
       .catch(error => {
+        alert(error.response.data.display_message);
         console.log(error);
       });
   }

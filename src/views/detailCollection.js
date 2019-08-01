@@ -131,6 +131,7 @@ class Register extends Component {
         navigate("/dashboard");
       })
       .catch(error => {
+        alert(error.response.data.display_message);
         console.log(error);
       });
   };

@@ -132,7 +132,7 @@ const reducer = (state = initialState, action) => {
           formData.append('description',state.description);
           formData.append('price',state.price);
           formData.append('tags',state.tags);
-          formData.append('book_ids',[]);
+          formData.append('book_ids',booksids);
           formData.append('deleted_image_ids',state.imagesRemoved);
           for(let i=0; i < newImagesFiles.length; i++){
             formData.append('images-'+i,newImagesFiles[i]);
@@ -156,10 +156,10 @@ const reducer = (state = initialState, action) => {
           }
         })
         .then(response => {
-          console.log(response);
+          alert(response.data.display_message);
         })
         .catch(error => {
-          console.log(error.response);
+          alert(error.response.data.display_message);
         });
 
         return state;
