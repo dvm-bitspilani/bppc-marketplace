@@ -105,15 +105,15 @@ function VerticalLinearStepper() {
                         className={classes.button}
                       />
                     ) : (
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={handleNext}
-                        className={classes.button}
-                      >
-                        Next
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={handleNext}
+                          className={classes.button}
+                        >
+                          Next
                       </Button>
-                    )}
+                      )}
                   </div>
                 </div>
               </StepContent>
@@ -123,12 +123,12 @@ function VerticalLinearStepper() {
         {activeStep === steps.length && (
           <Paper square elevation={0} className={classes.resetContainer}>
             <Alert color="success" >
-             All steps are completed and you, now will be listed as seller to your junior in buy menu. 
+              Great! You have completed all the steps, Please wait for a few seconds for image uploads. You will see a popup after your details are sent to server.
             </Alert>
             <Alert color="success" >
-             You can edit details 
-             by going back to those steps and you will get your details which you have filled, just edit them and click on
-             finish. Also you will be allowed to edit your details in same when you come back or reload this page.
+              You can edit details
+              by going back to those steps and you will get your details which you have filled, just edit them and click on
+              finish. Also you will be allowed to edit your details in same when you come back or reload this page.
             </Alert>
             {/* <Button onClick={handleReset} className={classes.button}>
                 Reset
