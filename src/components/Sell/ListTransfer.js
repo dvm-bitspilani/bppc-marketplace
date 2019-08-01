@@ -54,7 +54,8 @@ class ListTransfer extends React.Component {
           });
         })
         .catch(error => {
-          console.log(error);
+        alert(error.response.data.display_message);
+        console.log(error);
         });
     } else {
       this.setState({
