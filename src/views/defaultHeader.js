@@ -28,9 +28,16 @@ export default class Example extends React.Component {
     return (
       <div>
         <Navbar color="dark" light expand="md" className={styles.nav}>
-          <NavbarBrand href="/" className={styles.logo}>
-            BPPC-Marketplace
-          </NavbarBrand>
+          {(localStorage.getItem("token"))?(
+            <NavbarBrand href="/dashboard" className={styles.logo}>
+              BPPC-Marketplace
+            </NavbarBrand>
+          ):(
+            <NavbarBrand href="/" className={styles.logo}>
+              BPPC-Marketplace
+            </NavbarBrand>
+          )}
+
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>

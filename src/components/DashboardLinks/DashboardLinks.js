@@ -44,7 +44,7 @@ class DashboardLinks extends Component {
     } else {
       logout = "";
     }
-    return (
+    return(
       <div className={styles.linkContainer}>
         <NavItem>
           <NavLink href="/buy" className={styles.link}>
@@ -64,7 +64,7 @@ class DashboardLinks extends Component {
           </NavLink>
         </NavItem>
       </div>
-    );
+    )
   }
 }
 

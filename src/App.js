@@ -51,8 +51,8 @@ class App extends Component {
             {/* {localStorage.getItem("token") === null ? <HomepageLinks path="/login" /> : null} */}
             {/* {localStorage.getItem("token") === null ? <HomepageLinks path="/signup" /> : null} */}
             <HomepageLinks path="/login" />
-            <HomepageLinks path="/signup" />
-            <DashboardLinks path="/dashboard" />
+            <HomepageLinks path="/signup"/>
+            <DashboardLinks path="/dashboard"/>
             <DashboardLinks path="/buy" />
             <DashboardLinks path="/sell" />
           </Router>
