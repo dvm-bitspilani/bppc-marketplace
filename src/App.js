@@ -47,8 +47,8 @@ class App extends Component {
       <div className={styles.container}>
         <DefaultHeader>
           <Router>
-            <HomepageLinks path="/" />
-            {/* {localStorage.getItem("token") === null ? <HomepageLinks path="/login" /> : null} */}
+            {/* <HomepageLinks path="/login" /> */}
+            {localStorage.getItem("token") === null ? <HomepageLinks path="/" /> :  <DashboardLinks path="/"/>}
             {/* {localStorage.getItem("token") === null ? <HomepageLinks path="/signup" /> : null} */}
             <HomepageLinks path="/login" />
             <HomepageLinks path="/signup"/>
