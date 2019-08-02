@@ -157,7 +157,7 @@ class Register extends Component {
         username: this.state.username,
         password: this.state.repeatpassword,
         email: this.state.email,
-        phone: this.state.phoneNumber,
+        phone: this.state.phoneNumber.toString(),
         bits_id: this.state.bits_id,
         hostel: this.state.hostel,
         room_no: this.state.roomNo,

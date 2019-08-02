@@ -108,7 +108,7 @@ class Register extends Component {
     console.log(this.state);
     authData = {
       gender: this.state.gender,
-      phone: this.state.phone,
+      phone: this.state.phone.toString(),
       bits_id: this.state.bits_id,
       hostel: this.state.hostel,
       room_no: this.state.room_no,
